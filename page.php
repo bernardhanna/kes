@@ -3,16 +3,20 @@ get_header();
 $enable_breadcrumbs = get_field('enable_breadcrumbs', 'option'); // Returns true/false
 ?>
 <main class="overflow-hidden w-full site-main">
+ <?php
+    // Read the group from Options
+    $breadcrumbs_settings = get_field('breadcrumbs_settings', 'option');
+    $enable_breadcrumbs   = !empty($breadcrumbs_settings['enable_breadcrumbs']);
+
+    // Show everywhere except the front/home page
+    if ( $enable_breadcrumbs && !is_front_page() && !is_home() ) {
+        get_template_part('template-parts/header/breadcrumbs');
+    }
+    ?>
+
     <?php load_hero_templates(); ?>
 
 
-    <?php
-    $enable_breadcrumbs = get_field('enable_breadcrumbs', 'option');
-
-    if ($enable_breadcrumbs !== false) :
-        get_template_part('template-parts/header/breadcrumbs');
-    endif;
-    ?>
 
     <?php
     if (have_posts()) :

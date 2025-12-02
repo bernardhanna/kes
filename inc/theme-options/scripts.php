@@ -22,7 +22,6 @@ $fields
     'default_value' => [
       'slick',
       'font_awesome',
-      'hamburger_css',
       'headroom',
     ],
     'layout'       => 'vertical',

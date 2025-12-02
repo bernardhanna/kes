@@ -1,8 +1,14 @@
 const plugin = require('tailwindcss/plugin');
 
+/**
+ * Tailwind config: merged structure you provided with design tokens from the project
+ */
 module.exports = {
   mode: 'jit',
   content: [
+    './src/**/*.{html,ts}',
+    './src/**/*.html',
+    './src/**/*.ts',
     './woocommerce/**/*.php',
     './**/*.php',
     './assets/js/**/*.js',
@@ -10,33 +16,40 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        primary: ['Lato', 'sans-serif'],
-        secondary: ['Poppins', 'sans-serif'],
+        primary: ['Red Hat Display', 'sans-serif'],
+        secondary: ['Red Hat Text', 'sans-serif'],
       },
+      fontSize: {
+        '5xl': ['30px', '38px'], // [font-size, line-height]
+        xs: '14px',
+        base: '16px',
+        wp_editor_p: '20px',
+      },
+      // Colors adapted from the design and components in the repo
       colors: {
         primary: {
-          DEFAULT: '#ED1C24',
-          light: '#9AA770',
-          dark: '#788941',
-          200: '#BBC4A0',
-          100: '#DDE2CF',
-          50: '#EEF0E7',
+          DEFAULT: '#2B3990', // blue-dark
+          light: '#CBE9E1', // teal-light (accent in hero)
+          dark: '#203B61', // blue-dark-lighter
+          200: '#006EC8', // blue-bright (accent gradient)
+          100: '#D6F7FF', // cyan-light
+          50: '#FCFCFD', // gray-25 as subtle tint
         },
         secondary: {
-          DEFAULT: '#fff',
-          light: '#E9A777',
-          dark: '#DE7C34',
-          200: '#F0C5A5',
-          100: '#F8E2D2',
-          50: '#FBF0E8',
+          DEFAULT: '#ffffff',
+          light: '#D6F7FF', // use cyan-light for soft secondary backgrounds
+          dark: '#344054', // gray-700 for darker accents
+          200: '#FCFDFE',
+          100: '#FCFCFD',
+          50: '#FFFFFF',
         },
         tertiary: {
           DEFAULT: '#5F7176',
         },
         background: {
           DEFAULT: '#ffffff',
-          light: '#EFF5EC',
-          dark: '#000000',
+          light: '#FCFCFD',
+          dark: '#1D2939',
         },
         neutral: {
           DEFAULT: '#101828',
@@ -53,60 +66,73 @@ module.exports = {
         },
         highlight: {
           primary: '#101828',
-          secondary: '#041227',
-          light: '#FFF9E2',
+          secondary: '#203B61',
+          light: '#D6F7FF',
         },
         text: {
           primary: '#1D2939',
           secondary: '#ffffff',
-          accent: '#1D2939',
+          accent: '#344054',
         },
         hover: {
-          bg: '#F6F6F6', // Using primary-light as hover background
-          text: '#000', // Using accent-greenDark as hover text
+          bg: '#F6F6F6',
+          text: '#041227',
         },
+        'violet-950': '#262262',
+        'blue-100': '#00ACD8',
+        'blue-500':'#262262',
+        'blue-dark': '#2B3990',
+        'blue-bright': '#006EC8',
+        'blue-dark-lighter': '#203B61',
+        'teal-light': '#CBE9E1',
+        'cyan-light': '#D6F7FF',
+        'gray-800': '#1D2939',
+        'gray-700': '#344054',
+        'gray-50': '#FCFDFE',
+        'gray-25': '#FCFCFD',
       },
+
       backgroundColor: {
-        'hover': '#F6F6F6', // Now available as hover:bg-hover-bg
+        hover: '#F6F6F6',
       },
+
       textColor: {
-        'hover': '#041227', // Now available as hover:text-hover-text
-      },
-      fontSize: {
-        'xs': '14px',
-        base: '16px',
-        wp_editor_p: '20px',
+        hover: '#041227',
       },
       width: {
-        'container-md': '1084px',
+        'container-md': '1024px',
         'container-lg': '1280px',
-        'container': '1280px',
+        container: '1208px',
       },
+
       maxWidth: {
-        'container': '1139px',
-        'xxs': '320px',
-        'xs': '480px',
-        'mob': '575px',
-        'sm': '640px',
-        'md': '768px',
-         tab: '998px',
-        'lg': '1200px',
-        'xl': '1280px',
-        'xxl': '1440px',
-        'ultrawide': '1920px',
+        container: '1208px',
+        xxs: '320px',
+        xs: '480px',
+        mob: '575px',
+        sm: '640px',
+        md: '768px',
+        tab: '998px',
+        lg: '1200px',
+        xl: '1280px',
+        xxl: '1440px',
+        ultrawide: '1920px',
       },
+
       borderRadius: {
-        'custom': '0px',
+        custom: '0px',
         'custom-sm': '4px',
         'custom-md': '8px',
         'custom-lg': '16px',
         'custom-xl': '40px',
         'custom-full': '100%',
-        'btn': '0px',
+        btn: '0px',
       },
+
       animation: {
-        'scroll300': 'scroll 300s linear infinite',
+        scroll300: 'scroll 300s linear infinite',
       },
+
       keyframes: {
         scroll: {
           '0%': { transform: 'translateX(0)' },
@@ -114,19 +140,22 @@ module.exports = {
         },
       },
     },
+
+    // Breakpoints inspired by your example and the project's layout
     screens: {
       xxs: '320px',
       xs: '480px',
       mob: '575px',
       sm: '640px',
       md: '768px',
-      tab: '993px', 
+      tab: '993px',
       ipad: '1084px',
       lg: '1100px',
       xl: '1280px',
       xxl: '1440px',
       ultrawide: '1920px',
     },
+
     container: {
       center: true,
       padding: '1.5rem',
@@ -143,21 +172,21 @@ module.exports = {
       },
     },
   },
+
   variants: {
     extend: {
       backgroundColor: ['not-first'],
       display: ['before', 'after'],
     },
   },
+
   plugins: [
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
-    require('tailwindcss-pseudo')({
-      empty: true,
-      before: true,
-      after: true,
-    }),
+    require('tailwindcss-pseudo')({ empty: true, before: true, after: true }),
   ],
+
+  // Keep a wide safelist to avoid purging dynamic classes used in templates
   safelist: [
     'md:gap-6',
     'md:gap-10',
@@ -275,7 +304,6 @@ module.exports = {
     'w-10/12',
     'w-11/12',
     'w-full',
-    // Container classes
     'container',
     'container-md',
     'max-w-container',
@@ -318,7 +346,6 @@ module.exports = {
     'max-sm:grid-cols-1',
     'max-sm:grid-cols-2',
     'max-sm:grid-cols-3',
-   
     ...Array.from({ length: 101 }, (_, i) => `p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `py-[${i + 1}rem]`),
@@ -326,7 +353,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `pr-[${i + 1}rem]`),
-    // Dynamic padding classes devices
     ...Array.from({ length: 101 }, (_, i) => `xs:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xs:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xs:py-[${i + 1}rem]`),
@@ -334,7 +360,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `xs:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xs:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xs:pr-[${i + 1}rem]`),
-    //mob
     ...Array.from({ length: 101 }, (_, i) => `mob:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:py-[${i + 1}rem]`),
@@ -342,7 +367,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `mob:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:pr-[${i + 1}rem]`),
-    //sm
     ...Array.from({ length: 101 }, (_, i) => `sm:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:py-[${i + 1}rem]`),
@@ -350,7 +374,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `sm:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:pr-[${i + 1}rem]`),
-    //md
     ...Array.from({ length: 101 }, (_, i) => `md:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `md:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `md:py-[${i + 1}rem]`),
@@ -358,7 +381,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `md:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `md:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `md:pr-[${i + 1}rem]`),
-    //lg
     ...Array.from({ length: 101 }, (_, i) => `lg:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `lg:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `lg:py-[${i + 1}rem]`),
@@ -366,7 +388,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `lg:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `lg:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `lg:pr-[${i + 1}rem]`),
-    //xl
     ...Array.from({ length: 101 }, (_, i) => `xl:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xl:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xl:py-[${i + 1}rem]`),
@@ -374,7 +395,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `xl:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xl:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xl:pr-[${i + 1}rem]`),
-    //xxl
     ...Array.from({ length: 101 }, (_, i) => `xxl:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xxl:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xxl:py-[${i + 1}rem]`),
@@ -382,7 +402,6 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `xxl:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xxl:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xxl:pr-[${i + 1}rem]`),
-    //ultrawide
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:p-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:px-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:py-[${i + 1}rem]`),
@@ -390,15 +409,12 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:pb-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:pl-[${i + 1}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:pr-[${i + 1}rem]`),
-    // Dynamic border classes
     ...Array.from({ length: 101 }, (_, i) => `border-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `border-t-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `border-b-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `border-l-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `border-r-[${i}px]`),
-    // text size
     ...Array.from({ length: 101 }, (_, i) => `text-[${i}px]`),
-    // text size for devices
     ...Array.from({ length: 101 }, (_, i) => `xs:text-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:text-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:text-[${i}px]`),
@@ -407,9 +423,7 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `xl:text-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `xxl:text-[${i}px]`),
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:text-[${i}px]`),
-    // text size for rem
     ...Array.from({ length: 101 }, (_, i) => `text-[${i}rem]`),
-    // text size for devices
     ...Array.from({ length: 101 }, (_, i) => `xs:text-[${i}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:text-[${i}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:text-[${i}rem]`),
@@ -418,9 +432,7 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `xl:text-[${i}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `xxl:text-[${i}rem]`),
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:text-[${i}rem]`),
-    // text size for em
     ...Array.from({ length: 101 }, (_, i) => `text-[${i}em]`),
-    // text size for devices
     ...Array.from({ length: 101 }, (_, i) => `xs:text-[${i}em]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:text-[${i}em]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:text-[${i}em]`),
@@ -429,12 +441,9 @@ module.exports = {
     ...Array.from({ length: 101 }, (_, i) => `xl:text-[${i}em]`),
     ...Array.from({ length: 101 }, (_, i) => `xxl:text-[${i}em]`),
     ...Array.from({ length: 101 }, (_, i) => `ultrawide:text-[${i}em]`),
-    // dynamic arbitrary color classes
     ...Array.from({ length: 101 }, (_, i) => `text-color-[${i}]`),
     ...Array.from({ length: 101 }, (_, i) => `bg-color-[${i}]`),
-    // line height
     ...Array.from({ length: 101 }, (_, i) => `line-height-[${i}]`),
-    // line height for devices
     ...Array.from({ length: 101 }, (_, i) => `xs:line-height-[${i}]`),
     ...Array.from({ length: 101 }, (_, i) => `mob:line-height-[${i}]`),
     ...Array.from({ length: 101 }, (_, i) => `sm:line-height-[${i}]`),
