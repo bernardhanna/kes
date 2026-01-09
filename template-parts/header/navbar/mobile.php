@@ -95,15 +95,15 @@ if (!in_array($hamburger_style, $valid_styles)) {
     x-transition:enter="transition ease-out duration-500"
     x-transition:leave="transition ease-in duration-300"
     @click.away="isOpen = false">
-    <nav class="flex flex-col items-center justify-center h-full px-8">
-      <ul class="relative flex flex-col justify-center w-full h-full mx-auto space-y-8 text-center stretch">
+    <nav class="flex flex-col justify-center items-center px-8 h-full">
+      <ul class="flex relative flex-col justify-center mx-auto space-y-8 w-full h-full text-center stretch">
         <?php foreach ($primary_navigation->toArray() as $index => $item) : ?>
           <li class="relative mb-4 border-b border-[#CCDEE2] pb-6 <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
-            <div class="flex items-center justify-between">
+            <div class="flex justify-between items-center max-lg:justify-center">
               <!-- Top-Level Link -->
               <a
                 href="<?php echo esc_url($item->url); ?>"
-                class="text-lg font-normal leading-7 text-secondary-800 ">
+                class="text-lg font-normal leading-7 text-secondary-800 .btn-primary">
                 <?php echo esc_html($item->label); ?>
               </a>
 
