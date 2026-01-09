@@ -156,7 +156,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
                   <?php endif; ?>
 
                   <?php if (!empty($buttons)): ?>
-                    <div class="flex flex-col gap-4 items-start sm:flex-row sm:items-center sm:gap-6">
+                    <div class="flex flex-row gap-4 items-start w-full sm:items-center sm:gap-6">
                       <?php foreach ($buttons as $btn): ?>
                         <?php
                         $link  = isset($btn['button_link']) ? $btn['button_link'] : null;
