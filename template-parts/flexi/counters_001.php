@@ -55,7 +55,7 @@ $section_id = 'counters-' . uniqid();
                     $counter_id = "counter-{$index}";
                 ?>
                     <article
-                        class="flex  items-start min-h-[82px]"
+                        class="flex max-md:flex-col max-md:justify-center max-md:items-center  items-start min-h-[82px]"
                         x-intersect.once="startCounter('<?php echo esc_attr($counter_id); ?>', <?php echo esc_attr($numeric_value); ?>)"
                     >
                         <div
@@ -74,7 +74,7 @@ $section_id = 'counters-' . uniqid();
                         </div>
 
                         <div class="flex-1 min-h-14 text-slate-700">
-                            <div class="flex flex-col items-start w-full font-secondary">
+                            <div class="flex flex-col items-start w-full max-md:items-center font-secondary max-md:mt-4">
                                 <span
                                     class="tabular-nums text-[18px] font-[500] leading-[24px] text-[#344054]"
                                     x-text="counters['<?php echo esc_attr($counter_id); ?>'] + '<?php echo esc_attr($counter_suffix); ?>'"
