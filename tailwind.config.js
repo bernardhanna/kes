@@ -28,7 +28,7 @@ module.exports = {
       // Colors adapted from the design and components in the repo
       colors: {
         primary: {
-          DEFAULT: '#2B3990', // blue-dark
+          DEFAULT: '#26226', // blue-dark
           light: '#CBE9E1', // teal-light (accent in hero)
           dark: '#203B61', // blue-dark-lighter
           200: '#006EC8', // blue-bright (accent gradient)
