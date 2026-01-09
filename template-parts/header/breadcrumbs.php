@@ -107,7 +107,7 @@ if ( is_singular() ) {
         <li class="self-stretch my-auto <?php echo esc_attr($weight_class); ?>"<?php echo $current ? ' aria-current="page"' : ''; ?>>
           <?php if (!$current && !empty($it['url'])): ?>
             <a href="<?php echo esc_url($it['url']); ?>"
-               class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-600 hover:opacity-90 transition-colors duration-200">
+               class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light hover:opacity-90 transition-colors duration-200">
               <?php echo esc_html($it['label']); ?>
             </a>
           <?php else: ?>

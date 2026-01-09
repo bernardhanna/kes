@@ -28,7 +28,7 @@ $section_id = 'title-section-' . wp_rand(1000, 9999);
             <?php if (!empty($heading)): ?>
                 <<?php echo esc_attr($heading_tag); ?>
                     id="<?php echo esc_attr($section_id); ?>-heading"
-                    class="relative self-stretch text-3xl font-bold leading-10 text-violet-950 max-md:text-2xl max-md:leading-9 max-sm:text-2xl max-sm:leading-8"
+                    class="relative self-stretch text-3xl font-bold leading-10 text-text-primary max-md:text-2xl max-md:leading-9 max-sm:text-2xl max-sm:leading-8"
                 >
                     <?php echo esc_html($heading); ?>
                 </<?php echo esc_attr($heading_tag); ?>>

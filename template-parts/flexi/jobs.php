@@ -104,7 +104,7 @@ function matrix_jobs_featured_image($post_id, $size = 'large') {
 
     <main class="w-full grid grid-cols-1 lg:grid-cols-3 gap-8" role="main" aria-label="<?php echo esc_attr__('Careers page', 'matrix-starter'); ?>">
       <!-- Left: Jobs list (spans 2 cols on lg) -->
-      <section class="lg:col-span-2 text-violet-950" aria-label="<?php echo esc_attr__('Job listings', 'matrix-starter'); ?>">
+      <section class="lg:col-span-2 text-text-primary" aria-label="<?php echo esc_attr__('Job listings', 'matrix-starter'); ?>">
         <header class="sr-only">
           <h1><?php echo esc_html($sr_heading); ?></h1>
         </header>
@@ -124,8 +124,8 @@ function matrix_jobs_featured_image($post_id, $size = 'large') {
               ?>
               <article class="job-card flex flex-col px-6 py-6 w-full bg-white rounded-lg border-solid border-[3px] <?php echo esc_attr($border_color); ?>" role="article" aria-labelledby="<?php echo esc_attr("job{$pid}-title"); ?>">
                 <header>
-                  <h2 id="<?php echo esc_attr("job{$pid}-title"); ?>" class="text-2xl font-bold leading-8 text-violet-950">
-                    <a href="<?php echo esc_url($perma); ?>" class="hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-600">
+                  <h2 id="<?php echo esc_attr("job{$pid}-title"); ?>" class="text-2xl font-bold leading-8 text-text-primary">
+                    <a href="<?php echo esc_url($perma); ?>" class="hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light">
                       <?php echo esc_html($title); ?>
                     </a>
                   </h2>
@@ -135,7 +135,7 @@ function matrix_jobs_featured_image($post_id, $size = 'large') {
                   <div class="flex gap-3 items-start mt-4 text-sm font-medium leading-none" role="list" aria-label="<?php echo esc_attr__('Job tags', 'matrix-starter'); ?>">
                     <?php foreach ($chips as $t): ?>
                       <span class="flex gap-2 items-center px-3 py-1 bg-emerald-100 min-h-7 rounded-full" role="listitem">
-                        <span class="text-violet-950"><?php echo esc_html($t->name); ?></span>
+                        <span class="text-text-primary"><?php echo esc_html($t->name); ?></span>
                       </span>
                     <?php endforeach; ?>
                   </div>
@@ -163,18 +163,18 @@ function matrix_jobs_featured_image($post_id, $size = 'large') {
       ?>
       <aside class="flex flex-col px-6 py-6 bg-white rounded-lg border-solid border-[3px] <?php echo esc_attr($border_color); ?> min-w-0" role="complementary" aria-labelledby="<?php echo esc_attr("featured-job-title-{$f_id}"); ?>">
         <header>
-          <h1 id="<?php echo esc_attr("featured-job-title-{$f_id}"); ?>" class="text-3xl font-bold text-violet-950">
-            <a href="<?php echo esc_url($f_link); ?>" class="hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-600">
+          <h1 id="<?php echo esc_attr("featured-job-title-{$f_id}"); ?>" class="text-3xl font-bold text-text-primary">
+            <a href="<?php echo esc_url($f_link); ?>" class="hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light">
               <?php echo esc_html($f_title); ?>
             </a>
           </h1>
         </header>
 
         <?php if ($f_terms): ?>
-          <div class="flex gap-3 items-start mt-6 text-sm font-medium leading-none text-violet-950" role="list" aria-label="<?php echo esc_attr__('Job tags', 'matrix-starter'); ?>">
+          <div class="flex gap-3 items-start mt-6 text-sm font-medium leading-none text-text-primary" role="list" aria-label="<?php echo esc_attr__('Job tags', 'matrix-starter'); ?>">
             <?php foreach ($f_terms as $t): ?>
               <span class="flex gap-2 items-center px-3 py-1 bg-emerald-100 min-h-7 rounded-full" role="listitem">
-                <span class="text-violet-950"><?php echo esc_html($t->name); ?></span>
+                <span class="text-text-primary"><?php echo esc_html($t->name); ?></span>
               </span>
             <?php endforeach; ?>
           </div>

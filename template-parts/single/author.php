@@ -65,7 +65,7 @@ $next_post = get_next_post();
         role="region"
         aria-labelledby="share-heading"
     >
-        <p class="my-auto text-base font-medium leading-none text-violet-950" id="share-heading">
+        <p class="my-auto text-base font-medium leading-none text-text-primary" id="share-heading">
             Share on:
         </p>
 

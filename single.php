@@ -40,18 +40,18 @@ get_header();
       aria-labelledby="article-heading"
     >
       <div class="flex flex-col shrink justify-center mt-[2.5rem] w-full  max-md:max-w-full">
-        <div class="flex flex-col w-full text-violet-950 max-md:max-w-full">
+        <div class="flex flex-col w-full text-text-primary max-md:max-w-full">
           <?php if ($cat_label) : ?>
             <div
               class="flex gap-2 items-center self-start px-3 py-1 text-sm font-medium leading-none whitespace-nowrap bg-emerald-100 min-h-7 rounded-[100px]"
               aria-label="<?php echo esc_attr($cat_label); ?> category"
             >
-              <span class= my-auto text-violet-950"><?php echo esc_html($cat_label); ?></span>
+              <span class= my-auto text-text-primary"><?php echo esc_html($cat_label); ?></span>
             </div>
           <?php endif; ?>
 
           <div class="mt-2 w-full text-4xl font-bold tracking-tighter leading-none max-md:max-w-full">
-            <h1 id="article-heading" class="text-violet-950 max-md:max-w-full">
+            <h1 id="article-heading" class="text-text-primary max-md:max-w-full">
               <?php echo esc_html($title); ?>
             </h1>
             <div class="flex mt-1 w-8 bg-cyan-500 min-h-1" aria-hidden="true"></div>

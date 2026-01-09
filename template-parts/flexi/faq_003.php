@@ -16,7 +16,7 @@ $faq_items_rel        = get_sub_field('faq_items');
 $section_background   = get_sub_field('section_background') ?: '#FFFFFF';
 $heading_color        = get_sub_field('heading_color') ?: '#262262';
 $accent_bar_color     = get_sub_field('accent_bar_color') ?: '#00ACD8';
-$question_color       = get_sub_field('question_color') ?: '#2B399B';
+$question_color       = get_sub_field('question_color') ?: '#2B3990';
 $border_color         = get_sub_field('border_color') ?: '#E5E7EB';
 $active_border_color  = get_sub_field('active_border_color') ?: '#CBE9E1';
 $focus_ring_color     = get_sub_field('focus_ring_color') ?: '#262262';
@@ -98,15 +98,15 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
   id="<?php echo esc_attr($section_id); ?>"
   role="region"
   aria-label="<?php echo esc_attr__('Frequently Asked Questions', 'matrix-starter'); ?>"
-  class="relative flex overflow-hidden w-full"
+  class="flex overflow-hidden relative w-full"
   style="background-color: <?php echo esc_attr($section_background); ?>;"
 >
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-[1018px] py-[56px] max-lg:px-5<?php echo $padding_classes_str; ?>">
     <!-- Heading -->
-    <div class="flex flex-col gap-4 pb-4 w-full mb-8">
+    <div class="flex flex-col gap-4 pb-4 mb-8 w-full">
       <?php if (!empty($heading_text)): ?>
         <<?php echo esc_attr($heading_tag); ?>
-          class="font-red-hat-display text-4xl lg:text-5xl font-bold leading-tight"
+          class="text-4xl font-bold leading-tight font-red-hat-display lg:text-5xl"
           style="color: <?php echo esc_attr($heading_color); ?>;"
         >
           <?php echo esc_html($heading_text); ?>
@@ -118,7 +118,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
     </div>
 
     <!-- FAQ Items -->
-    <div class="w-full flex flex-col gap-5">
+    <div class="flex flex-col gap-5 w-full">
       <div class="flex flex-col gap-5 w-full">
         <?php foreach ($faqs as $i => $faq): ?>
           <?php
@@ -127,7 +127,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
           ?>
           <article
             x-data="{ open: false }"
-            class="flex flex-col gap-2 p-6 rounded-lg border transition-all duration-200"
+            class="flex flex-col gap-2 p-4 rounded-lg border transition-all duration-200"
             :style="open
               ? 'border-width:4px;border-color:<?php echo esc_js($active_border_color); ?>'
               : 'border-width:1px;border-color:<?php echo esc_js($border_color); ?>'"
@@ -136,7 +136,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
             <!-- Header / Toggle -->
             <button
               type="button"
-              class="btn flex items-center gap-6 w-full text-left focus:outline-none rounded-lg p-2"
+              class="flex gap-6 items-center p-2 w-full text-left rounded-lg btn focus:outline-none"
               :style="'box-shadow: 0 0 0 ' + (document.activeElement=== $el ? '2px' : '0') + ' <?php echo esc_js($focus_ring_color); ?> inset'"
               aria-controls="<?php echo esc_attr($aid); ?>"
               :aria-expanded="open.toString()"
@@ -145,7 +145,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
               @keydown.space.prevent="open = !open"
             >
               <!-- Plus / Minus -->
-              <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center">
+              <div class="flex flex-shrink-0 justify-center items-center w-8 h-8">
                 <svg x-show="!open" class="w-8 h-8" viewBox="0 0 32 32" fill="none" aria-hidden="true">
                   <path d="M16 6.667V25.333M6.667 16H25.333" stroke="#2B3990" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
@@ -156,7 +156,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
 
               <!-- Question -->
               <h3 id="<?php echo esc_attr($qid); ?>"
-                  class="font-red-hat-text text-lg font-bold flex-1"
+                  class="flex-1 text-lg  font-secondary font-[700]"
                   style="color: <?php echo esc_attr($question_color); ?>;">
                 <?php echo esc_html($faq['title']); ?>
               </h3>
@@ -167,10 +167,10 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
               id="<?php echo esc_attr($aid); ?>"
               x-show="open"
               x-collapse
-              class="flex flex-col gap-4 mt-2 pl-14"
+              class="flex flex-col gap-4 pl-14 mt-2"
               aria-labelledby="<?php echo esc_attr($qid); ?>"
             >
-              <div class="wp_editor font-red-hat-text text-base font-normal text-gray-700 leading-relaxed">
+              <div class="text-base font-normal leading-[20px] text-[#344054] wp_editor font-secondary">
                 <?php echo wp_kses_post($faq['content']); ?>
               </div>
             </div>
@@ -178,5 +178,33 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
         <?php endforeach; ?>
       </div>
     </div>
+        <div clas="w-full mx-auto py-24">
+            <?php
+            $show_cta = (bool) get_sub_field('show_cta');
+            $cta_link = get_sub_field('cta_link'); // ACF link array
+
+            if ( $show_cta && !empty($cta_link) && !empty($cta_link['url']) ) :
+              $url    = $cta_link['url'];
+              $title  = !empty($cta_link['title']) ? $cta_link['title'] : __("View all FAQ's", 'matrix-starter');
+              $target = !empty($cta_link['target']) ? $cta_link['target'] : '_self';
+              $rel    = ($target === '_blank') ? 'noopener noreferrer' : '';
+              $aria   = $title;
+            ?>
+              <div class="flex justify-center mt-8 w-full">
+                <a
+                  href="<?php echo esc_url($url); ?>"
+                  target="<?php echo esc_attr($target); ?>"
+                  rel="<?php echo esc_attr($rel); ?>"
+                  role="button"
+                  aria-label="<?php echo esc_attr($aria); ?>"
+                  class="btn flex relative gap-2 justify-center items-center px-6 py-3.5 bg-white border-2 border-blue-900 border-solid transition-all duration-200 cursor-pointer ease-[ease-in-out] h-[52px] w-fit whitespace-nowrap rounded-[100px] max-md:px-5 max-md:py-3 max-md:h-12 max-sm:px-5 max-sm:py-2.5 max-sm:w-full max-sm:max-w-full max-sm:h-11 hover:bg-blue-50 hover:border-blue-700 active:bg-blue-100"
+                >
+                  <span class="relative text-lg font-medium leading-6 text-blue-900 max-md:text-base max-md:leading-6 max-sm:text-sm max-sm:leading-5">
+                    <?php echo esc_html($title); ?>
+                  </span>
+                </a>
+              </div>
+            <?php endif; ?>
+        </div>
   </div>
 </section>

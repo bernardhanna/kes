@@ -20,7 +20,7 @@ module.exports = {
         secondary: ['Red Hat Text', 'sans-serif'],
       },
       fontSize: {
-        '5xl': ['30px', '38px'], // [font-size, line-height]
+        '5xl': ['30px', '20px'], // [font-size, line-height]
         xs: '14px',
         base: '16px',
         wp_editor_p: '20px',

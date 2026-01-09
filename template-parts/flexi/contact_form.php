@@ -111,7 +111,7 @@ if ($form_markup) {
                 <div class="flex flex-col justify-center w-full bg-white max-md:max-w-full">
 
                     <?php if ($heading): ?>
-                        <<?php echo esc_attr($heading_tag); ?> class="text-2xl font-bold leading-none text-violet-950 max-md:max-w-full">
+                        <<?php echo esc_attr($heading_tag); ?> class="text-2xl font-bold leading-none text-text-primary max-md:max-w-full">
                             <?php echo esc_html($heading); ?>
                         </<?php echo esc_attr($heading_tag); ?>>
                     <?php endif; ?>
@@ -123,7 +123,7 @@ if ($form_markup) {
                                  alt="Location icon"
                                  class="object-contain shrink-0 w-6 aspect-square" />
                             <div class="flex-1 shrink basis-0 max-md:max-w-full">
-                                <span class="font-bold text-violet-950"><?php echo esc_html($office_name); ?></span><br>
+                                <span class="font-bold text-text-primary"><?php echo esc_html($office_name); ?></span><br>
                                 <?php
                                 $address_lines = explode(',', $address);
                                 foreach ($address_lines as $line):
@@ -186,8 +186,8 @@ if ($form_markup) {
             <div class="flex flex-col flex-1 shrink justify-center px-20 py-14 rounded-2xl basis-0 min-w-60 max-md:px-5 max-md:max-w-full">
                 <div class="w-full max-md:max-w-full">
                     <div class="flex flex-col justify-center w-full max-md:max-w-full">
-                        <div class="w-full text-4xl font-bold tracking-tighter leading-none text-violet-950 max-md:max-w-full">
-                            <div class="text-violet-950 max-md:max-w-full">
+                        <div class="w-full text-4xl font-bold tracking-tighter leading-none text-text-primary max-md:max-w-full">
+                            <div class="text-text-primary max-md:max-w-full">
                                 How can we help?
                             </div>
                             <div class="flex mt-1 w-8 bg-cyan-500 min-h-1"></div>

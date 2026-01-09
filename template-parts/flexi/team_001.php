@@ -59,7 +59,7 @@ $section_id = 'team-' . uniqid();
                             <div class="flex flex-col gap-2 items-start w-full max-sm:gap-1.5">
                                 <div class="flex flex-col gap-2 items-start w-full max-sm:gap-1">
                                     <?php if ($name): ?>
-                                        <h3 class="w-full text-lg font-bold leading-6 text-violet-950 max-md:text-base max-md:leading-6">
+                                        <h3 class="w-full text-lg font-bold leading-6 text-text-primary max-md:text-base max-md:leading-6">
                                             <?php echo esc_html($name); ?>
                                         </h3>
                                     <?php endif; ?>

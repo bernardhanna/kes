@@ -46,7 +46,6 @@ $section_id = 'hero-slider-' . uniqid();
 
 // Basic guards
 if (empty($slides) || !is_array($slides)) {
-    // Optional: output nothing or a placeholder
     return;
 }
 
@@ -72,19 +71,21 @@ if (!empty($arrow_next) && is_array($arrow_next)) {
 }
 
 // Build arrow buttons (fallback to simple chevrons if no upload)
-$prev_arrow_markup = '<button type="button" class="slick-prev absolute left-4 top-1/2 -translate-y-1/2 z-20">'.($prev_img_html ?: '&#10094;').'</button>';
-$next_arrow_markup = '<button type="button" class="slick-next absolute right-4 top-1/2 -translate-y-1/2 z-20">'.($next_img_html ?: '&#10095;').'</button>';
+$prev_arrow_markup = '<button type="button" class="absolute left-4 top-1/2 z-20 -translate-y-1/2 slick-prev">'.($prev_img_html ?: '&#10094;').'</button>';
+$next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20 -translate-y-1/2 slick-next">'.($next_img_html ?: '&#10095;').'</button>';
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="relative flex overflow-hidden <?php echo esc_attr($rounded); ?>">
-  <div class="flex flex-col items-center w-full <?php echo $padding_classes_str ? esc_attr(' '.$padding_classes_str) : ''; ?>">
+<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative">
+  <div class="flex flex-col mt-[4.5rem] items-center w-full <?php echo $padding_classes_str ? esc_attr(' '.$padding_classes_str) : ''; ?>">
 
-    <div class="relative w-full min-h-screen  overflow-hidden <?php echo esc_attr($rounded); ?> <?php echo esc_attr($text_color); ?>">
+    <!-- Fixed/Max height container -->
+    <div class="relative w-full overflow-hidden <?php echo esc_attr($rounded); ?> <?php echo esc_attr($text_color); ?>">
       <div class="js-hero-slider relative w-full h-full <?php echo $use_slider ? 'is-slick' : ''; ?>">
         <?php foreach ($slides as $slide_index => $slide): ?>
             <?php
-            $bg = isset($slide['background_image']) ? $slide['background_image'] : null;
+            $bg       = isset($slide['background_image']) ? $slide['background_image'] : null;
             $bg_url   = $bg && !empty($bg['url'])   ? esc_url($bg['url']) : '';
+            // alt/title are not used on CSS backgrounds; keep for a11y fallback if needed
             $bg_alt   = $bg && !empty($bg['alt'])   ? esc_attr($bg['alt']) : 'Hero background';
             $bg_title = $bg && !empty($bg['title']) ? esc_attr($bg['title']) : 'Hero background';
 
@@ -103,38 +104,62 @@ $next_arrow_markup = '<button type="button" class="slick-next absolute right-4 t
             }
             ?>
 
-            <div class="relative w-full min-h-screen flex items-center justify-center">
+            <!-- Each slide, fixed/max height -->
+            <div class="flex relative justify-center items-center w-full h-[533px]">
               <?php if ($bg_url): ?>
-                <img src="<?php echo $bg_url; ?>"
-                     alt="<?php echo $bg_alt; ?>"
-                     title="<?php echo $bg_title; ?>"
-                     class="absolute inset-0 w-full h-full object-cover" />
+                <!-- Background image via CSS -->
+                <div
+                  class="absolute inset-0 w-full h-full bg-center bg-no-repeat bg-cover"
+                  style="<?php echo esc_attr("background-image:url('{$bg_url}')"); ?>"
+                  role="img"
+                  aria-label="<?php echo $bg_title ? $bg_title : 'Hero background'; ?>">
+                </div>
               <?php endif; ?>
 
               <?php if ($show_gradient): ?>
                 <div class="absolute inset-0 bg-gradient-to-r <?php echo esc_attr($overlay_from . ' ' . $overlay_via . ' ' . $overlay_to); ?>"></div>
               <?php endif; ?>
 
-              <div class="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-                <div class="flex flex-col items-start justify-center py-16 sm:py-20 lg:py-24">
-
+              <div class="relative z-10 px-6 mx-auto w-full max-w-[69rem] sm:px-8 lg:px-12">
+                <div class="flex flex-col justify-center items-start pt-[2.5]">
                   <?php if ($title_html): ?>
-                    <<?php echo esc_attr($title_tag); ?> class="wp_editor font-bold font-primary text-4xl sm:text-5xl lg:text-6xl leading-tight sm:leading-tight lg:leading-tight">
-                      <?php echo wp_kses_post($title_html); ?>
+                    <?php
+                    if (!function_exists('highlight_every_second_word')) {
+                      function highlight_every_second_word($text) {
+                        if (!is_string($text) || $text === '') return '';
+                        $parts = preg_split('/(\s+)/u', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+                        $wordIndex = 0;
+                        foreach ($parts as $k => $part) {
+                          if ($part !== '' && !preg_match('/^\s+$/u', $part)) {
+                            $escaped = esc_html($part);
+                            $parts[$k] = ($wordIndex % 2 === 1)
+                              ? '<span class="text-primary-light">'.$escaped.'</span>'
+                              : $escaped;
+                            $wordIndex++;
+                          }
+                        }
+                        return implode('', $parts);
+                      }
+                    }
+                    $clean_title = wp_strip_all_tags($title_html);
+                    $highlighted_title = highlight_every_second_word($clean_title);
+                    ?>
+                    <<?php echo esc_attr($title_tag); ?> class="text-4xl font-bold leading-tight wp_editor font-primary sm:text-5xl lg:text-6xl sm:leading-tight lg:leading-tight max-w-[600px]">
+                      <?php echo wp_kses_post($highlighted_title); ?>
                     </<?php echo esc_attr($title_tag); ?>>
                   <?php endif; ?>
 
                   <?php if ($desc_html): ?>
-                    <div class="wp_editor mt-6 sm:mt-8 max-w-2xl">
-                      <p class="font-secondary font-medium text-base sm:text-lg lg:text-xl leading-relaxed"><?php echo wp_kses_post($desc_html); ?></p>
+                    <div class="max-w-2xl wp_editor py-[1.5rem] text-[18px] font-medium leading-[24px] font-secondary">
+                      <p class="text-[18px] font-medium leading-[24px] font-secondary max-w-[600px]"><?php echo wp_kses_post($desc_html); ?></p>
                     </div>
                   <?php endif; ?>
 
                   <?php if (!empty($buttons)): ?>
-                    <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6">
+                    <div class="flex flex-col gap-4 items-start sm:flex-row sm:items-center sm:gap-6">
                       <?php foreach ($buttons as $btn): ?>
                         <?php
-                        $link = isset($btn['button_link']) ? $btn['button_link'] : null;
+                        $link  = isset($btn['button_link']) ? $btn['button_link'] : null;
                         $style = !empty($btn['button_style']) ? $btn['button_style'] : 'primary';
                         if ($link && is_array($link)) {
                             $url    = !empty($link['url']) ? esc_url($link['url']) : '#';
@@ -147,12 +172,10 @@ $next_arrow_markup = '<button type="button" class="slick-next absolute right-4 t
                       <?php endforeach; ?>
                     </div>
                   <?php endif; ?>
-
                 </div>
               </div>
 
               <?php if ($use_slider): ?>
-                <!-- Arrows rendered via Slick option; we also keep space for absolute positioning -->
                 <div class="pointer-events-none" aria-hidden="true"></div>
               <?php endif; ?>
             </div>
@@ -160,8 +183,7 @@ $next_arrow_markup = '<button type="button" class="slick-next absolute right-4 t
       </div>
 
       <?php if ($use_slider && $show_dots): ?>
-        <!-- Slick dots will render here; centered by default -->
-        <div class="slick-dots-container w-full flex justify-center mt-6 mb-2"></div>
+        <div class="flex justify-center mt-6 mb-2 w-full slick-dots-container"></div>
       <?php endif; ?>
     </div>
 
@@ -171,7 +193,6 @@ $next_arrow_markup = '<button type="button" class="slick-next absolute right-4 t
 <?php if ($use_slider): ?>
 <script>
   (function($){
-    // Defer until window load + retry if slick isn't ready yet
     function initHeroSlider() {
       var $wrap = $('#<?php echo esc_js($section_id); ?>');
       var $el = $wrap.find('.js-hero-slider');
@@ -179,11 +200,10 @@ $next_arrow_markup = '<button type="button" class="slick-next absolute right-4 t
       if (!$el.length) return;
 
       if (typeof $.fn.slick !== 'function') {
-        // Slick not loaded yet (likely enqueued in footer) — retry shortly
         return setTimeout(initHeroSlider, 120);
       }
 
-      if ($el.hasClass('is-initialized')) return; // avoid double-init
+      if ($el.hasClass('is-initialized')) return;
       $el.addClass('is-initialized');
 
       $el.slick({

@@ -37,7 +37,7 @@ if ($use_gradient && $background_gradient) {
     aria-label="Customer Testimonials"
     id="<?php echo esc_attr($slider_id); ?>-kudos"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-20 pb-20 max-lg:px-5">
+    <div class="flex flex-col items-center mx-auto w-full max-w-container max-lg:px-5">
 
         <?php if ($testimonials): ?>
             <div
@@ -59,10 +59,10 @@ if ($use_gradient && $background_gradient) {
                         }
                     }
                 ?>
-                    <article class="flex relative gap-10 items-center w-full py-20 pr-32 pl-48 text-white max-md:px-5 max-sm:flex-col max-sm:p-6 slick-item">
+                    <article class="flex relative gap-10 items-center py-20 max-w-[1036px] mx-auto w-full text-white max-md:px-5 max-sm:flex-col max-sm:p-6 slick-item">
 
                         <?php if ($show_quote_icon): ?>
-                            <div class="absolute top-24 left-[70px] z-0 max-md:hidden max-sm:hidden" aria-hidden="true">
+                            <div class="absolute top-[6rem]  -left-[7rem] z-0 max-md:hidden max-sm:hidden" aria-hidden="true">
                                 <svg
                                     width="107"
                                     height="66"
@@ -76,16 +76,55 @@ if ($use_gradient && $background_gradient) {
                             </div>
                         <?php endif; ?>
 
-                        <div class="flex flex-col flex-1 justify-center pt-6 my-auto max-md:max-w-full max-sm:pb-8">
+                        <div class="flex flex-col flex-1 justify-between pt-6 my-auto max-md:max-w-full max-sm:pb-8 max-w-[550px]">
 
                             <?php if ($quote): ?>
-                                <blockquote class="text-3xl font-bold leading-10 text-white max-md:max-w-full wp_editor">
-                                    <?php echo wp_kses_post($quote); ?>
-                                </blockquote>
-                            <?php endif; ?>
+                            <?php
+                            if (!function_exists('cbt_style_quote_paragraphs')) {
+                                function cbt_style_quote_paragraphs($html) {
+                                if (!is_string($html) || $html === '') return '';
 
+                                $doc = new DOMDocument();
+                                libxml_use_internal_errors(true);
+                                // Ensure proper encoding
+                                $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
+                                libxml_clear_errors();
+
+                                $paragraphs = $doc->getElementsByTagName('p');
+                                $i = 0;
+                                foreach ($paragraphs as $p) {
+                                    $existing = $p->getAttribute('class');
+
+                                    if ($i === 0) {
+                                    // First paragraph (Display sm / Bold)
+                                    $add = "text-white text-[30px] leading-[38px] font-bold font-primary pb-[2rem]";
+                                    } else {
+                                    // Second and subsequent paragraphs (Text lg / Regular)
+                                    $add = "text-white text-[18px] leading-[24px] font-normal font-secondary";
+                                    }
+
+                                    $p->setAttribute('class', trim($existing . ' ' . $add));
+                                    $i++;
+                                }
+
+                                // Get inner HTML back
+                                $body = $doc->getElementsByTagName('body')->item(0);
+                                $out = '';
+                                foreach ($body->childNodes as $child) {
+                                    $out .= $doc->saveHTML($child);
+                                }
+                                return $out;
+                                }
+                            }
+
+                            $styled_quote = cbt_style_quote_paragraphs($quote);
+                            ?>
+                            <blockquote class="text-white max-md:max-w-full wp_editor">
+                                <?php echo wp_kses_post($styled_quote); ?>
+                            </blockquote>
+                            <?php endif; ?>
                             <?php if ($author): ?>
-                                <cite class="mt-6 text-xl font-medium leading-7 text-white max-md:max-w-full not-italic">
+                                <cite class="mt-6 not-italic text-[20px] font-normal leading-[26px] font-secondary text-white max-md:max-w-full">
                                     <?php echo esc_html($author); ?>
                                 </cite>
                             <?php endif; ?>

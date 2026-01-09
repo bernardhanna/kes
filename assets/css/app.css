@@ -24,7 +24,6 @@
 
 
 html {
- /* max-width: 1920px; */
   @apply font-primary;
   width: 100%;
   margin: auto;
@@ -85,7 +84,7 @@ body {
   }
 
   .hamburger-box {
-    @apply relative inline-block w-10 h-6;
+    @apply inline-block relative w-10 h-6;
   }
 
   .hamburger-inner {
@@ -95,7 +94,7 @@ body {
   .hamburger-inner,
   .hamburger-inner:after,
   .hamburger-inner:before {
-    @apply absolute w-10 h-1 rounded bg-black;
+    @apply absolute w-10 h-1 bg-black rounded;
     transition-timing-function: ease;
     transition-duration: .15s;
     transition-property: transform;
@@ -2669,4 +2668,11 @@ aside .wc-block-product-categories-list-item {
 #wc-stripe-new-payment-method {
   width: 20px!important;
   height: 20px!important;
+}
+.gradient-one {
+      background-image: linear-gradient(to right, var(--tw-gradient-stops));
+    --tw-gradient-from: #2B3990 var(--tw-gradient-from-position);
+    --tw-gradient-to: rgb(43 57 144 / 0) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+    --tw-gradient-to: #006EC8 var(--tw-gradient-to-position);
 }

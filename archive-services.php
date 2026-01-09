@@ -48,10 +48,10 @@ $active_slug = 'all';
       <div class="flex overflow-hidden justify-between items-center self-stretch px-24 py-20 max-md:px-5">
         <div class="flex flex-col flex-1 shrink justify-center self-stretch my-auto w-full basis-0 min-w-60 max-md:max-w-full">
           <?php if (!empty($heading)): ?>
-            <div class="w-full text-4xl font-bold tracking-tighter leading-none text-violet-950 max-md:max-w-full">
+            <div class="w-full text-4xl font-bold tracking-tighter leading-none text-text-primary max-md:max-w-full">
               <<?php echo esc_attr($heading_tag); ?>
                 id="<?php echo esc_attr($section_id); ?>-heading"
-                class="text-violet-950 max-md:max-w-full"
+                class="text-text-primary max-md:max-w-full"
               >
                 <?php echo esc_html($heading); ?>
               </<?php echo esc_attr($heading_tag); ?>>

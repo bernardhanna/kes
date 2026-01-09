@@ -65,7 +65,7 @@ if ($selected_projects && is_array($selected_projects)) {
         <?php if (!empty($heading)): ?>
             <<?php echo esc_attr($heading_tag); ?>
                 id="<?php echo esc_attr($section_id); ?>-heading"
-                class="text-2xl font-bold text-violet-950 mb-8 text-center"
+                class="text-2xl font-bold text-text-primary mb-8 text-center"
             >
                 <?php echo esc_html($heading); ?>
             </<?php echo esc_attr($heading_tag); ?>>
@@ -76,7 +76,7 @@ if ($selected_projects && is_array($selected_projects)) {
                 <!-- Navigation Arrow Left -->
                 <button
                     type="button"
-                    class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-violet-950 focus:ring-offset-2 btn slick-prev-custom"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-prev-custom"
                     aria-label="Previous projects"
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -104,7 +104,7 @@ if ($selected_projects && is_array($selected_projects)) {
                         <article class="px-3">
                             <div class="flex flex-col justify-center w-full">
                                 <!-- Project Image with Label -->
-                                <div class="overflow-hidden w-full text-sm font-medium leading-none rounded-lg text-violet-950">
+                                <div class="overflow-hidden w-full text-sm font-medium leading-none rounded-lg text-text-primary">
                                     <div class="flex relative flex-col w-full aspect-[1.602]">
                                         <?php if ($project_image): ?>
                                             <?php echo wp_get_attachment_image($project_image, 'large', false, [
@@ -119,7 +119,7 @@ if ($selected_projects && is_array($selected_projects)) {
 
                                         <div class="flex relative gap-2.5 justify-center items-center pt-4 pr-7 pb-40 pl-4 w-full min-h-[196px] max-md:pr-5 max-md:pb-24">
                                             <div class="flex gap-2 justify-center items-center self-stretch px-3 py-1 my-auto bg-emerald-100 min-h-7 rounded-[100px]">
-                                                <span class="self-stretch my-auto text-sm font-medium text-violet-950">
+                                                <span class="self-stretch my-auto text-sm font-medium text-text-primary">
                                                     <?php echo esc_html($category_label); ?>
                                                 </span>
                                             </div>
@@ -129,10 +129,10 @@ if ($selected_projects && is_array($selected_projects)) {
 
                                 <!-- Project Details -->
                                 <div class="mt-4 w-full">
-                                    <h3 class="text-lg font-bold leading-none text-violet-950 mb-1">
+                                    <h3 class="text-lg font-bold leading-none text-text-primary mb-1">
                                         <a
                                             href="<?php echo esc_url($project_permalink); ?>"
-                                            class="hover:text-violet-700 focus:outline-none focus:ring-2 focus:ring-violet-950 focus:ring-offset-2 rounded"
+                                            class="hover:text-violet-700 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 rounded"
                                         >
                                             <?php echo esc_html($project_title); ?>
                                         </a>
@@ -154,7 +154,7 @@ if ($selected_projects && is_array($selected_projects)) {
                 <!-- Navigation Arrow Right -->
                 <button
                     type="button"
-                    class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-violet-950 focus:ring-offset-2 btn slick-next-custom"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-next-custom"
                     aria-label="Next projects"
                 >
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

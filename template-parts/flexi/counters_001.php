@@ -27,11 +27,11 @@ $section_id = 'counters-' . uniqid();
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     id="<?php echo esc_attr($section_id); ?>"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-9 pb-2.5 pl-8 max-lg:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-[1078px] pt-9 pb-2.5 pl-8 max-lg:px-5">
 
         <?php if (!empty($heading)): ?>
-            <header class="w-full mb-8 hidden">
-                <<?php echo esc_attr($heading_tag); ?> class="text-h2 font-bold text-text-primary">
+            <header class="hidden mb-8 w-full">
+                <<?php echo esc_attr($heading_tag); ?> class="font-bold text-h2 text-text-primary">
                     <?php echo esc_html($heading); ?>
                 </<?php echo esc_attr($heading_tag); ?>>
             </header>
@@ -55,7 +55,7 @@ $section_id = 'counters-' . uniqid();
                     $counter_id = "counter-{$index}";
                 ?>
                     <article
-                        class="flex gap-6 items-start min-h-[82px]"
+                        class="flex  items-start min-h-[82px]"
                         x-intersect.once="startCounter('<?php echo esc_attr($counter_id); ?>', <?php echo esc_attr($numeric_value); ?>)"
                     >
                         <div
@@ -69,14 +69,14 @@ $section_id = 'counters-' . uniqid();
                                     'class' => 'object-contain w-[82px] h-[82px]',
                                 ]); ?>
                             <?php else: ?>
-                                <div class="w-8 h-8 bg-neutral-300 rounded" aria-hidden="true"></div>
+                                <div class="w-8 h-8 rounded bg-neutral-300" aria-hidden="true"></div>
                             <?php endif; ?>
                         </div>
 
-                        <div class="min-h-14 text-slate-700 flex-1">
-                            <div class="flex flex-col items-start w-full text-lg font-medium leading-none">
+                        <div class="flex-1 min-h-14 text-slate-700">
+                            <div class="flex flex-col items-start w-full font-secondary">
                                 <span
-                                    class="text-slate-700 tabular-nums"
+                                    class="tabular-nums text-[18px] font-[500] leading-[24px] text-[#344054]"
                                     x-text="counters['<?php echo esc_attr($counter_id); ?>'] + '<?php echo esc_attr($counter_suffix); ?>'"
                                     aria-live="polite"
                                     aria-label="Counter value"
@@ -86,8 +86,8 @@ $section_id = 'counters-' . uniqid();
                             </div>
 
                             <?php if (!empty($description)): ?>
-                                <div class="flex flex-col justify-center py-0.5 mt-2 w-full text-base leading-none">
-                                    <p class="text-slate-700 m-0">
+                                <div class="flex flex-col justify-center py-0.5 mt-2 w-full text-secondary">
+                                    <p class="m-0 text-[16px] font-normal leading-[24px] text-[#344054]">
                                         <?php echo esc_html($description); ?>
                                     </p>
                                 </div>

@@ -15,12 +15,7 @@ $content_block_one
         ->addImage('image', [
             'label' => 'Main Image',
             'return_format' => 'array',
-            'instructions' => 'Upload the image shown on the left.',
-        ])
-        ->addTrueFalse('enable_gradient_overlay', [
-            'label' => 'Enable Gradient Overlay',
-            'ui' => 1,
-            'default_value' => 1,
+            'instructions' => 'Upload the image shown on the left/right.',
         ])
         ->addSelect('heading_tag', [
             'label' => 'Heading Tag',
@@ -55,72 +50,28 @@ $content_block_one
             'return_format' => 'array',
         ])
 
-    ->addTab('design_tab', ['label' => 'Design'])
-        ->addSelect('background_color', [
-            'label' => 'Background',
-            'choices' => [
-                'bg-white' => 'White',
-                'bg-gray-50' => 'Gray 50',
-                'bg-blue-dark' => 'Blue Dark',
-            ],
-            'default_value' => 'bg-white',
+    ->addTab('layout_tab', ['label' => 'Layout'])
+        ->addTrueFalse('reverse_layout', [
+            'label' => 'Reverse Layout (Image Right, Content Left)',
+            'ui' => 1,
+            'default_value' => 0,
         ])
-        ->addSelect('text_color', [
-            'label' => 'Text Color',
-            'choices' => [
-                'text-gray-800' => 'Gray 800',
-                'text-blue-dark' => 'Blue Dark',
-                'text-white' => 'White',
-                'text-black' => 'Black',
-            ],
-            'default_value' => 'text-gray-800',
-        ])
-        ->addSelect('accent_bar_color', [
-            'label' => 'Accent Bar Color',
-            'choices' => [
-                'bg-blue-bright' => 'Blue Bright',
-                'bg-black' => 'Black',
-                'bg-white' => 'White',
-                'bg-gray-900' => 'Gray 900',
-            ],
-            'default_value' => 'bg-blue-bright',
-        ])
-        ->addSelect('rounded', [
+        ->addSelect('image_radius', [
             'label' => 'Image Border Radius',
             'choices' => [
                 'rounded-none' => 'None',
-                'rounded' => 'Rounded',
-                'rounded-md' => 'Rounded md',
-                'rounded-lg' => 'Rounded lg',
-                'rounded-xl' => 'Rounded xl',
-                'rounded-2xl' => 'Rounded 2xl',
+                'rounded'      => 'Rounded',
+                'rounded-sm'   => 'Rounded sm',
+                'rounded-md'   => 'Rounded md',
+                'rounded-lg'   => 'Rounded lg',
+                'rounded-xl'   => 'Rounded xl',
+                'rounded-2xl'  => 'Rounded 2xl',
+                'rounded-3xl'  => 'Rounded 3xl',
             ],
-            'default_value' => 'rounded-none',
+            'default_value' => 'rounded-none', // editor default; template renders 10px unless changed
         ])
-        ->addSelect('gradient_from', [
-            'label' => 'Gradient From',
-            'choices' => [
-                'from-blue-dark' => 'from-blue-dark',
-                'from-black' => 'from-black',
-                'from-gray-900' => 'from-gray-900',
-            ],
-            'default_value' => 'from-blue-dark',
-            'conditional_logic' => [['field' => 'enable_gradient_overlay', 'operator' => '==', 'value' => 1]],
-        ])
-        ->addSelect('gradient_to', [
-            'label' => 'Gradient To',
-            'choices' => [
-                'to-blue-bright' => 'to-blue-bright',
-                'to-transparent' => 'to-transparent',
-                'to-gray-700' => 'to-gray-700',
-            ],
-            'default_value' => 'to-blue-bright',
-            'conditional_logic' => [['field' => 'enable_gradient_overlay', 'operator' => '==', 'value' => 1]],
-        ])
-
-    ->addTab('layout_tab', ['label' => 'Layout'])
         ->addRepeater('padding_settings', [
-            'label' => 'Padding Settings',
+            'label'        => 'Padding Settings',
             'instructions' => 'Customize padding for different screen sizes.',
             'button_label' => 'Add Screen Size Padding',
         ])

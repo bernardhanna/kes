@@ -1,127 +1,217 @@
 <?php
-// Generate unique section ID
-$section_id = 'sustainability_' . uniqid();
+/**
+ * Content Block Two (Flexible Content)
+ * - Only layout control: reverse layout
+ * - Two WYSIWYG editors with fixed typography
+ * - Uses get_sub_field throughout
+ * - Section wrapper + container per spec
+ * - Random section id
+ * - ACF link arrays for CTAs
+ * - No aspect-* or min-w-[...] classes
+ */
 
-// Content fields
-$heading = get_sub_field('heading');
-$heading_tag = get_sub_field('heading_tag');
-$content = get_sub_field('content');
-$image = get_sub_field('image');
-$image_alt = get_post_meta($image, '_wp_attachment_image_alt', true) ?: 'Sustainability image';
-$primary_button = get_sub_field('primary_button');
-$secondary_button = get_sub_field('secondary_button');
+// ===== Fields =====
+$show_section     = (bool) get_sub_field('show_section');
+$reverse_layout   = (bool) get_sub_field('reverse_layout');
 
-// Design fields
-$background_color = get_sub_field('background_color');
-$heading_color = get_sub_field('heading_color');
-$text_color = get_sub_field('text_color');
-$divider_color = get_sub_field('divider_color');
+$heading_tag      = get_sub_field('heading_tag') ?: 'h2';
+$heading          = get_sub_field('heading') ?: 'Sustainability';
 
-// Layout fields
-$reverse_layout = get_sub_field('reverse_layout');
+$wysiwyg_one      = get_sub_field('wysiwyg_one');   // 18/24
+$wysiwyg_two      = get_sub_field('wysiwyg_two');   // 16/20
 
-// Padding settings
+$image            = get_sub_field('image');
+
+$primary_cta      = get_sub_field('primary_cta');   // ACF link array
+$secondary_cta    = get_sub_field('secondary_cta'); // ACF link array
+
+// Padding classes
 $padding_classes = [];
 if (have_rows('padding_settings')) {
     while (have_rows('padding_settings')) {
         the_row();
-        $screen_size = get_sub_field('screen_size');
-        $padding_top = get_sub_field('padding_top');
+        $screen_size    = get_sub_field('screen_size');
+        $padding_top    = get_sub_field('padding_top');
         $padding_bottom = get_sub_field('padding_bottom');
-        $padding_classes[] = "{$screen_size}:pt-[{$padding_top}rem]";
-        $padding_classes[] = "{$screen_size}:pb-[{$padding_bottom}rem]";
+
+        if ($screen_size !== '' && $padding_top !== '' && $padding_top !== null) {
+            $padding_classes[] = "{$screen_size}:pt-[{$padding_top}rem]";
+        }
+        if ($screen_size !== '' && $padding_bottom !== '' && $padding_bottom !== null) {
+            $padding_classes[] = "{$screen_size}:pb-[{$padding_bottom}rem]";
+        }
     }
 }
+$padding_classes_str = !empty($padding_classes) ? ' ' . esc_attr(implode(' ', $padding_classes)) : '';
+
+// Guards
+if (!$show_section) {
+    return;
+}
+
+// Random section id
+$section_id = 'content-block-two-' . uniqid();
+
+// Image meta
+$img_url   = '';
+$img_alt   = 'Section image';
+$img_title = 'Section image';
+if (!empty($image) && is_array($image)) {
+    $img_url   = !empty($image['url'])   ? esc_url($image['url'])   : '';
+    $img_alt   = !empty($image['alt'])   ? esc_attr($image['alt'])  : $img_alt;
+    $img_title = !empty($image['title']) ? esc_attr($image['title']): $img_title;
+}
+
+// Allowed heading tags
+$allowed_tags = ['h1','h2','h3','h4','h5','h6','span','p'];
+if (!in_array($heading_tag, $allowed_tags, true)) {
+    $heading_tag = 'h2';
+}
+
+// Order utilities
+$img_col_order     = $reverse_layout ? 'order-2 lg:order-2' : 'order-2 lg:order-2'; // image stays right on lg by default
+$content_col_order = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:order-1'; // content stays left on lg by default
+// On mobile it's stacked; if you want true flip on lg only, keep as-is. If you want full flip (including lg), swap grid placement below instead.
+
 ?>
+<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative bg-white">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5 <?php echo $padding_classes_str; ?>">
+    <div class="grid grid-cols-1 gap-8 items-center w-full lg:grid-cols-2">
 
-<section
-    id="<?php echo esc_attr($section_id); ?>"
-    class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
-    style="background-color: <?php echo esc_attr($background_color); ?>;"
-    aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
->
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
-        <div class="flex relative mr-auto h-auto bg-white min-h-[auto] w-full <?php echo $reverse_layout ? 'max-md:flex-col max-md:min-h-[auto] md:flex-row-reverse' : 'max-md:flex-col max-md:min-h-[auto] md:flex-row'; ?>">
+      <?php
+      // Decide column order per reverse toggle: default is Content left, Image right
+      if ($reverse_layout) :
+        // Image left, Content right (reversed)
+        ?>
+        <!-- Image Column -->
+        <figure class="flex overflow-hidden relative items-center <?php echo esc_attr($img_col_order); ?>">
+          <?php if ($img_url): ?>
+            <img
+              src="<?php echo $img_url; ?>"
+              alt="<?php echo $img_alt; ?>"
+              title="<?php echo $img_title; ?>"
+              class="object-cover w-full h-auto rounded-none" />
+          <?php endif; ?>
+        </figure>
 
-            <!-- Content Section -->
-            <div class="flex relative flex-col gap-8 justify-center items-center  pr-10 w-[640px] max-md:px-10  max-md:w-full max-sm:px-5">
+        <!-- Content Column -->
+        <article class="flex flex-col gap-8 py-10 pr-10 pl-10 max-md:px-6 <?php echo esc_attr($content_col_order); ?>">
+          <header class="flex flex-col gap-1">
+            <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-10 text-text-primary">
+              <?php echo esc_html($heading); ?>
+            </<?php echo esc_attr($heading_tag); ?>>
+            <div class="w-8 h-1 bg-cyan-500" aria-hidden="true"></div>
+          </header>
 
-                <!-- Heading Section -->
-                <?php if (!empty($heading)): ?>
-                <header class="flex relative flex-col gap-1 items-start self-stretch">
-                    <<?php echo esc_attr($heading_tag); ?>
-                        id="<?php echo esc_attr($section_id); ?>-heading"
-                        class="relative self-stretch text-3xl font-bold leading-10 max-sm:text-2xl max-sm:leading-8"
-                        style="color: <?php echo esc_attr($heading_color); ?>;"
-                    >
-                        <?php echo esc_html($heading); ?>
-                    </<?php echo esc_attr($heading_tag); ?>>
-
-                    <div
-                        class="relative w-8 h-1"
-                        style="background-color: <?php echo esc_attr($divider_color); ?>;"
-                        role="presentation"
-                        aria-hidden="true"
-                    ></div>
-                </header>
-                <?php endif; ?>
-
-                <!-- Content Section -->
-                <?php if (!empty($content)): ?>
-                <main class="relative self-stretch text-base leading-5 max-sm:text-sm max-sm:leading-5 wp_editor" style="color: <?php echo esc_attr($text_color); ?>;">
-                    <?php echo wp_kses_post($content); ?>
-                </main>
-                <?php endif; ?>
-
-                <!-- Buttons Section -->
-                <?php if (($primary_button && is_array($primary_button) && isset($primary_button['url'], $primary_button['title'])) ||
-                          ($secondary_button && is_array($secondary_button) && isset($secondary_button['url'], $secondary_button['title']))): ?>
-                <div class="flex relative gap-8 items-start max-md:flex-col max-md:gap-4 max-md:w-full" role="group" aria-label="Action buttons">
-
-                    <!-- Primary Button -->
-                    <?php if ($primary_button && is_array($primary_button) && isset($primary_button['url'], $primary_button['title'])): ?>
-                    <a
-                        href="<?php echo esc_url($primary_button['url']); ?>"
-                        class="flex relative gap-2 justify-center items-center px-6 py-4 cursor-pointer h-[52px] rounded-[100px] max-md:w-full bg-primary text-white hover:bg-primary-dark focus:bg-primary-dark transition-colors duration-300 btn w-fit whitespace-nowrap"
-                        target="<?php echo esc_attr($primary_button['target'] ?? '_self'); ?>"
-                        aria-label="<?php echo esc_attr($primary_button['title']); ?>"
-                    >
-                        <span class="relative text-lg font-medium leading-6 max-sm:text-base">
-                            <?php echo esc_html($primary_button['title']); ?>
-                        </span>
-                    </a>
-                    <?php endif; ?>
-
-                    <!-- Secondary Button -->
-                    <?php if ($secondary_button && is_array($secondary_button) && isset($secondary_button['url'], $secondary_button['title'])): ?>
-                    <a
-                        href="<?php echo esc_url($secondary_button['url']); ?>"
-                        class="flex relative gap-2 justify-center items-center px-6 py-4 bg-white border-2 border-blue-900 border-solid cursor-pointer h-[52px] rounded-[100px] max-md:w-full text-blue-900 hover:bg-blue-900 hover:text-white focus:bg-blue-900 focus:text-white transition-colors duration-300 btn w-fit whitespace-nowrap"
-                        target="<?php echo esc_attr($secondary_button['target'] ?? '_self'); ?>"
-                        aria-label="<?php echo esc_attr($secondary_button['title']); ?>"
-                    >
-                        <span class="relative text-lg font-medium leading-6 max-sm:text-base">
-                            <?php echo esc_html($secondary_button['title']); ?>
-                        </span>
-                    </a>
-                    <?php endif; ?>
-
-                </div>
-                <?php endif; ?>
-
+          <?php if (!empty($wysiwyg_one)): ?>
+            <div class="wp_editor text-[18px] leading-[24px] font-normal text-slate-800">
+              <?php echo wp_kses_post($wysiwyg_one); ?>
             </div>
+          <?php endif; ?>
 
-            <!-- Image Section -->
-            <?php if ($image): ?>
-            <div class="flex relative flex-1 justify-center items-center rounded-lg max-md:py-10 max-md:pr-10 max-md:pl-0 max-md:w-full max-sm:p-5">
-                <?php echo wp_get_attachment_image($image, 'full', false, [
-                    'alt' => esc_attr($image_alt),
-                    'class' => 'relative rounded-lg h-[340px] w-[502px] max-md:relative max-md:top-0 max-md:left-0 max-md:w-full max-md:h-auto max-md:max-w-[502px] max-sm:w-full max-sm:max-w-full object-cover',
-                    'loading' => 'lazy'
-                ]); ?>
+          <?php if (!empty($wysiwyg_two)): ?>
+            <div class="wp_editor text-[16px] leading-[20px] font-normal text-slate-800">
+              <?php echo wp_kses_post($wysiwyg_two); ?>
             </div>
-            <?php endif; ?>
+          <?php endif; ?>
 
-        </div>
+          <?php if (!empty($primary_cta) || !empty($secondary_cta)): ?>
+            <nav class="flex flex-wrap gap-4" aria-label="Section actions">
+              <?php if (!empty($primary_cta) && is_array($primary_cta)): ?>
+                <?php
+                  $p_url    = !empty($primary_cta['url']) ? esc_url($primary_cta['url']) : '#';
+                  $p_title  = !empty($primary_cta['title']) ? esc_html($primary_cta['title']) : 'Primary action';
+                  $p_target = !empty($primary_cta['target']) ? esc_attr($primary_cta['target']) : '_self';
+                ?>
+                    <a href="<?php echo $p_url; ?>" target="<?php echo $p_target; ?>"
+                    class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 h-[52px] rounded-full text-[18px] font-medium leading-[24px] text-white bg-gradient-to-r from-[#2B3990] to-[#006EC8] hover:from-[#243080] hover:to-[#005eb0] transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200">
+                    <span><?php echo $p_title; ?></span>
+                    </a>
+              <?php endif; ?>
+
+              <?php if (!empty($secondary_cta) && is_array($secondary_cta)): ?>
+                <?php
+                  $s_url    = !empty($secondary_cta['url']) ? esc_url($secondary_cta['url']) : '#';
+                  $s_title  = !empty($secondary_cta['title']) ? esc_html($secondary_cta['title']) : 'Secondary action';
+                  $s_target = !empty($secondary_cta['target']) ? esc_attr($secondary_cta['target']) : '_self';
+                ?>
+                <a href="<?php echo $s_url; ?>" target="<?php echo $s_target; ?>"
+                   class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 bg-white border-2 border-blue-900 border-solid h-[52px] rounded-full text-[18px] font-medium leading-[24px] text-[#2B3990] hover:bg-blue-50 hover:border-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                  <span class="text-[#2B3990]"><?php echo $s_title; ?></span>
+                </a>
+              <?php endif; ?>
+            </nav>
+          <?php endif; ?>
+        </article>
+
+      <?php else: ?>
+        <!-- Default: Content left, Image right -->
+
+        <!-- Content Column -->
+        <article class="flex flex-col gap-8 py-10 pr-10 pl-10 max-md:px-6 <?php echo esc_attr($content_col_order); ?>">
+          <header class="flex flex-col gap-1">
+            <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-10 text-text-primary">
+              <?php echo esc_html($heading); ?>
+            </<?php echo esc_attr($heading_tag); ?>>
+            <div class="w-8 h-1 bg-cyan-500" aria-hidden="true"></div>
+          </header>
+
+          <?php if (!empty($wysiwyg_one)): ?>
+            <div class="wp_editor text-[18px] leading-[24px] font-normal text-slate-800">
+              <?php echo wp_kses_post($wysiwyg_one); ?>
+            </div>
+          <?php endif; ?>
+
+          <?php if (!empty($wysiwyg_two)): ?>
+            <div class="wp_editor text-[16px] leading-[20px] font-normal text-slate-800">
+              <?php echo wp_kses_post($wysiwyg_two); ?>
+            </div>
+          <?php endif; ?>
+
+          <?php if (!empty($primary_cta) || !empty($secondary_cta)): ?>
+            <nav class="flex flex-wrap gap-4" aria-label="Section actions">
+              <?php if (!empty($primary_cta) && is_array($primary_cta)): ?>
+                <?php
+                  $p_url    = !empty($primary_cta['url']) ? esc_url($primary_cta['url']) : '#';
+                  $p_title  = !empty($primary_cta['title']) ? esc_html($primary_cta['title']) : 'Primary action';
+                  $p_target = !empty($primary_cta['target']) ? esc_attr($primary_cta['target']) : '_self';
+                ?>
+                <a href="<?php echo $p_url; ?>" target="<?php echo $p_target; ?>"
+                   class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 h-[52px] rounded-full text-lg font-medium leading-6 text-white gradient-one transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200">
+                  <span><?php echo $p_title; ?></span>
+                </a>
+              <?php endif; ?>
+
+              <?php if (!empty($secondary_cta) && is_array($secondary_cta)): ?>
+                <?php
+                  $s_url    = !empty($secondary_cta['url']) ? esc_url($secondary_cta['url']) : '#';
+                  $s_title  = !empty($secondary_cta['title']) ? esc_html($secondary_cta['title']) : 'Secondary action';
+                  $s_target = !empty($secondary_cta['target']) ? esc_attr($secondary_cta['target']) : '_self';
+                ?>
+                <a href="<?php echo $s_url; ?>" target="<?php echo $s_target; ?>"
+                   class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 bg-white border-2 border-blue-900 border-solid h-[52px] rounded-full text-lg font-medium leading-6 text-[#2B3990] hover:bg-blue-50 hover:border-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+                  <span class="text-[#2B3990]"><?php echo $s_title; ?></span>
+                  <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-4 h-4">
+                    <path d="M3.3335 8.00004H12.6668M12.6668 8.00004L8.00016 3.33337M12.6668 8.00004L8.00016 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </a>
+              <?php endif; ?>
+            </nav>
+          <?php endif; ?>
+        </article>
+
+        <!-- Image Column -->
+        <figure class="flex overflow-hidden relative items-center <?php echo esc_attr($img_col_order); ?>">
+          <?php if ($img_url): ?>
+            <img
+              src="<?php echo $img_url; ?>"
+              alt="<?php echo $img_alt; ?>"
+              title="<?php echo $img_title; ?>"
+              class="object-cover w-full h-auto rounded-none max-w-[502px] max-h-[340px]" />
+          <?php endif; ?>
+        </figure>
+      <?php endif; ?>
+
     </div>
+  </div>
 </section>

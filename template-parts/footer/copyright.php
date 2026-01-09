@@ -8,8 +8,8 @@ $links        = get_field('footer_links', 'option');
 $credits_text = get_field('credits_text', 'option');
 
 // Base classes (no design options)
-$container_classes = 'box-border flex relative justify-between items-center px-6 py-4 mx-auto w-full max-w-screen-xl  max-md:px-4 max-md:py-3 max-sm:flex-col max-sm:gap-4 max-sm:items-start';
-$link_text_classes = 'text-sm leading-5 text-violet-950';
+$container_classes = 'box-border flex relative justify-between items-center px-10 py-4 mx-auto w-full max-w-screen-xl  max-md:px-4 max-md:py-3 max-sm:flex-col max-sm:gap-4 max-sm:items-start';
+$link_text_classes = 'text-sm leading-5 text-text-primary';
 
 // Build a simple array for the select
 $options = [];
@@ -27,21 +27,21 @@ if (!empty($links) && is_array($links)) {
 ?>
 
 <footer role="contentinfo" aria-label="<?php echo esc_attr(get_bloginfo('name')); ?> footer">
-  <nav class="<?php echo esc_attr($container_classes); ?>" aria-label="Footer navigation" role="navigation">
+  <nav class="<?php echo esc_attr($container_classes); ?> px-5" aria-label="Footer navigation" role="navigation">
     
     <?php if (!empty($options)) : ?>
       <!-- Desktop/Tablet list (>= sm) -->
-      <ul class="hidden sm:flex gap-8 items-start max-md:gap-6 list-none m-0 p-0" role="list">
+      <ul class="hidden gap-8 items-start p-0 m-0 list-none sm:flex max-md:gap-6" role="list">
         <?php foreach ($options as $opt): ?>
           <li class="flex flex-col items-start pt-0.5">
             <a
               href="<?php echo $opt['url']; ?>"
               target="<?php echo $opt['target']; ?>"
-              class="nav-link flex gap-1 items-center <?php echo esc_attr($link_text_classes); ?> no-underline transition-colors duration-200 hover:text-violet-800 focus:text-violet-800 focus:outline focus:outline-2 focus:outline-violet-600"
+              class="nav-link flex gap-1 items-center <?php echo esc_attr($link_text_classes); ?>  underline hover:no-underline transition-colors duration-200 hover:text-text-primary-light focus:text-text-primary-light focus:outline focus:outline-2 focus:outline-text-primary-light"
             >
               <span class="text-sm"><?php echo $opt['label']; ?></span>
             </a>
-            <div class="nav-underline h-px bg-violet-950 mt-1" role="presentation" aria-hidden="true"></div>
+            <div class="mt-1 h-px nav-underline bg-text-primary" role="presentation" aria-hidden="true"></div>
           </li>
         <?php endforeach; ?>
       </ul>
@@ -51,7 +51,7 @@ if (!empty($links) && is_array($links)) {
         <label for="footer-nav-select" class="sr-only"><?php esc_html_e('Footer navigation', 'matrix'); ?></label>
         <select
           id="footer-nav-select"
-          class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm leading-5 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-600"
+          class="block px-3 py-2 w-full text-sm leading-5 bg-white rounded-md border border-gray-300 text-text-primary focus:outline-none focus:ring-2 focus:ring-text-primary-light"
           aria-label="<?php esc_attr_e('Footer navigation', 'matrix'); ?>"
         >
           <option value=""><?php esc_html_e('Navigate to…', 'matrix'); ?></option>
@@ -65,7 +65,7 @@ if (!empty($links) && is_array($links)) {
     <?php endif; ?>
 
     <div class="<?php echo esc_attr($link_text_classes); ?>" role="contentinfo" aria-label="Site credits">
-      <p class="text-sm max-sm:text-xs m-0">
+      <p class="m-0 text-sm max-sm:text-xs">
         <?php echo $credits_text ? esc_html($credits_text) : esc_html__('Designed & Developed by Matrix Internet', 'matrix'); ?>
       </p>
     </div>

@@ -18,6 +18,19 @@ $faq_003
       'label' => 'Heading Text',
       'default_value' => 'FAQs',
     ])
+    ->addTrueFalse('show_cta', [
+    'label'         => 'Show bottom CTA button',
+    'ui'            => 1,
+    'default_value' => 0,
+    ])
+    ->addLink('cta_link', [
+      'label'            => 'CTA Link',
+      'instructions'     => 'Select the link for the bottom button.',
+      'return_format'    => 'array',
+      'conditional_logic'=> [
+        [ ['field' => 'show_cta', 'operator' => '==', 'value' => 1] ],
+      ],
+    ])
     // Manual select is the default behaviour
     ->addTrueFalse('display_all', [
       'label' => 'Display all FAQs (ignore manual selection)',

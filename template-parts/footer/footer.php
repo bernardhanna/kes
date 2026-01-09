@@ -33,11 +33,11 @@ if (!empty($footer_links) && is_array($footer_links)) {
 }
 ?>
 
-<footer class="w-full relative" role="contentinfo" aria-label="<?php echo esc_attr(get_bloginfo('name')); ?> footer">
-  <div class="w-full mx-auto max-w-container max-xl:px-5">
+<footer class="relative w-full" role="contentinfo" aria-label="<?php echo esc_attr(get_bloginfo('name')); ?> footer">
+  <div class="mx-auto w-full max-w-container max-xl:px-5">
 
     <!-- Logo row -->
-    <div class="flex flex-col items-start pt-5 w-full">
+    <div class="flex flex-col items-start pt-5 mb-4 w-full border-t-[2px] border-[#CBE9E1] border-l-none border-r-none">
       <?php if ($logo_url): ?>
         <img
           src="<?php echo esc_url($logo_url); ?>"
@@ -48,18 +48,19 @@ if (!empty($footer_links) && is_array($footer_links)) {
       <?php endif; ?>
     </div>
 
-    <div class="flex flex-wrap justify-between items-center  py-4 mt-4 w-full">
+    <div class="flex flex-wrap justify-between items-center py-4 w-full 
+    border-y-[2px] border-[#CBE9E1] border-l-none border-r-none">
       <nav class="flex flex-1 items-center my-auto basis-0 min-w-60" aria-label="Footer navigation" role="navigation">
         <?php if (!empty($link_items)): ?>
 
           <!-- Desktop/Tablet list (>= sm) -->
-          <ul class="hidden sm:flex flex-wrap gap-6 items-center text-base font-medium leading-none text-violet-950 list-none m-0 p-0" role="list">
+          <ul class="hidden flex-wrap gap-6 items-center p-0 m-0 text-base font-medium leading-none list-none sm:flex text-text-primary" role="list">
             <?php foreach ($link_items as $it): ?>
               <li class="flex flex-col justify-center pt-1">
                 <a
                   href="<?php echo $it['url']; ?>"
                   target="<?php echo $it['target']; ?>"
-                  class="nav-link flex gap-1 items-center text-violet-950 hover:text-violet-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-600"
+                  class="flex gap-1 items-center nav-link text-text-primary hover:text-text-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light hover:underline"
                 >
                   <span class="text-base"><?php echo $it['label']; ?></span>
                 </a>
@@ -72,7 +73,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
             <label for="footer-nav-select" class="sr-only"><?php esc_html_e('Footer navigation', 'matrix'); ?></label>
             <select
               id="footer-nav-select"
-              class="block w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm leading-5 text-violet-950 focus:outline-none focus:ring-2 focus:ring-violet-600"
+              class="block px-3 py-2 w-full text-sm leading-5 bg-white rounded-md border border-gray-300 text-text-primary focus:outline-none focus:ring-2 focus:ring-text-primary-light"
               aria-label="<?php esc_attr_e('Footer navigation', 'matrix'); ?>"
             >
               <option value=""><?php esc_html_e('Quick Links…', 'matrix'); ?></option>
@@ -89,11 +90,11 @@ if (!empty($footer_links) && is_array($footer_links)) {
 
       <!-- Social -->
       <?php if (!empty($social_links) && is_array($social_links)): ?>
-        <div class="flex gap-4 justify-end items-center my-auto min-w-60 py-4 sm:py-0" role="complementary" aria-label="<?php esc_attr_e('Social media links', 'matrix'); ?>">
-          <p class="text-base leading-none text-violet-950 m-0 max-sm:hidden sm:block">
+        <div class="flex gap-4 justify-end items-center py-4 my-auto min-w-60 sm:py-0" role="complementary" aria-label="<?php esc_attr_e('Social media links', 'matrix'); ?>">
+          <p class="m-0 text-base leading-none text-text-primary max-sm:hidden sm:block">
             <?php echo esc_html($follow_us_text); ?>
           </p>
-          <ul class="flex gap-4 items-center list-none m-0 p-0" role="list">
+          <ul class="flex gap-4 items-center p-0 m-0 list-none" role="list">
             <?php foreach ($social_links as $row):
                 $label = $row['label'] ?? '';
                 $url   = $row['url'] ?? '';
@@ -106,7 +107,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
             ?>
               <li>
                 <a href="<?php echo esc_url($url); ?>"
-                   class="block w-9 h-9 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-violet-600"
+                   class="block w-9 h-9 underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light hover:non-underline hover:opacity-50"
                    aria-label="<?php echo esc_attr(sprintf(__('Follow us on %s', 'matrix'), $label)); ?>"
                    target="_blank" rel="noopener noreferrer">
                   <?php if ($icon_url): ?>
