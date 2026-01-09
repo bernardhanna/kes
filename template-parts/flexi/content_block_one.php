@@ -80,7 +80,7 @@ $body_text_color    = 'text-gray-800';
 $accent_bar_class   = 'bg-blue-bright';
 
 // Order utilities based on reverse toggle
-$img_order_classes     = $reverse_layout ? 'order-2 lg:order-2' : 'order-2 lg:order-1';
+$img_order_classes     = $reverse_layout ? 'order-2 lg:order-2' : 'order-1 lg:order-1';
 $content_order_classes = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:order-2';
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" class="relative flex overflow-hidden <?php echo esc_attr($section_bg_class); ?>">
