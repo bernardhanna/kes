@@ -3,7 +3,7 @@
 # Force use of nodenv shims (Node 21 + npm) for Plesk deploys
 export PATH="/var/www/vhosts/matrix-test.com/.nodenv/shims:$PATH"
 
-# DEBUG: log which node/npm/version Plesk is using (remove later if you like)
+# DEBUG: log which node/npm/version Plesk is using (you can remove later)
 echo "Plesk deploy: node path    = $(which node)"
 echo "Plesk deploy: node version = $(node -v)"
 echo "Plesk deploy: npm path     = $(which npm)"
