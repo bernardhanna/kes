@@ -80,7 +80,8 @@ body {
   .hamburger.is-active .hamburger-inner,
   .hamburger.is-active .hamburger-inner:after,
   .hamburger.is-active .hamburger-inner:before {
-    @apply bg-black;
+    @apply bg-primary;
+        height: 2px;
   }
 
   .hamburger-box {
