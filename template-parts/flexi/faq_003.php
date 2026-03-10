@@ -106,7 +106,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
     <div class="flex flex-col gap-4 pb-4 mb-8 w-full">
       <?php if (!empty($heading_text)): ?>
         <<?php echo esc_attr($heading_tag); ?>
-          class="text-4xl font-bold leading-tight font-red-hat-display lg:text-5xl"
+          class="text-[30px] font-bold leading-[38px] font-red-hat-display sm:text-4xl sm:leading-tight lg:text-5xl"
           style="color: <?php echo esc_attr($heading_color); ?>;"
         >
           <?php echo esc_html($heading_text); ?>
@@ -127,7 +127,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
           ?>
           <article
             x-data="{ open: false }"
-            class="flex flex-col gap-2 p-4 rounded-lg border transition-all duration-200"
+            class="flex flex-col gap-2 p-4 rounded-lg border transition-all duration-200 hover:bg-teal-light"
             :style="open
               ? 'border-width:4px;border-color:<?php echo esc_js($active_border_color); ?>'
               : 'border-width:1px;border-color:<?php echo esc_js($border_color); ?>'"
@@ -156,7 +156,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
 
               <!-- Question -->
               <h3 id="<?php echo esc_attr($qid); ?>"
-                  class="flex-1 text-lg  font-secondary font-[700]"
+                  class="flex-1 text-lg font-secondary font-[700] max-sm:text-[16px] max-sm:leading-[22px]"
                   style="color: <?php echo esc_attr($question_color); ?>;">
                 <?php echo esc_html($faq['title']); ?>
               </h3>
@@ -170,7 +170,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
               class="flex flex-col gap-4 pl-14 mt-2"
               aria-labelledby="<?php echo esc_attr($qid); ?>"
             >
-              <div class="text-base font-normal leading-[20px] text-[#344054] wp_editor font-secondary">
+              <div class="text-base font-normal leading-[20px] text-[#344054] wp_editor font-secondary max-sm:text-[14px] max-sm:leading-[20px]">
                 <?php echo wp_kses_post($faq['content']); ?>
               </div>
             </div>
@@ -178,7 +178,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
         <?php endforeach; ?>
       </div>
     </div>
-        <div clas="w-full mx-auto py-24">
+        <div class="pb-16 mx-auto w-full">
             <?php
             $show_cta = (bool) get_sub_field('show_cta');
             $cta_link = get_sub_field('cta_link'); // ACF link array
@@ -197,9 +197,9 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
                   rel="<?php echo esc_attr($rel); ?>"
                   role="button"
                   aria-label="<?php echo esc_attr($aria); ?>"
-                  class="btn flex relative gap-2 justify-center items-center px-6 py-3.5 bg-white border-2 border-blue-900 border-solid transition-all duration-200 cursor-pointer ease-[ease-in-out] h-[52px] w-fit whitespace-nowrap rounded-[100px] max-md:px-5 max-md:py-3 max-md:h-12 max-sm:px-5 max-sm:py-2.5 max-sm:w-full max-sm:max-w-full max-sm:h-11 hover:bg-blue-50 hover:border-blue-700 active:bg-blue-100"
+                  class="btn flex relative gap-2 justify-center items-center px-6 py-3.5 bg-white border-2 border-primary border-solid transition-all duration-200 cursor-pointer ease-[ease-in-out] h-[52px] w-fit whitespace-nowrap rounded-[100px] max-md:px-5 max-md:py-3 max-md:h-12 max-sm:px-5 max-sm:py-2.5 max-sm:w-full max-sm:max-w-full max-sm:h-[38px] sm:h-[52px] sm:w-fit hover:bg-teal-light hover:border-teal-light active:bg-blue-100 active:border-blue-100 focus-visible:outline-none focus-visible:border-[3px] focus-visible:border-blue-100 focus-visible:bg-base-white"
                 >
-                  <span class="relative text-lg font-medium leading-6 text-blue-900 max-md:text-base max-md:leading-6 max-sm:text-sm max-sm:leading-5">
+                  <span class="relative text-lg font-medium leading-6 text-primary max-md:text-base max-md:leading-6 max-sm:text-sm max-sm:leading-5">
                     <?php echo esc_html($title); ?>
                   </span>
                 </a>

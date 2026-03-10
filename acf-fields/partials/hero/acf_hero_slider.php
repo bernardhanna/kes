@@ -13,15 +13,92 @@ $hero_slider
             'layout' => 'block',
             'min' => 1,
         ])
+            ->addSelect('slide_type', [
+                'label' => 'Slide type',
+                'choices' => [
+                    'content' => 'Content (image + text + buttons)',
+                    'map' => 'Map (Leaflet map with locations)',
+                ],
+                'default_value' => 'content',
+            ])
             ->addImage('background_image', [
                 'label' => 'Background Image',
                 'return_format' => 'array',
                 'instructions' => 'Upload the background image for this slide.',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'content']],
+            ])
+            ->addImage('background_image_mobile', [
+                'label' => 'Background Image (Mobile)',
+                'return_format' => 'array',
+                'instructions' => 'Optional. Replaces the background image from 640px and down. Leave empty to use the main background image on all screens.',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'content']],
             ])
             ->addTrueFalse('show_gradient', [
                 'label' => 'Enable Gradient Overlay',
                 'ui' => 1,
                 'default_value' => 1,
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'content']],
+            ])
+            ->addNumber('map_center_lat', [
+                'label' => 'Map center latitude',
+                'instructions' => 'e.g. 53.349805',
+                'step' => 'any',
+                'min' => -90,
+                'max' => 90,
+                'default_value' => 53.349805,
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addNumber('map_center_lng', [
+                'label' => 'Map center longitude',
+                'instructions' => 'e.g. -6.26031',
+                'step' => 'any',
+                'min' => -180,
+                'max' => 180,
+                'default_value' => -6.26031,
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addNumber('map_zoom', [
+                'label' => 'Map zoom',
+                'instructions' => 'Initial zoom level (e.g. 4–12).',
+                'min' => 1,
+                'max' => 18,
+                'default_value' => 6,
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addSelect('map_tile_provider', [
+                'label' => 'Map style (tiles)',
+                'choices' => [
+                    'osm' => 'OpenStreetMap (default)',
+                    'cartodb_voyager' => 'CartoDB Voyager (blue water)',
+                    'jawg-light' => 'Jawg Light (requires API key)',
+                    'jawg-dark' => 'Jawg Dark (requires API key)',
+                ],
+                'default_value' => 'cartodb_voyager',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addText('map_tile_api_key', [
+                'label' => 'Jawg API key (optional)',
+                'instructions' => 'Only needed for Jawg Light/Dark. Leave empty to use OpenStreetMap.',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addTrueFalse('map_style_blue', [
+                'label' => 'Apply blue tint (map styling)',
+                'ui' => 1,
+                'default_value' => 1,
+                'instructions' => 'Blue land/water style similar to reference. Uses CSS filter on map.',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addTrueFalse('map_show_gradient', [
+                'label' => 'Show gradient overlay on map',
+                'ui' => 1,
+                'default_value' => 1,
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addImage('map_marker_image', [
+                'label' => 'Custom map marker image',
+                'return_format' => 'array',
+                'instructions' => 'Optional. Upload a custom pin/marker for this map. Leave empty to use the default location pin.',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
             ])
             ->addSelect('title_tag', [
                 'label' => 'Title Tag',
@@ -31,6 +108,7 @@ $hero_slider
                     'span' => 'span', 'p' => 'p',
                 ],
                 'default_value' => 'h1',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'content']],
             ])
             ->addWysiwyg('title', [
                 'label' => 'Title',
@@ -38,12 +116,14 @@ $hero_slider
                 'tabs' => 'all',
                 'delay' => 0,
                 'instructions' => 'You can include <span> for emphasis if desired.',
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'content']],
             ])
             ->addWysiwyg('description', [
                 'label' => 'Description',
                 'media_upload' => 0,
                 'tabs' => 'all',
                 'delay' => 0,
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'content']],
             ])
             ->addRepeater('buttons', [
                 'label' => 'Buttons',
@@ -51,6 +131,7 @@ $hero_slider
                 'layout' => 'table',
                 'min' => 0,
                 'max' => 2,
+                'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'content']],
             ])
                 ->addLink('button_link', [
                     'label' => 'Button Link',

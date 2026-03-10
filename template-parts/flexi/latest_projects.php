@@ -68,12 +68,20 @@ if (empty($projects)) {
 $section_id = 'latest-projects-' . uniqid();
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative bg-white">
+<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative bg-[#FCFDFE]">
   <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
 
+    <?php
+      if (!empty($cta_link) && is_array($cta_link)) {
+        $cta_url    = !empty($cta_link['url']) ? esc_url($cta_link['url']) : '#';
+        $cta_title  = !empty($cta_link['title']) ? esc_html($cta_link['title']) : 'View all our projects';
+        $cta_target = !empty($cta_link['target']) ? esc_attr($cta_link['target']) : '_self';
+        $cta_class  = 'btn w-fit whitespace-nowrap flex gap-2 justify-center items-center px-4 py-2.5 h-[38px] font-secondary text-sm font-medium leading-[20px] text-blue-dark bg-base-white border-2 border-blue-dark border-solid rounded-[100px] hover:bg-teal-light hover:border-blue-dark active:bg-blue-100 active:border-blue-dark focus-visible:outline-[3px] focus-visible:outline focus-visible:outline-blue-100 focus-visible:outline-offset-2 focus-visible:bg-base-white transition-colors duration-200 max-sm:w-full sm:w-fit';
+      }
+    ?>
     <div class="w-full">
 
-      <!-- Header -->
+      <!-- Header (button shown here on lg only) -->
       <div class="flex flex-col gap-8 mb-4 lg:flex-row lg:justify-between lg:items-start">
         <div class="flex-1">
           <div class="mb-5">
@@ -90,30 +98,15 @@ $section_id = 'latest-projects-' . uniqid();
           <?php endif; ?>
         </div>
         <?php if (!empty($cta_link) && is_array($cta_link)): ?>
-          <?php
-            $cta_url    = !empty($cta_link['url']) ? esc_url($cta_link['url']) : '#';
-            $cta_title  = !empty($cta_link['title']) ? esc_html($cta_link['title']) : 'View all our projects';
-            $cta_target = !empty($cta_link['target']) ? esc_attr($cta_link['target']) : '_self';
-          ?>
-          <a
-            href="<?php echo $cta_url; ?>"
-            target="<?php echo $cta_target; ?>"
-            class="btn w-fit whitespace-nowrap flex gap-2 justify-center items-center px-4 py-2.5 text-[14px] font-medium leading-[20px] text-[#2B3990] bg-white border-2 border-blue-900 border-solid rounded-[100px] hover:bg-blue-50 hover:border-blue-700 transition-colors duration-200 h-[38px] relative right-5"
-            aria-label="<?php echo esc_attr($cta_title . ' - opens project gallery'); ?>"
-          >
-            <span class="text-blue-900">
-              <?php echo $cta_title; ?>
-            </span>
-            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-4 h-4">
-              <path d="M3.3335 8.00004H12.6668M12.6668 8.00004L8.00016 3.33337M12.6668 8.00004L8.00016 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-            </svg>
+          <a href="<?php echo $cta_url; ?>" target="<?php echo $cta_target; ?>" class="<?php echo esc_attr($cta_class); ?> relative right-5 xxl:right-[2rem] max-lg:hidden" aria-label="<?php echo esc_attr($cta_title . ' - opens project gallery'); ?>">
+            <span class="text-blue-dark"><?php echo $cta_title; ?></span>
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-4 h-4"><path d="M3.3335 8.00004H12.6668M12.6668 8.00004L8.00016 3.33337M12.6668 8.00004L8.00016 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </a>
         <?php endif; ?>
-
       </div>
 
       <!-- Grid -->
-      <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+      <div class="grid grid-cols-1 gap-4 md:gap-8 sm:grid-cols-3 lg:grid-cols-3 lg:gap-10">
         <?php foreach ($projects as $p): ?>
           <?php
             $pid   = is_object($p) ? $p->ID : (int) $p;
@@ -140,7 +133,7 @@ $section_id = 'latest-projects-' . uniqid();
               <?php endif; ?>
             </a>
 
-            <div class="flex flex-col gap-3">
+            <div class="flex relative flex-col gap-3 lg:left-4">
               <span class="text-[20px] font-[500] leading-[26px] font-secondary text-[#1D2939]">
                 <a class="text-[#1D2939]" href="<?php echo $perma; ?>"><?php echo $title; ?></a>
               </span>
@@ -153,6 +146,15 @@ $section_id = 'latest-projects-' . uniqid();
           </article>
         <?php endforeach; ?>
       </div>
+
+      <?php if (!empty($cta_link) && is_array($cta_link)): ?>
+        <div class="flex justify-center items-center mt-8 w-full lg:hidden">
+          <a href="<?php echo $cta_url; ?>" target="<?php echo $cta_target; ?>" class="<?php echo esc_attr($cta_class); ?> mx-auto max-sm:mx-0" aria-label="<?php echo esc_attr($cta_title . ' - opens project gallery'); ?>">
+            <span class="text-blue-dark"><?php echo $cta_title; ?></span>
+            <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-4 h-4"><path d="M3.3335 8.00004H12.6668M12.6668 8.00004L8.00016 3.33337M12.6668 8.00004L8.00016 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </a>
+        </div>
+      <?php endif; ?>
 
     </div>
 

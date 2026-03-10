@@ -28,41 +28,47 @@ if (!empty($footer_links) && is_array($footer_links)) {
             'url'    => esc_url($link['url']),
             'label'  => !empty($link['title']) ? esc_html($link['title']) : esc_html__('Learn more', 'matrix'),
             'target' => !empty($link['target']) ? esc_attr($link['target']) : '_self',
+            'active' => (isset($link['url']) && $link['url'] !== '' && (string) $link['url'] === (string) get_permalink(get_queried_object_id())),
         ];
     }
 }
 ?>
 
 <footer class="relative w-full" role="contentinfo" aria-label="<?php echo esc_attr(get_bloginfo('name')); ?> footer">
-  <div class="mx-auto w-full max-w-container max-xl:px-5">
+  <!-- Full-width border line -->
+  <div class="w-full border-t-[2px] border-[#CBE9E1]" aria-hidden="true"></div>
 
-    <!-- Logo row -->
-    <div class="flex flex-col items-start pt-5 mb-4 w-full border-t-[2px] border-[#CBE9E1] border-l-none border-r-none">
-      <?php if ($logo_url): ?>
-        <img
-          src="<?php echo esc_url($logo_url); ?>"
-          alt="<?php echo esc_attr($logo_alt); ?>"
-          title="<?php echo esc_attr($logo_title); ?>"
-          class="object-contain max-w-full w-[162px]"
-        />
-      <?php endif; ?>
-    </div>
+  <!-- Logo row (content at max width) -->
+  <div class="pt-5 mx-auto mb-4 w-full max-w-container max-xl:px-5">
+    <?php if ($logo_url): ?>
+      <img
+        src="<?php echo esc_url($logo_url); ?>"
+        alt="<?php echo esc_attr($logo_alt); ?>"
+        title="<?php echo esc_attr($logo_title); ?>"
+        class="object-contain max-w-full w-[162px]"
+      />
+    <?php endif; ?>
+  </div>
 
-    <div class="flex flex-wrap justify-between items-center py-4 w-full 
-    border-y-[2px] border-[#CBE9E1] border-l-none border-r-none">
+  <!-- Full-width border line -->
+  <div class="w-full border-t-[2px] border-[#CBE9E1]" aria-hidden="true"></div>
+
+  <!-- Nav + Social (content at max width) -->
+  <div class="flex flex-wrap justify-between items-center py-4 mx-auto w-full max-w-container max-xl:px-5 max-md:flex-col max-md:items-start">
       <nav class="flex flex-1 items-center my-auto basis-0 min-w-60" aria-label="Footer navigation" role="navigation">
         <?php if (!empty($link_items)): ?>
 
           <!-- Desktop/Tablet list (>= sm) -->
-          <ul class="hidden flex-wrap gap-6 items-center p-0 m-0 text-base font-medium leading-none list-none sm:flex text-text-primary" role="list">
+          <ul class="hidden flex-wrap gap-6 items-center p-0 m-0 list-none sm:flex max-md:flex-col max-md:items-start" role="list">
             <?php foreach ($link_items as $it): ?>
               <li class="flex flex-col justify-center pt-1">
                 <a
                   href="<?php echo $it['url']; ?>"
                   target="<?php echo $it['target']; ?>"
-                  class="flex gap-1 items-center nav-link text-text-primary hover:text-text-primary-light focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light hover:underline"
+                  class="footer-nav-link flex gap-1 items-center font-secondary text-base font-medium leading-[22px] text-primary relative pb-3 after:content-[''] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary max-md:font-[500] <?php echo !empty($it['active']) ? 'active-item' : ''; ?>"
+                  <?php echo !empty($it['active']) ? ' aria-current="page"' : ''; ?>
                 >
-                  <span class="text-base"><?php echo $it['label']; ?></span>
+                  <?php echo $it['label']; ?>
                 </a>
               </li>
             <?php endforeach; ?>
@@ -73,7 +79,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
             <label for="footer-nav-select" class="sr-only"><?php esc_html_e('Footer navigation', 'matrix'); ?></label>
             <select
               id="footer-nav-select"
-              class="block px-3 py-2 w-full text-sm leading-5 bg-white rounded-md border border-gray-300 text-text-primary focus:outline-none focus:ring-2 focus:ring-text-primary-light"
+              class="block px-3 py-2 w-full text-sm leading-5 bg-white rounded-md border border-gray-300 text-primary focus:outline-none focus:ring-2 focus:ring-text-primary-light"
               aria-label="<?php esc_attr_e('Footer navigation', 'matrix'); ?>"
             >
               <option value=""><?php esc_html_e('Quick Links…', 'matrix'); ?></option>
@@ -90,8 +96,8 @@ if (!empty($footer_links) && is_array($footer_links)) {
 
       <!-- Social -->
       <?php if (!empty($social_links) && is_array($social_links)): ?>
-        <div class="flex gap-4 justify-end items-center py-4 my-auto min-w-60 sm:py-0" role="complementary" aria-label="<?php esc_attr_e('Social media links', 'matrix'); ?>">
-          <p class="m-0 text-base leading-none text-text-primary max-sm:hidden sm:block">
+        <div class="flex gap-4 justify-end items-center py-4 my-auto min-w-60 sm:py-0 max-md:flex-col max-md:items-start max-md:mt-4" role="complementary" aria-label="<?php esc_attr_e('Social media links', 'matrix'); ?>">
+          <p class="m-0 font-secondary text-base font-normal leading-[20px] text-primary max-sm:hidden sm:block">
             <?php echo esc_html($follow_us_text); ?>
           </p>
           <ul class="flex gap-4 items-center p-0 m-0 list-none" role="list">
@@ -124,7 +130,6 @@ if (!empty($footer_links) && is_array($footer_links)) {
           </ul>
         </div>
       <?php endif; ?>
-    </div>
   </div>
 
   <script>

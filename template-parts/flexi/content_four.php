@@ -64,12 +64,12 @@ $section_id = 'content-three-' . uniqid();
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" role="region" aria-label="<?php echo esc_attr__('About section', 'matrix-starter'); ?>" class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-[1250px] pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
     <main id="main-content" class="w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
+      <div class="grid grid-cols-1 gap-8 items-center w-full md:grid-cols-2 lg:gap-12">
 
         <!-- Left: Text -->
-        <article class="flex flex-col gap-6 order-2 lg:order-1">
+        <article class="flex flex-col order-2 gap-6 md:order-1">
           <div class="flex flex-col gap-4">
             <?php if (!empty($heading)): ?>
               <<?php echo esc_attr($heading_tag); ?> class="font-red-hat-display text-4xl lg:text-5xl font-bold leading-tight <?php echo esc_attr($heading_color); ?>">
@@ -88,7 +88,7 @@ $section_id = 'content-three-' . uniqid();
         </article>
 
         <!-- Right: Image -->
-        <figure class="w-full h-80 lg:h-auto lg:min-h-96 order-1 lg:order-2 flex items-center justify-center">
+        <figure class="flex order-1 justify-center items-center w-full h-80 lg:h-auto lg:min-h-96 md:order-2">
           <?php if ($img_url): ?>
             <img
               src="<?php echo $img_url; ?>"

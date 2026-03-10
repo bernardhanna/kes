@@ -31,7 +31,7 @@ if ($use_gradient && $background_gradient) {
 ?>
 
 <section
-    class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
+    class="testimonial-section relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     style="<?php echo esc_attr($background_style); ?>"
     role="region"
     aria-label="Customer Testimonials"
@@ -59,10 +59,10 @@ if ($use_gradient && $background_gradient) {
                         }
                     }
                 ?>
-                    <article class="flex relative gap-10 items-center py-20 max-w-[1036px] mx-auto w-full text-white max-md:px-5 max-sm:flex-col max-sm:p-6 slick-item">
+                    <article class="flex relative gap-10 items-center py-20 max-w-[1036px] mx-auto w-full text-white max-md:px-5 max-md:flex-col max-md:p-6 slick-item">
 
                         <?php if ($show_quote_icon): ?>
-                            <div class="absolute top-[6rem]  -left-[7rem] z-0 max-md:hidden max-sm:hidden" aria-hidden="true">
+                            <div class="absolute top-[6rem] -left-[7rem] z-0 max-[1277px]:hidden" aria-hidden="true">
                                 <svg
                                     width="107"
                                     height="66"
@@ -76,8 +76,19 @@ if ($use_gradient && $background_gradient) {
                             </div>
                         <?php endif; ?>
 
-                        <div class="flex flex-col flex-1 justify-between pt-6 my-auto max-md:max-w-full max-sm:pb-8 max-w-[550px]">
-
+                        <div class="flex flex-col flex-1 justify-between pt-6 my-auto max-md:max-w-full max-sm:pb-8 max-w-[550px] px-2">
+                            <div class="relative mb-8 z-0 min-[1277px]:hidden flex aria-hidden="true">
+                                <svg
+                                    width="107"
+                                    height="66"
+                                    viewBox="0 0 107 66"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="w-[91px] h-[56px] fill-white"
+                                >
+                                    <path d="M38.9091 66H0L28.3931 0H53.8943L38.9091 66ZM92.0147 66H53.1056L81.4988 0H107L92.0147 66Z" fill="currentColor"/>
+                                </svg>
+                            </div>
                             <?php if ($quote): ?>
                             <?php
                             if (!function_exists('cbt_style_quote_paragraphs')) {
@@ -139,7 +150,7 @@ if ($use_gradient && $background_gradient) {
                                     false,
                                     [
                                         'alt' => esc_attr($image_alt),
-                                        'class' => 'object-cover rounded-lg w-[362px] h-auto max-sm:w-full',
+                                        'class' => 'max-md:object-contain object-cover rounded-lg w-[362px] h-auto max-sm:w-full max-sm:max-h-[328px]',
                                         'loading' => $index === 0 ? 'eager' : 'lazy'
                                     ]
                                 ); ?>

@@ -68,40 +68,41 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
     $heading_tag = 'h2';
 }
 
-// Order utilities
-$img_col_order     = $reverse_layout ? 'order-2 lg:order-2' : 'order-2 lg:order-2'; // image stays right on lg by default
-$content_col_order = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:order-1'; // content stays left on lg by default
-// On mobile it's stacked; if you want true flip on lg only, keep as-is. If you want full flip (including lg), swap grid placement below instead.
-
+// At 640px and below: title → image → rest. From sm up: two columns (content left | image right, or reversed).
+$heading_order = 'order-1 sm:order-1 sm:col-start-1 sm:row-start-1';
+$img_order     = 'order-2 sm:order-2 sm:col-start-2 sm:row-start-1 sm:row-span-2';
+$rest_order    = 'order-3 sm:col-start-1 sm:row-start-2';
+if ($reverse_layout) {
+    $heading_order = 'order-1 sm:order-2 sm:col-start-2 sm:row-start-1';
+    $img_order     = 'order-2 sm:order-1 sm:col-start-1 sm:row-start-1 sm:row-span-2';
+    $rest_order    = 'order-3 sm:col-start-2 sm:row-start-2';
+}
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative bg-white">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5 <?php echo $padding_classes_str; ?>">
-    <div class="grid grid-cols-1 gap-8 items-center w-full lg:grid-cols-2">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container xl:py-[5rem] pt-5 pb-5 max-xl:px-5 <?php echo $padding_classes_str; ?>">
+    <div class="grid grid-cols-1 gap-8 items-start w-full sm:grid-cols-[42%_58%]">
 
-      <?php
-      // Decide column order per reverse toggle: default is Content left, Image right
-      if ($reverse_layout) :
-        // Image left, Content right (reversed)
-        ?>
-        <!-- Image Column -->
-        <figure class="flex overflow-hidden relative items-center <?php echo esc_attr($img_col_order); ?>">
+        <!-- Heading (first on mobile, column 1 row 1 on desktop; column 2 row 1 when reversed) -->
+        <header class="flex flex-col gap-1 <?php echo esc_attr($heading_order); ?>">
+          <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-10 text-primary">
+            <?php echo esc_html($heading); ?>
+          </<?php echo esc_attr($heading_tag); ?>>
+          <div class="w-8 h-1 bg-cyan-500" aria-hidden="true"></div>
+        </header>
+
+        <!-- Image (second on mobile, column 2 full height on desktop; column 1 when reversed) -->
+        <figure class="flex overflow-hidden relative items-center w-full <?php echo esc_attr($img_order); ?>">
           <?php if ($img_url): ?>
             <img
               src="<?php echo $img_url; ?>"
               alt="<?php echo $img_alt; ?>"
               title="<?php echo $img_title; ?>"
-              class="object-cover w-full h-auto rounded-none" />
+              class="object-cover w-full h-auto rounded-none max-w-[502px] max-h-[340px] max-sm:w-full sm:max-w-[502px] sm:max-h-[340px]" />
           <?php endif; ?>
         </figure>
 
-        <!-- Content Column -->
-        <article class="flex flex-col gap-8 py-10 pr-10 pl-10 max-md:px-6 <?php echo esc_attr($content_col_order); ?>">
-          <header class="flex flex-col gap-1">
-            <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-10 text-text-primary">
-              <?php echo esc_html($heading); ?>
-            </<?php echo esc_attr($heading_tag); ?>>
-            <div class="w-8 h-1 bg-cyan-500" aria-hidden="true"></div>
-          </header>
+        <!-- WYSIWYG + CTAs (third on mobile, column 1 row 2 on desktop; column 2 row 2 when reversed) -->
+        <div class="flex flex-col gap-8 py-10 max-md:py-0 max-md:px-0 <?php echo esc_attr($rest_order); ?>">
 
           <?php if (!empty($wysiwyg_one)): ?>
             <div class="wp_editor text-[18px] leading-[24px] font-normal text-slate-800">
@@ -116,60 +117,7 @@ $content_col_order = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:order-
           <?php endif; ?>
 
           <?php if (!empty($primary_cta) || !empty($secondary_cta)): ?>
-            <nav class="flex flex-wrap gap-4" aria-label="Section actions">
-              <?php if (!empty($primary_cta) && is_array($primary_cta)): ?>
-                <?php
-                  $p_url    = !empty($primary_cta['url']) ? esc_url($primary_cta['url']) : '#';
-                  $p_title  = !empty($primary_cta['title']) ? esc_html($primary_cta['title']) : 'Primary action';
-                  $p_target = !empty($primary_cta['target']) ? esc_attr($primary_cta['target']) : '_self';
-                ?>
-                    <a href="<?php echo $p_url; ?>" target="<?php echo $p_target; ?>"
-                    class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 h-[52px] rounded-full text-[18px] font-medium leading-[24px] text-white bg-gradient-to-r from-[#2B3990] to-[#006EC8] hover:from-[#243080] hover:to-[#005eb0] transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200">
-                    <span><?php echo $p_title; ?></span>
-                    </a>
-              <?php endif; ?>
-
-              <?php if (!empty($secondary_cta) && is_array($secondary_cta)): ?>
-                <?php
-                  $s_url    = !empty($secondary_cta['url']) ? esc_url($secondary_cta['url']) : '#';
-                  $s_title  = !empty($secondary_cta['title']) ? esc_html($secondary_cta['title']) : 'Secondary action';
-                  $s_target = !empty($secondary_cta['target']) ? esc_attr($secondary_cta['target']) : '_self';
-                ?>
-                <a href="<?php echo $s_url; ?>" target="<?php echo $s_target; ?>"
-                   class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 bg-white border-2 border-blue-900 border-solid h-[52px] rounded-full text-[18px] font-medium leading-[24px] text-[#2B3990] hover:bg-blue-50 hover:border-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
-                  <span class="text-[#2B3990]"><?php echo $s_title; ?></span>
-                </a>
-              <?php endif; ?>
-            </nav>
-          <?php endif; ?>
-        </article>
-
-      <?php else: ?>
-        <!-- Default: Content left, Image right -->
-
-        <!-- Content Column -->
-        <article class="flex flex-col gap-8 py-10 pr-10 pl-10 max-md:px-6 <?php echo esc_attr($content_col_order); ?>">
-          <header class="flex flex-col gap-1">
-            <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-10 text-text-primary">
-              <?php echo esc_html($heading); ?>
-            </<?php echo esc_attr($heading_tag); ?>>
-            <div class="w-8 h-1 bg-cyan-500" aria-hidden="true"></div>
-          </header>
-
-          <?php if (!empty($wysiwyg_one)): ?>
-            <div class="wp_editor text-[18px] leading-[24px] font-normal text-slate-800">
-              <?php echo wp_kses_post($wysiwyg_one); ?>
-            </div>
-          <?php endif; ?>
-
-          <?php if (!empty($wysiwyg_two)): ?>
-            <div class="wp_editor text-[16px] leading-[20px] font-normal text-slate-800">
-              <?php echo wp_kses_post($wysiwyg_two); ?>
-            </div>
-          <?php endif; ?>
-
-          <?php if (!empty($primary_cta) || !empty($secondary_cta)): ?>
-            <nav class="flex flex-wrap gap-4" aria-label="Section actions">
+            <nav class="flex flex-wrap gap-8" aria-label="Section actions">
               <?php if (!empty($primary_cta) && is_array($primary_cta)): ?>
                 <?php
                   $p_url    = !empty($primary_cta['url']) ? esc_url($primary_cta['url']) : '#';
@@ -177,7 +125,7 @@ $content_col_order = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:order-
                   $p_target = !empty($primary_cta['target']) ? esc_attr($primary_cta['target']) : '_self';
                 ?>
                 <a href="<?php echo $p_url; ?>" target="<?php echo $p_target; ?>"
-                   class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 h-[52px] rounded-full text-lg font-medium leading-6 text-white gradient-one transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 transition-all duration-200">
+                   class="btn-primary w-fit whitespace-nowrap flex gap-2 justify-center items-center h-[52px] text-white transition-all duration-200 max-sm:w-full sm:w-fit">
                   <span><?php echo $p_title; ?></span>
                 </a>
               <?php endif; ?>
@@ -189,28 +137,13 @@ $content_col_order = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:order-
                   $s_target = !empty($secondary_cta['target']) ? esc_attr($secondary_cta['target']) : '_self';
                 ?>
                 <a href="<?php echo $s_url; ?>" target="<?php echo $s_target; ?>"
-                   class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 bg-white border-2 border-blue-900 border-solid h-[52px] rounded-full text-lg font-medium leading-6 text-[#2B3990] hover:bg-blue-50 hover:border-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
-                  <span class="text-[#2B3990]"><?php echo $s_title; ?></span>
-                  <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-4 h-4">
-                    <path d="M3.3335 8.00004H12.6668M12.6668 8.00004L8.00016 3.33337M12.6668 8.00004L8.00016 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                  </svg>
+                   class="w-fit whitespace-nowrap flex gap-2 justify-center items-center px-6 py-4 h-[52px] rounded-full font-secondary text-lg font-medium leading-[24px] text-blue-dark bg-base-white border-2 border-blue-dark transition-colors duration-200 hover:bg-teal-light hover:border-blue-dark active:bg-blue-100 active:border-blue-dark focus-visible:outline-none focus-visible:outline-[3px] focus-visible:outline-blue-100 focus-visible:outline-offset-2 focus-visible:bg-base-white max-sm:h-[38px] max-sm:w-full sm:h-[52px] sm:w-fit">
+                  <span class="text-blue-dark"><?php echo $s_title; ?></span>
                 </a>
               <?php endif; ?>
             </nav>
           <?php endif; ?>
-        </article>
-
-        <!-- Image Column -->
-        <figure class="flex overflow-hidden relative items-center <?php echo esc_attr($img_col_order); ?>">
-          <?php if ($img_url): ?>
-            <img
-              src="<?php echo $img_url; ?>"
-              alt="<?php echo $img_alt; ?>"
-              title="<?php echo $img_title; ?>"
-              class="object-cover w-full h-auto rounded-none max-w-[502px] max-h-[340px]" />
-          <?php endif; ?>
-        </figure>
-      <?php endif; ?>
+        </div>
 
     </div>
   </div>

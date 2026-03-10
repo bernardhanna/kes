@@ -27,11 +27,11 @@ $section_id = 'counters-' . uniqid();
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     id="<?php echo esc_attr($section_id); ?>"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-[1078px] pt-9 pb-2.5 pl-8 max-lg:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-[1078px] pt-5 pb-2.5 pl-8 max-lg:px-5">
 
         <?php if (!empty($heading)): ?>
             <header class="hidden mb-8 w-full">
-                <<?php echo esc_attr($heading_tag); ?> class="font-bold text-h2 text-text-primary">
+                <<?php echo esc_attr($heading_tag); ?> class="font-bold text-h2 text-primary">
                     <?php echo esc_html($heading); ?>
                 </<?php echo esc_attr($heading_tag); ?>>
             </header>
@@ -39,7 +39,7 @@ $section_id = 'counters-' . uniqid();
 
         <?php if ($counter_items): ?>
             <div
-                class="grid grid-cols-1 gap-5 w-full md:grid-cols-3 max-md:space-y-10"
+                class="grid grid-cols-1 gap-5 w-full sm:gap-0 sm:grid-cols-3"
                 x-data="counterAnimation"
                 x-init="initCounters"
             >
@@ -55,7 +55,7 @@ $section_id = 'counters-' . uniqid();
                     $counter_id = "counter-{$index}";
                 ?>
                     <article
-                        class="flex max-md:flex-col max-md:justify-center max-md:items-center  items-start min-h-[82px]"
+                        class="flex flex-col justify-center items-center min-h-[82px] relative sm:flex-row sm:items-start xxl:top-2 xxl:left-[1.2rem]"
                         x-intersect.once="startCounter('<?php echo esc_attr($counter_id); ?>', <?php echo esc_attr($numeric_value); ?>)"
                     >
                         <div
@@ -74,9 +74,9 @@ $section_id = 'counters-' . uniqid();
                         </div>
 
                         <div class="flex-1 min-h-14 text-slate-700">
-                            <div class="flex flex-col items-start w-full max-md:items-center font-secondary max-md:mt-4">
+                            <div class="flex flex-col items-start w-full max-sm:items-center font-secondary max-sm:mt-4">
                                 <span
-                                    class="tabular-nums text-[18px] font-[500] leading-[24px] text-[#344054]"
+                                    class="tabular-nums text-[18px] max-sm:font-[700] font-[500] leading-[24px] text-[#344054]"
                                     x-text="counters['<?php echo esc_attr($counter_id); ?>'] + '<?php echo esc_attr($counter_suffix); ?>'"
                                     aria-live="polite"
                                     aria-label="Counter value"

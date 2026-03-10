@@ -1168,9 +1168,17 @@ body {
 }
 
 .btn-primary:hover {
-    --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-    --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  background-image: linear-gradient(90deg, theme("colors.blue-bright") 0%, theme("colors.blue-dark") 100%);
+}
+
+.btn-primary:active {
+  background-image: none;
+  background-color: theme("colors.primary.DEFAULT");
+}
+
+.btn-primary:focus-visible {
+  outline: 3px solid theme("colors.blue-100");
+  outline-offset: 2px;
 }
 
 /* THEME FORMS */
@@ -1430,6 +1438,26 @@ blockquote.right {
   overflow: visible !important; /* Allows elements outside the slider's bounds to be visible */
 }
 
+/* Hero slider: keep fixed 533px height when Slick is enabled */
+.hero-slider-container .slick-list,
+.hero-slider-container .slick-track,
+.hero-slider-container .slick-slide {
+  height: 100%;
+}
+
+/* Slick wraps each slide in a div – fill height and center content vertically only */
+.hero-slider-container .slick-slide > div {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 639px) {
+  .hero-slider-container .slick-slide > div {
+    align-items: flex-end;
+  }
+}
+
 .slick-track {
   @apply  flex relative gap-4; /* Adjust the gap between slides */
 }
@@ -1466,6 +1494,118 @@ blockquote.right {
 
 .slick-active button {
   @apply bg-primary; /* Active state using Tailwind's primary color */
+}
+
+/* Hero slider: bar indicators 32×4px – active #2B3990, inactive #CBE9E1 */
+/* Buttons: 38px height, full width, 14px/500/20px text below 640px (sm) */
+@media (max-width: 639px) {
+  .btn-primary {
+    height: 38px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 38px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+  }
+  /* Other CTA-style buttons and links */
+  nav[aria-label="Section actions"] a,
+  section a.btn {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px;
+  }
+}
+
+/* Hero slider: both buttons same text size below sm (640px) */
+@media (max-width: 639px) {
+  .hero-slider-section .btn-primary {
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+/* Hero slider: hide arrows at 1152px and below */
+@media (max-width: 1152px) {
+  .hero-slider-section .slick-prev,
+  .hero-slider-section .slick-next {
+    display: none !important;
+  }
+}
+
+.hero-slider-section .slick-dots-container {
+  @apply relative z-10 flex justify-center items-center gap-2;
+}
+
+.hero-slider-section .slick-dots-container .slick-dots {
+  @apply flex justify-center items-center gap-2 mt-0;
+}
+
+.hero-slider-section .slick-dots-container .slick-dots li {
+  @apply m-0;
+}
+
+.hero-slider-section .slick-dots-container .slick-dots li button {
+  width: 32px;
+  height: 4px;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background-color: theme("colors.teal-light");
+  text-indent: -9999px;
+  overflow: hidden;
+  transition: background-color 0.3s ease;
+}
+
+.hero-slider-section .slick-dots-container .slick-dots li.slick-active button {
+  background-color: theme("colors.blue-dark");
+}
+
+/* Hero map slide: blue style (blue land/water tint) */
+/* Hero content slides: force desktop vs mobile visibility (640px breakpoint).
+   !important and .slick-slide scope override Slick’s display on slide children. */
+.hero-slider-section .hero-slider-container .slick-slide .hero-slide-desktop-only,
+.hero-slider-section .hero-slide-desktop-only {
+  display: none !important;
+}
+.hero-slider-section .hero-slider-container .slick-slide .hero-slide-mobile-only,
+.hero-slider-section .hero-slide-mobile-only {
+  display: block !important;
+}
+@media (min-width: 640px) {
+  .hero-slider-section .hero-slider-container .slick-slide .hero-slide-desktop-only,
+  .hero-slider-section .hero-slide-desktop-only {
+    display: block !important;
+  }
+  .hero-slider-section .hero-slider-container .slick-slide .hero-slide-mobile-only,
+  .hero-slider-section .hero-slide-mobile-only {
+    display: none !important;
+  }
+}
+
+/* Testimonials: gradient at 640px and below */
+@media (max-width: 640px) {
+  .testimonial-section {
+    background: linear-gradient(180deg, #2B3990 18.62%, #006EC8 100%) !important;
+  }
+}
+
+.hero-slider-map {
+  position: relative;
+}
+.hero-slider-map--blue::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  background: rgba(38, 34, 98, 0.42);
 }
 
 .clinic-link {

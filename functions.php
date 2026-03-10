@@ -102,6 +102,9 @@ require_once get_template_directory() . '/inc/autoload-acf-fields.php';
 // Autoload Custom Post Types and Taxonomies
 require_once get_template_directory() . '/inc/cpts/init.php';
 
+// Seed sample locations for hero map (only when none exist)
+require_once get_template_directory() . '/inc/seed-locations.php';
+
 // Include the ACF theme options setup
 require_once get_template_directory() . '/inc/theme-options.php';
 

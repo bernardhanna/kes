@@ -79,18 +79,33 @@ $heading_color      = 'text-primary';
 $body_text_color    = 'text-gray-800';
 $accent_bar_class   = 'bg-blue-bright';
 
-// Order utilities based on reverse toggle
-$img_order_classes     = $reverse_layout ? 'order-2 lg:order-2' : 'order-1 lg:order-1';
-$content_order_classes = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:order-2';
+// At 640px and below: title → image → rest. From md up: two columns (image | heading+rest or reversed).
+$heading_order = 'order-1 sm:order-2 sm:col-start-2 sm:row-start-1';
+$img_order     = 'order-2 sm:order-1 sm:col-start-1 sm:row-start-1 sm:row-span-2';
+$rest_order    = 'order-3 sm:col-start-2 sm:row-start-2';
+if ($reverse_layout) {
+    $heading_order = 'order-1 sm:order-2 sm:col-start-1 sm:row-start-1';
+    $img_order     = 'order-2 sm:order-1 sm:col-start-2 sm:row-start-1 sm:row-span-2';
+    $rest_order    = 'order-3 sm:col-start-1 sm:row-start-2';
+}
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" class="relative flex overflow-hidden <?php echo esc_attr($section_bg_class); ?>">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-[1250px] pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
 
-    <div class="py-16 w-full sm:py-20 lg:py-24">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center <?php echo esc_attr($body_text_color); ?>">
+      <div class="w-full xl:pt-[3.8rem] xl:pb-[4rem] relative xxl:left-[5.2rem] py-[2.5rem] grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 items-start <?php echo esc_attr($body_text_color); ?>">
 
-        <!-- Image -->
-        <div class="<?php echo esc_attr($img_order_classes); ?>">
+        <!-- Heading + Accent (first on mobile, then column 2 row 1 on desktop) -->
+        <div class="w-full <?php echo esc_attr($heading_order); ?>">
+          <?php if (!empty($heading)): ?>
+            <<?php echo esc_attr($heading_tag); ?> class="text-primary font-primary text-[30px] font-bold leading-[38px]">
+              <?php echo esc_html($heading); ?>
+            </<?php echo esc_attr($heading_tag); ?>>
+          <?php endif; ?>
+          <div class="w-8 h-1 bg-[#00ACD8] rounded"></div>
+        </div>
+
+        <!-- Image (second on mobile, column 1 full height on desktop) -->
+        <div class="w-full <?php echo esc_attr($img_order); ?>">
           <div class="relative w-full overflow-hidden <?php echo esc_attr($image_radius_class); ?>">
             <?php if ($img_url): ?>
               <img
@@ -102,27 +117,15 @@ $content_order_classes = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:or
           </div>
         </div>
 
-        <!-- Content -->
-        <div class="flex flex-col gap-6 <?php echo esc_attr($content_order_classes); ?>">
+        <!-- Description + Benefits + CTA (third on mobile, column 2 row 2 on desktop) -->
+        <div class="flex flex-col gap-6 w-full <?php echo esc_attr($rest_order); ?>">
 
-          <!-- Heading + Accent -->
-          <div class="w-full">
-            <?php if (!empty($heading)): ?>
-              <<?php echo esc_attr($heading_tag); ?> class="text-primary font-primary text-[30px] font-bold leading-[38px]">
-                <?php echo esc_html($heading); ?>
-              </<?php echo esc_attr($heading_tag); ?>>
-            <?php endif; ?>
-            <div class="w-8 h-1 bg-[#00ACD8] rounded"></div>
-          </div>
-
-          <!-- Description -->
           <?php if (!empty($description)): ?>
             <div class="wp_editor font-secondary text-[#1D2939] text-base font-normal leading-5 max-w-[400px]">
               <?php echo wp_kses_post($description); ?>
             </div>
           <?php endif; ?>
 
-          <!-- Benefits -->
           <?php if (!empty($benefits) && is_array($benefits)): ?>
             <div class="space-y-4">
               <?php foreach ($benefits as $item): ?>
@@ -142,7 +145,6 @@ $content_order_classes = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:or
             </div>
           <?php endif; ?>
 
-          <!-- CTA -->
           <?php if (!empty($cta_link) && is_array($cta_link)): ?>
             <?php
               $cta_url    = !empty($cta_link['url']) ? esc_url($cta_link['url']) : '#';
@@ -156,7 +158,6 @@ $content_order_classes = $reverse_layout ? 'order-1 lg:order-1' : 'order-1 lg:or
 
         </div>
       </div>
-    </div>
 
   </div>
 </section>

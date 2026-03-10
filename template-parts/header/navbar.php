@@ -28,9 +28,8 @@ $secondary_navigation = Navi::make()->build('secondary');
   x-init="window.addEventListener('resize', () => checkWindowSize())"
   class="py-4 bg-white"
   x-effect="isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''">
-  <nav class="flex justify-between items-center w-full mx-auto max-w-[1168px] px-5 lg:px-0">
-    <a href="<?php echo esc_url(home_url('/')); ?>"
-      class="flex <?php echo esc_attr($logo_position_class); ?>">
+  <nav class="flex justify-between items-center w-full mx-auto max-w-[1168px] px-5 navbar:px-0">
+    <a style="z-index: 1000;" class="flex <?php echo esc_attr($logo_position_class); ?>" href="<?php echo esc_url(home_url('/')); ?>">
       <?php if ($logo_url) : ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>" />
       <?php else : ?>
@@ -49,13 +48,13 @@ $secondary_navigation = Navi::make()->build('secondary');
           <?php
             $is_last = ($i === $total - 1);
 
-            // last item = white; others = primary (keep hover only for non-last)
-            $text_class  = $is_last ? 'text-white' : 'text-primary';
-            $hover_class = $is_last ? '' : 'hover:text-primary-light';
+            // last item = white; others = primary (text color does not change on hover; underline effect on non-last)
+            $text_class = $is_last ? 'text-white' : 'text-primary';
+            $underline_class = $is_last ? '' : 'relative pb-3 after:content-[""] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full';
           ?>
-          <li class="relative group <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
+          <li class="relative group pt-3 <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
             <a href="<?php echo esc_url($item->url); ?>"
-               class="gap-2.5 self-stretch my-auto whitespace-nowrap text-base font-semibold leading-[22px] flex items-center capitalize <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($hover_class); ?> <?php echo esc_attr($text_class); ?>">
+               class="gap-2.5 self-stretch my-auto whitespace-nowrap text-base font-semibold leading-[22px] flex items-center capitalize <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?>">
               <?php echo esc_html($item->label); ?>
               <?php if (!empty($item->children)) : ?>
                 <span class="ml-[2px]">

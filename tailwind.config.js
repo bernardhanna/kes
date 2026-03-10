@@ -79,7 +79,8 @@ module.exports = {
           text: '#041227',
         },
         'violet-950': '#262262',
-        'blue-100': '#00ACD8',
+        'blue-100': '#00ACD8', // Blue-100 design token (focus border, active bg)
+        'base-white': '#FFFFFF', // Base-White design token
         'blue-500':'#262262',
         'blue-dark': '#2B3990',
         'blue-bright': '#006EC8',
@@ -129,6 +130,11 @@ module.exports = {
         btn: '0px',
       },
 
+      // btn-primary: hover gradient (90deg #006EC8 → #2B3990)
+      backgroundImage: {
+        'gradient-btn-primary-hover': 'linear-gradient(90deg, theme("colors.blue-bright") 0%, theme("colors.blue-dark") 100%)',
+      },
+
       animation: {
         scroll300: 'scroll 300s linear infinite',
       },
@@ -151,6 +157,7 @@ module.exports = {
       tab: '993px',
       ipad: '1084px',
       lg: '1100px',
+      navbar: '1152px', /* navbar padding breakpoint */
       xl: '1280px',
       xxl: '1440px',
       ultrawide: '1920px',
