@@ -452,9 +452,21 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       if (typeof window.maplibregl === "undefined") { cb(); return; }
       var status = window.maplibregl.getRTLTextPluginStatus && window.maplibregl.getRTLTextPluginStatus();
       if (status === "loaded") { cb(); return; }
+      var done = false;
+      function finish() { if (!done) { done = true; cb(); } }
+      var t = setTimeout(finish, 2500);
       try {
-        window.maplibregl.setRTLTextPlugin(MAPLIBRE_RTL, function() { cb(); });
-      } catch (e) { cb(); }
+        var p = window.maplibregl.setRTLTextPlugin(MAPLIBRE_RTL);
+        if (p && typeof p.then === "function") {
+          p.then(function() { clearTimeout(t); finish(); }).catch(function() { clearTimeout(t); finish(); });
+        } else {
+          clearTimeout(t);
+          finish();
+        }
+      } catch (e) {
+        clearTimeout(t);
+        finish();
+      }
     };
     document.body.appendChild(script);
   }
