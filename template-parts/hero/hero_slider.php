@@ -134,6 +134,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
                 $map_zoom  = isset($slide['map_zoom']) && $slide['map_zoom'] !== '' ? (int) $slide['map_zoom'] : 6;
                 $map_provider = !empty($slide['map_tile_provider']) ? $slide['map_tile_provider'] : 'cartodb_voyager';
                 $map_token   = !empty($slide['map_tile_api_key']) ? $slide['map_tile_api_key'] : '';
+                $map_jawg_style_id = isset($slide['map_jawg_style_id']) ? trim((string) $slide['map_jawg_style_id']) : '';
                 $map_blue    = !empty($slide['map_style_blue']);
                 $map_gradient = !empty($slide['map_show_gradient']);
                 $map_id      = $section_id . '-slide-' . $slide_index . '-map';
@@ -187,6 +188,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
                     data-zoom="<?php echo esc_attr($map_zoom); ?>"
                     data-provider="<?php echo esc_attr($map_provider); ?>"
                     data-token="<?php echo esc_attr($map_token); ?>"
+                    <?php if (!empty($map_jawg_style_id)): ?>data-jawg-style-id="<?php echo esc_attr($map_jawg_style_id); ?>"<?php endif; ?>
                     data-locations-id="<?php echo esc_attr($section_id); ?>-locations"
                     <?php if ($marker_icon_url): ?>data-marker-icon="<?php echo esc_url($marker_icon_url); ?>"<?php endif; ?>
                     role="application"
@@ -454,13 +456,18 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     }
     var map = L.map(container, { scrollWheelZoom: true }).setView([lat, lng], zoom);
     var tileUrl, tileOpts = {};
-    var wantsJawg = (provider === "jawg-light" || provider === "jawg-dark");
-    if (provider === "osm" || (wantsJawg && !token)) {
+    var jawgStyleId = (container.getAttribute("data-jawg-style-id") || "").trim();
+    var wantsJawg = (provider === "jawg-light" || provider === "jawg-dark" || provider === "jawg-custom");
+    var useOsmFallback = provider === "osm" || (wantsJawg && !token) || (provider === "jawg-custom" && !jawgStyleId);
+    if (useOsmFallback) {
       tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
       tileOpts = { maxZoom: 19, attribution: "&copy; OpenStreetMap" };
     } else if (provider === "cartodb_voyager") {
       tileUrl = "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png";
       tileOpts = { maxZoom: 20, attribution: "&copy; OpenStreetMap &copy; CARTO" };
+    } else if (provider === "jawg-custom" && jawgStyleId) {
+      tileUrl = "https://tile.jawg.io/" + encodeURIComponent(jawgStyleId) + "/{z}/{x}/{y}{r}.png?access-token=" + encodeURIComponent(token);
+      tileOpts = { maxZoom: 22, attribution: "&copy; Jawg" };
     } else if (provider === "jawg-dark") {
       tileUrl = "https://tile.jawg.io/jawg-dark/{z}/{x}/{y}{r}.png?access-token=" + encodeURIComponent(token);
       tileOpts = { maxZoom: 22, attribution: "&copy; Jawg" };

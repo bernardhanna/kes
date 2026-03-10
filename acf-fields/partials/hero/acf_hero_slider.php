@@ -72,14 +72,23 @@ $hero_slider
                     'cartodb_voyager' => 'CartoDB Voyager (blue water)',
                     'jawg-light' => 'Jawg Light (requires API key)',
                     'jawg-dark' => 'Jawg Dark (requires API key)',
+                    'jawg-custom' => 'Jawg Custom style (requires API key + style ID)',
                 ],
                 'default_value' => 'cartodb_voyager',
                 'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
             ])
             ->addText('map_tile_api_key', [
                 'label' => 'Jawg API key (optional)',
-                'instructions' => 'Only needed for Jawg Light/Dark. Leave empty to use OpenStreetMap.',
+                'instructions' => 'Required for Jawg Light/Dark/Custom. Leave empty to use OpenStreetMap.',
                 'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
+            ])
+            ->addText('map_jawg_style_id', [
+                'label' => 'Jawg custom style ID',
+                'instructions' => 'Required for Custom Jawg style. From Jawg Lab → your style → Leaflet section. e.g. abc123def456.',
+                'conditional_logic' => [
+                    ['field' => 'slide_type', 'operator' => '==', 'value' => 'map'],
+                    ['field' => 'map_tile_provider', 'operator' => '==', 'value' => 'jawg-custom'],
+                ],
             ])
             ->addTrueFalse('map_style_blue', [
                 'label' => 'Apply blue tint (map styling)',
