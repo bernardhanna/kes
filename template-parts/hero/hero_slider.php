@@ -497,7 +497,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       style: styleUrl,
       center: [lng, lat],
       zoom: zoom,
-      minZoom: 6,
+      minZoom: 4,
       maxBounds: [[-31, 27], [40, 71]]
     });
     var initialCenter = [lng, lat];
@@ -528,7 +528,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     });
     function applyVectorView() {
       map.setCenter(initialCenter);
-      map.setZoom(Math.max(6, initialZoom - 1));
+      map.setZoom(Math.max(4, initialZoom - 2));
     }
     container._maplibreCenter = initialCenter;
     container._maplibreZoom = initialZoom;
@@ -571,7 +571,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
         popupAnchor: [0, -50]
       });
     }
-    var map = L.map(container, { scrollWheelZoom: true, minZoom: 6 }).setView([lat, lng], Math.max(6, zoom - 1));
+    var map = L.map(container, { scrollWheelZoom: true, minZoom: 4 }).setView([lat, lng], Math.max(4, zoom - 2));
     var tileUrl, tileOpts = {};
     var jawgStyleId = (container.getAttribute("data-jawg-style-id") || "").trim();
     var wantsJawg = (provider === "jawg-light" || provider === "jawg-dark" || provider === "jawg-custom");
@@ -599,9 +599,9 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       var marker = L.marker([g.lat, g.lng], markerIcon ? { icon: markerIcon } : {}).addTo(map);
       bounds.push([g.lat, g.lng]);
     });
-    if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 12, minZoom: Math.max(6, zoom) });
+    if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 12, minZoom: Math.max(4, zoom - 2) });
     if (bounds.length === 1) map.setView(bounds[0], Math.max(zoom, 12));
-    if (bounds.length === 0) map.setView([lat, lng], Math.max(6, zoom - 1));
+    if (bounds.length === 0) map.setView([lat, lng], Math.max(4, zoom - 2));
     container.dataset.heroMapInit = "1";
     container._leafletMap = map;
     setTimeout(function() { map.invalidateSize(); }, 50);
