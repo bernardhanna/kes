@@ -72,22 +72,31 @@ $hero_slider
                     'cartodb_voyager' => 'CartoDB Voyager (blue water)',
                     'jawg-light' => 'Jawg Light (requires API key)',
                     'jawg-dark' => 'Jawg Dark (requires API key)',
-                    'jawg-custom' => 'Jawg Custom style (requires API key + style ID)',
+                    'jawg-custom' => 'Jawg Custom raster (requires API key + raster style ID)',
+                    'jawg-vector' => 'Jawg Vector / MapLibre (requires API key + vector style ID)',
                 ],
                 'default_value' => 'cartodb_voyager',
                 'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
             ])
             ->addText('map_tile_api_key', [
                 'label' => 'Jawg API key (optional)',
-                'instructions' => 'Required for Jawg Light/Dark/Custom. Leave empty to use OpenStreetMap.',
+                'instructions' => 'Required for Jawg styles. Leave empty to use OpenStreetMap (raster only).',
                 'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
             ])
             ->addText('map_jawg_style_id', [
-                'label' => 'Jawg custom style ID',
-                'instructions' => 'Required for Custom Jawg style. From Jawg Lab → your style → Leaflet section. e.g. abc123def456.',
+                'label' => 'Jawg custom raster style ID',
+                'instructions' => 'Required for Custom raster. From Jawg Lab → your style → Leaflet section.',
                 'conditional_logic' => [
                     ['field' => 'slide_type', 'operator' => '==', 'value' => 'map'],
                     ['field' => 'map_tile_provider', 'operator' => '==', 'value' => 'jawg-custom'],
+                ],
+            ])
+            ->addText('map_jawg_vector_style_id', [
+                'label' => 'Jawg vector style ID (UUID)',
+                'instructions' => 'Required for Jawg Vector. From Jawg Lab → your style → MapLibre/Vector section. The UUID in the style URL (e.g. 0cdb0ece-66e3-4aca-818a-8cf1a3855db6).',
+                'conditional_logic' => [
+                    ['field' => 'slide_type', 'operator' => '==', 'value' => 'map'],
+                    ['field' => 'map_tile_provider', 'operator' => '==', 'value' => 'jawg-vector'],
                 ],
             ])
             ->addTrueFalse('map_style_blue', [

@@ -135,6 +135,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
                 $map_provider = !empty($slide['map_tile_provider']) ? $slide['map_tile_provider'] : 'cartodb_voyager';
                 $map_token   = !empty($slide['map_tile_api_key']) ? $slide['map_tile_api_key'] : '';
                 $map_jawg_style_id = isset($slide['map_jawg_style_id']) ? trim((string) $slide['map_jawg_style_id']) : '';
+                $map_jawg_vector_style_id = isset($slide['map_jawg_vector_style_id']) ? trim((string) $slide['map_jawg_vector_style_id']) : '';
                 $map_blue    = !empty($slide['map_style_blue']);
                 $map_gradient = !empty($slide['map_show_gradient']);
                 $map_id      = $section_id . '-slide-' . $slide_index . '-map';
@@ -189,6 +190,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
                     data-provider="<?php echo esc_attr($map_provider); ?>"
                     data-token="<?php echo esc_attr($map_token); ?>"
                     <?php if (!empty($map_jawg_style_id)): ?>data-jawg-style-id="<?php echo esc_attr($map_jawg_style_id); ?>"<?php endif; ?>
+                    <?php if (!empty($map_jawg_vector_style_id)): ?>data-jawg-vector-style-id="<?php echo esc_attr($map_jawg_vector_style_id); ?>"<?php endif; ?>
                     data-locations-id="<?php echo esc_attr($section_id); ?>-locations"
                     <?php if ($marker_icon_url): ?>data-marker-icon="<?php echo esc_url($marker_icon_url); ?>"<?php endif; ?>
                     role="application"
@@ -401,6 +403,9 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
 (function () {
   var LEAFLET_CSS = "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.css";
   var LEAFLET_JS  = "https://cdn.jsdelivr.net/npm/leaflet@1.9.4/dist/leaflet.js";
+  var MAPLIBRE_CSS = "https://unpkg.com/maplibre-gl@5.7.0/dist/maplibre-gl.css";
+  var MAPLIBRE_JS  = "https://unpkg.com/maplibre-gl@5.7.0/dist/maplibre-gl.js";
+  var MAPLIBRE_RTL = "https://unpkg.com/@mapbox/mapbox-gl-rtl-text@0.3.0/dist/mapbox-gl-rtl-text.js";
   var sectionId = <?php echo wp_json_encode($section_id); ?>;
 
   function loadLeaflet(cb) {
@@ -425,13 +430,113 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     document.body.appendChild(script);
   }
 
+  function loadMapLibre(cb) {
+    if (typeof window.maplibregl !== "undefined") { cb(); return; }
+    if (!document.querySelector('link[data-maplibre-css]')) {
+      var link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = MAPLIBRE_CSS;
+      link.setAttribute("data-maplibre-css", "1");
+      document.head.appendChild(link);
+    }
+    if (document.querySelector('script[data-maplibre-js]')) {
+      var t = setInterval(function() { if (typeof window.maplibregl !== "undefined") { clearInterval(t); cb(); } }, 30);
+      setTimeout(function() { clearInterval(t); }, 8000);
+      return;
+    }
+    var script = document.createElement("script");
+    script.src = MAPLIBRE_JS;
+    script.defer = true;
+    script.setAttribute("data-maplibre-js", "1");
+    script.onload = function() {
+      if (typeof window.maplibregl === "undefined") { cb(); return; }
+      var status = window.maplibregl.getRTLTextPluginStatus && window.maplibregl.getRTLTextPluginStatus();
+      if (status === "loaded") { cb(); return; }
+      try {
+        window.maplibregl.setRTLTextPlugin(MAPLIBRE_RTL, function() { cb(); });
+      } catch (e) { cb(); }
+    };
+    document.body.appendChild(script);
+  }
+
   function escapeHtml(str) {
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+  }
+
+  function initVectorMap(container) {
+    if (!container || container.dataset.heroMapInit === "1") return;
+    if (typeof window.maplibregl === "undefined") return;
+    var vectorStyleId = (container.getAttribute("data-jawg-vector-style-id") || "").trim();
+    var token = (container.getAttribute("data-token") || "").trim();
+    if (!vectorStyleId || !token) return;
+    var lat = parseFloat(container.getAttribute("data-lat")) || 53.349805;
+    var lng = parseFloat(container.getAttribute("data-lng")) || -6.26031;
+    var zoom = parseInt(container.getAttribute("data-zoom"), 10) || 6;
+    var locationsId = container.getAttribute("data-locations-id");
+    var markerIconUrl = container.getAttribute("data-marker-icon") || "";
+    var groups = [];
+    if (locationsId) {
+      var jsonEl = document.getElementById(locationsId);
+      if (jsonEl) try { groups = JSON.parse(jsonEl.textContent || "[]"); } catch (e) {}
+    }
+    var styleUrl = "https://api.jawg.io/styles/" + encodeURIComponent(vectorStyleId) + ".json?access-token=" + encodeURIComponent(token);
+    var map = new maplibregl.Map({
+      container: container,
+      style: styleUrl,
+      center: [lng, lat],
+      zoom: zoom
+    });
+    map.addControl(new maplibregl.NavigationControl(), "top-right");
+    var bounds = [];
+    groups.forEach(function(g) {
+      if (!g || !Number.isFinite(g.lat) || !Number.isFinite(g.lng)) return;
+      var el = document.createElement("div");
+      el.className = "hero-map-marker";
+      if (markerIconUrl) {
+        var img = document.createElement("img");
+        img.src = markerIconUrl;
+        img.alt = "";
+        img.style.width = "40px";
+        img.style.height = "50px";
+        img.style.pointerEvents = "none";
+        el.appendChild(img);
+      } else {
+        el.style.width = "24px";
+        el.style.height = "24px";
+        el.style.borderRadius = "50%";
+        el.style.background = "#2563eb";
+        el.style.border = "2px solid #fff";
+        el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.3)";
+      }
+      var marker = new maplibregl.Marker({ element: el }).setLngLat([g.lng, g.lat]).addTo(map);
+      bounds.push([g.lng, g.lat]);
+      var popupHtml = "<div style=\"max-width:240px;\">";
+      popupHtml += "<div style=\"font-weight:700;margin-bottom:4px;\">" + escapeHtml(g.title || "") + "</div>";
+      if (g.address) popupHtml += "<div style=\"font-size:12px;margin-bottom:4px;\"><strong>Address:</strong> " + escapeHtml(g.address) + "</div>";
+      if (g.url) popupHtml += "<a href=\"" + escapeHtml(g.url) + "\" style=\"font-size:12px;\">" + escapeHtml(g.link_label || "View details") + "</a>";
+      popupHtml += "</div>";
+      var popup = new maplibregl.Popup({ offset: 25 }).setHTML(popupHtml);
+      marker.setPopup(popup);
+    });
+    map.on("load", function() {
+      if (bounds.length > 1) {
+        map.fitBounds(bounds, { padding: 30 });
+      } else if (bounds.length === 1) {
+        map.setCenter(bounds[0]);
+        map.setZoom(Math.max(zoom, 12));
+      }
+      container.dataset.heroMapInit = "1";
+      container._maplibreMap = map;
+      setTimeout(function() { map.resize(); }, 50);
+      setTimeout(function() { map.resize(); }, 250);
+    });
   }
 
   function initHeroMap(container) {
     if (!container || container.dataset.heroMapInit === "1") return;
     if (typeof window.L === "undefined") return;
+    var provider = container.getAttribute("data-provider") || "osm";
+    if (provider === "jawg-vector") return;
     var lat = parseFloat(container.getAttribute("data-lat")) || 53.349805;
     var lng = parseFloat(container.getAttribute("data-lng")) || -6.26031;
     var zoom = parseInt(container.getAttribute("data-zoom"), 10) || 6;
@@ -500,24 +605,40 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     var section = document.getElementById(sectionId);
     if (!section) return;
     var maps = section.querySelectorAll("[data-hero-map]");
-    for (var i = 0; i < maps.length; i++) initHeroMap(maps[i]);
+    for (var i = 0; i < maps.length; i++) {
+      var provider = maps[i].getAttribute("data-provider") || "";
+      if (provider === "jawg-vector") initVectorMap(maps[i]);
+      else initHeroMap(maps[i]);
+    }
   }
 
   function onSlideChange() {
     var section = document.getElementById(sectionId);
     if (!section) return;
     var currentSlide = section.querySelector(".slick-current [data-hero-map]");
-    if (currentSlide && currentSlide._leafletMap) currentSlide._leafletMap.invalidateSize();
+    if (!currentSlide) return;
+    if (currentSlide._leafletMap) currentSlide._leafletMap.invalidateSize();
+    if (currentSlide._maplibreMap) currentSlide._maplibreMap.resize();
   }
 
   document.addEventListener("DOMContentLoaded", function() {
-    loadLeaflet(function() {
+    var section = document.getElementById(sectionId);
+    var hasVector = section && section.querySelector("[data-hero-map][data-provider=\"jawg-vector\"]");
+    var hasRaster = section && section.querySelector("[data-hero-map]:not([data-provider=\"jawg-vector\"])");
+    function done() {
       runInits();
       var $wrap = document.querySelector("#" + sectionId + " .js-hero-slider");
       if ($wrap && $wrap.classList.contains("is-slick") && typeof jQuery !== "undefined") {
         jQuery($wrap).on("afterChange", onSlideChange);
       }
-    });
+    }
+    if (hasVector && hasRaster) {
+      loadLeaflet(function() { loadMapLibre(done); });
+    } else if (hasVector) {
+      loadMapLibre(done);
+    } else {
+      loadLeaflet(done);
+    }
   });
 })();
 </script>
