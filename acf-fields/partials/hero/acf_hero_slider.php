@@ -59,10 +59,10 @@ $hero_slider
             ])
             ->addNumber('map_zoom', [
                 'label' => 'Map zoom',
-                'instructions' => 'Initial zoom level (e.g. 4–12).',
+                'instructions' => 'Initial zoom level (e.g. 6–10 for Ireland).',
                 'min' => 1,
                 'max' => 18,
-                'default_value' => 6,
+                'default_value' => 7,
                 'conditional_logic' => [['field' => 'slide_type', 'operator' => '==', 'value' => 'map']],
             ])
             ->addSelect('map_tile_provider', [

@@ -131,7 +131,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
             if ($is_map_slide) {
                 $map_lat   = isset($slide['map_center_lat']) && $slide['map_center_lat'] !== '' ? (float) $slide['map_center_lat'] : 53.349805;
                 $map_lng   = isset($slide['map_center_lng']) && $slide['map_center_lng'] !== '' ? (float) $slide['map_center_lng'] : -6.26031;
-                $map_zoom  = isset($slide['map_zoom']) && $slide['map_zoom'] !== '' ? (int) $slide['map_zoom'] : 6;
+                $map_zoom  = isset($slide['map_zoom']) && $slide['map_zoom'] !== '' ? (int) $slide['map_zoom'] : 7;
                 $map_provider = !empty($slide['map_tile_provider']) ? $slide['map_tile_provider'] : 'cartodb_voyager';
                 $map_token   = !empty($slide['map_tile_api_key']) ? $slide['map_tile_api_key'] : '';
                 $map_jawg_style_id = isset($slide['map_jawg_style_id']) ? trim((string) $slide['map_jawg_style_id']) : '';
@@ -483,7 +483,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     if (!vectorStyleId || !token) return;
     var lat = parseFloat(container.getAttribute("data-lat")) || 53.349805;
     var lng = parseFloat(container.getAttribute("data-lng")) || -6.26031;
-    var zoom = parseInt(container.getAttribute("data-zoom"), 10) || 6;
+    var zoom = parseInt(container.getAttribute("data-zoom"), 10) || 7;
     var locationsId = container.getAttribute("data-locations-id");
     var markerIconUrl = container.getAttribute("data-marker-icon") || "";
     var groups = [];
@@ -496,9 +496,12 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       container: container,
       style: styleUrl,
       center: [lng, lat],
-      zoom: zoom
+      zoom: zoom,
+      minZoom: 6,
+      maxBounds: [[-31, 27], [40, 71]]
     });
-    map.addControl(new maplibregl.NavigationControl(), "top-right");
+    var initialCenter = [lng, lat];
+    var initialZoom = zoom;
     var bounds = [];
     groups.forEach(function(g) {
       if (!g || !Number.isFinite(g.lat) || !Number.isFinite(g.lng)) return;
@@ -522,25 +525,22 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       }
       var marker = new maplibregl.Marker({ element: el }).setLngLat([g.lng, g.lat]).addTo(map);
       bounds.push([g.lng, g.lat]);
-      var popupHtml = "<div style=\"max-width:240px;\">";
-      popupHtml += "<div style=\"font-weight:700;margin-bottom:4px;\">" + escapeHtml(g.title || "") + "</div>";
-      if (g.address) popupHtml += "<div style=\"font-size:12px;margin-bottom:4px;\"><strong>Address:</strong> " + escapeHtml(g.address) + "</div>";
-      if (g.url) popupHtml += "<a href=\"" + escapeHtml(g.url) + "\" style=\"font-size:12px;\">" + escapeHtml(g.link_label || "View details") + "</a>";
-      popupHtml += "</div>";
-      var popup = new maplibregl.Popup({ offset: 25 }).setHTML(popupHtml);
-      marker.setPopup(popup);
     });
+    function applyVectorView() {
+      map.setCenter(initialCenter);
+      map.setZoom(Math.max(6, initialZoom - 1));
+    }
+    container._maplibreCenter = initialCenter;
+    container._maplibreZoom = initialZoom;
+    container._maplibreApplyView = applyVectorView;
     map.on("load", function() {
-      if (bounds.length > 1) {
-        map.fitBounds(bounds, { padding: 30 });
-      } else if (bounds.length === 1) {
-        map.setCenter(bounds[0]);
-        map.setZoom(Math.max(zoom, 12));
-      }
+      applyVectorView();
       container.dataset.heroMapInit = "1";
       container._maplibreMap = map;
-      setTimeout(function() { map.resize(); }, 50);
-      setTimeout(function() { map.resize(); }, 250);
+      setTimeout(function() {
+        map.resize();
+        applyVectorView();
+      }, 150);
     });
   }
 
@@ -551,7 +551,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     if (provider === "jawg-vector") return;
     var lat = parseFloat(container.getAttribute("data-lat")) || 53.349805;
     var lng = parseFloat(container.getAttribute("data-lng")) || -6.26031;
-    var zoom = parseInt(container.getAttribute("data-zoom"), 10) || 6;
+    var zoom = parseInt(container.getAttribute("data-zoom"), 10) || 7;
     var provider = container.getAttribute("data-provider") || "osm";
     var token = container.getAttribute("data-token") || "";
     var locationsId = container.getAttribute("data-locations-id");
@@ -571,7 +571,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
         popupAnchor: [0, -50]
       });
     }
-    var map = L.map(container, { scrollWheelZoom: true }).setView([lat, lng], zoom);
+    var map = L.map(container, { scrollWheelZoom: true, minZoom: 6 }).setView([lat, lng], Math.max(6, zoom - 1));
     var tileUrl, tileOpts = {};
     var jawgStyleId = (container.getAttribute("data-jawg-style-id") || "").trim();
     var wantsJawg = (provider === "jawg-light" || provider === "jawg-dark" || provider === "jawg-custom");
@@ -598,15 +598,10 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       if (!g || !Number.isFinite(g.lat) || !Number.isFinite(g.lng)) return;
       var marker = L.marker([g.lat, g.lng], markerIcon ? { icon: markerIcon } : {}).addTo(map);
       bounds.push([g.lat, g.lng]);
-      var popup = "<div style=\"max-width:240px;\">";
-      popup += "<div style=\"font-weight:700;margin-bottom:4px;\">" + escapeHtml(g.title || "") + "</div>";
-      if (g.address) popup += "<div style=\"font-size:12px;margin-bottom:4px;\"><strong>Address:</strong> " + escapeHtml(g.address) + "</div>";
-      if (g.url) popup += "<a href=\"" + escapeHtml(g.url) + "\" style=\"font-size:12px;\">" + escapeHtml(g.link_label || "View details") + "</a>";
-      popup += "</div>";
-      marker.bindPopup(popup);
     });
-    if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30] });
+    if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 12, minZoom: Math.max(6, zoom) });
     if (bounds.length === 1) map.setView(bounds[0], Math.max(zoom, 12));
+    if (bounds.length === 0) map.setView([lat, lng], Math.max(6, zoom - 1));
     container.dataset.heroMapInit = "1";
     container._leafletMap = map;
     setTimeout(function() { map.invalidateSize(); }, 50);
@@ -629,8 +624,13 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     if (!section) return;
     var currentSlide = section.querySelector(".slick-current [data-hero-map]");
     if (!currentSlide) return;
-    if (currentSlide._leafletMap) currentSlide._leafletMap.invalidateSize();
-    if (currentSlide._maplibreMap) currentSlide._maplibreMap.resize();
+    if (currentSlide._leafletMap) {
+      currentSlide._leafletMap.invalidateSize();
+    }
+    if (currentSlide._maplibreMap) {
+      currentSlide._maplibreMap.resize();
+      if (currentSlide._maplibreApplyView) currentSlide._maplibreApplyView();
+    }
   }
 
   document.addEventListener("DOMContentLoaded", function() {
