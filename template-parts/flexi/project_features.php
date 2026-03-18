@@ -29,19 +29,12 @@ if (have_rows('padding_settings')) {
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
+    <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-[1084px] max-xl:px-5">
 
-        <?php if (!empty($section_heading)): ?>
-            <<?php echo esc_attr($section_heading_tag); ?>
-                id="<?php echo esc_attr($section_id); ?>-heading"
-                class="text-2xl font-bold text-slate-600 mb-8 text-center max-sm:text-xl max-sm:mb-6"
-            >
-                <?php echo esc_html($section_heading); ?>
-            </<?php echo esc_attr($section_heading_tag); ?>>
-        <?php endif; ?>
+
 
         <?php if ($features && is_array($features)): ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-full max-md:gap-8 max-sm:gap-6">
+            <div class="grid grid-cols-1 gap-16 w-full md:grid-cols-2 lg:grid-cols-3 max-md:gap-8 max-sm:gap-6">
                 <?php foreach ($features as $index => $feature):
                     $feature_image = $feature['feature_image'];
                     $feature_heading = $feature['feature_heading'];
@@ -77,7 +70,7 @@ if (have_rows('padding_settings')) {
                             </div>
                         <?php endif; ?>
 
-                        <div class="flex flex-col gap-2 items-start flex-1">
+                        <div class="flex flex-col flex-1 gap-2 items-start">
                             <?php if (!empty($feature_heading)): ?>
                                 <h3
                                     id="<?php echo esc_attr($feature_id); ?>-heading"

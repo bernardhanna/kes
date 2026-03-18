@@ -25,4 +25,5 @@ add_action('init', function () {
         'plural'   => 'Project Categories',
         'slug'     => 'project-category',
     ]);
+
 });

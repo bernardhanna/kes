@@ -51,6 +51,12 @@ $content_block_one
         ])
 
     ->addTab('layout_tab', ['label' => 'Layout'])
+        ->addTrueFalse('enable_left_offset', [
+            'label' => 'Enable left offset (xl/xxl)',
+            'instructions' => 'When enabled, the section content is shifted right on xl (5rem) and xxl (5.2rem) breakpoints. Disabled by default.',
+            'ui' => 1,
+            'default_value' => 0,
+        ])
         ->addTrueFalse('reverse_layout', [
             'label' => 'Reverse Layout (Image Right, Content Left)',
             'ui' => 1,

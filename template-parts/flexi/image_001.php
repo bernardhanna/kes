@@ -72,7 +72,7 @@ if ($image_id) {
   role="region"
   aria-label="Image"
 >
-  <div class="flex flex-col items-center w-full mx-auto max-w-container <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-lg:px-5">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-xl:px-5">
     <?php if ($img_html) : ?>
       <figure class="w-full flex flex-col items-center">
         <?php if (!empty($link['url'])) : ?>

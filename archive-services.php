@@ -31,45 +31,23 @@ if (!empty($settings['padding_settings']) && is_array($settings['padding_setting
   }
 }
 
-$section_id  = 'services-hero-' . wp_generate_uuid4();
 $active_slug = 'all';
 ?>
 <main class="w-full overflow-hidden min-h-fit site-main">
 
-  <!-- HERO -->
-  <section
-    id="<?php echo esc_attr($section_id); ?>"
-    class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
-    style="background-color: <?php echo esc_attr($background_color); ?>; <?php echo esc_attr($bg_style); ?>"
-    role="region"
-    aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
-  >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
-      <div class="flex overflow-hidden justify-between items-center self-stretch px-24 py-20 max-md:px-5">
-        <div class="flex flex-col flex-1 shrink justify-center self-stretch my-auto w-full basis-0 min-w-60 max-md:max-w-full">
-          <?php if (!empty($heading)): ?>
-            <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">
-              <<?php echo esc_attr($heading_tag); ?>
-                id="<?php echo esc_attr($section_id); ?>-heading"
-                class="text-primary max-md:max-w-full"
-              >
-                <?php echo esc_html($heading); ?>
-              </<?php echo esc_attr($heading_tag); ?>>
-              <div class="flex mt-1 w-8 min-h-1"
-                   style="background-color: <?php echo esc_attr($divider_color); ?>;"
-                   role="presentation" aria-hidden="true"></div>
-            </div>
-          <?php endif; ?>
-
-          <?php if (!empty($content)): ?>
-            <div class="mt-6 text-lg leading-none text-slate-700 max-md:max-w-full wp_editor">
-              <?php echo wp_kses_post($content); ?>
-            </div>
-          <?php endif; ?>
-        </div>
-      </div>
-    </div>
-  </section>
+  <?php
+  if (function_exists('matrix_starter_render_archive_index_header')) {
+      matrix_starter_render_archive_index_header([
+          'heading'        => $heading,
+          'heading_tag'    => $heading_tag,
+          'intro'          => $content,
+          'bg_color'       => $background_color,
+          'accent_color'   => $divider_color,
+          'bg_image_url'   => $hero_bg ? $hero_bg['url'] : '',
+          'section_class'  => implode(' ', $padding_classes),
+      ]);
+  }
+  ?>
 
   <!-- FILTER + GRID -->
   <div class="w-full"
@@ -83,21 +61,23 @@ $active_slug = 'all';
        }">
 
     <!-- Filter row -->
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1075px] text-sm leading-none max-xl:px-5">
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1085px]  px-8text-sm leading-none max-xl:px-5">
       <div class="flex flex-wrap items-center gap-6">
-        <div class="self-stretch my-auto text-slate-800" id="filterLabel"><?php echo esc_html($filter_title); ?></div>
+        <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php echo esc_html($filter_title); ?></div>
 
-        <div class="flex flex-wrap gap-4 items-center self-stretch my-auto font-semibold text-teal-950"
-             role="tablist" aria-labelledby="filterLabel">
+        <div class="flex flex-wrap gap-4 items-center self-stretch my-auto"
+             role="tablist"
+             aria-labelledby="filterLabel">
           <button
             id="tab-all"
+            type="button"
             role="tab"
-            :aria-selected="activeCategory === 'all'"
+            :aria-selected="activeCategory === 'all' ? 'true' : 'false'"
             :aria-controls="'panel-all'"
-            class="gap-2 self-stretch px-6 py-3 my-auto whitespace-nowrap bg-white border border-slate-400 min-h-[42px] rounded-[100px] max-md:px-5"
-            :class="{ 'bg-[#025A70] text-white': activeCategory === 'all', 'bg-white border text-[#025A70]': activeCategory !== 'all' }"
+            class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            :class="activeCategory === 'all' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
             @click="setCategory('all')">
-            All
+            <?php esc_html_e('All', 'matrix-starter'); ?>
           </button>
 
           <?php
@@ -109,11 +89,12 @@ $active_slug = 'all';
             foreach ($terms as $term) : ?>
               <button
                 id="tab-<?php echo esc_attr($term->slug); ?>"
+                type="button"
                 role="tab"
-                :aria-selected="activeCategory === '<?php echo esc_attr($term->slug); ?>'"
+                :aria-selected="activeCategory === '<?php echo esc_attr($term->slug); ?>' ? 'true' : 'false'"
                 :aria-controls="'panel-<?php echo esc_attr($term->slug); ?>'"
-                class="gap-2 self-stretch px-6 py-3 my-auto whitespace-nowrap bg-white border border-slate-400 min-h-[42px] rounded-[100px] max-md:px-5"
-                :class="{ 'bg-[#025A70] text-white': activeCategory === '<?php echo esc_attr($term->slug); ?>', 'bg-white border text-[#025A70]': activeCategory !== '<?php echo esc_attr($term->slug); ?>' }"
+                class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                :class="activeCategory === '<?php echo esc_attr($term->slug); ?>' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
                 @click="setCategory('<?php echo esc_attr($term->slug); ?>')">
                 <?php echo esc_html($term->name); ?>
               </button>
@@ -128,7 +109,7 @@ $active_slug = 'all';
              :id="'panel-' + activeCategory"
              role="tabpanel"
              :aria-labelledby="'tab-' + activeCategory">
-      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-[1160px] mx-auto bg-[#F9FAFB]">
+      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-[1084px] mx-auto bg-[#F9FAFB]">
         <?php
         $args = [
           'post_type'      => 'services',
@@ -147,25 +128,50 @@ $active_slug = 'all';
             $alt      = $thumb_id ? get_post_meta($thumb_id, '_wp_attachment_image_alt', true) : '';
             $alt      = $alt ? $alt : get_the_title();
             $img_url  = get_the_post_thumbnail_url(get_the_ID(), 'large');
+
+            $primary_cat = '';
+            if (! empty($service_terms) && ! is_wp_error($service_terms)) {
+              $terms_sorted = $service_terms;
+              usort($terms_sorted, static function ($a, $b) {
+                return (int) $a->term_id <=> (int) $b->term_id;
+              });
+              $primary_cat = $terms_sorted[0]->name;
+            }
+            $svc_title = get_the_title();
         ?>
           <a href="<?php the_permalink(); ?>"
-             class="flex flex-col w-full overflow-hidden text-base font-bold text-white group"
+             class="block w-full group"
              :aria-hidden="activeCategory !== 'all' && !('<?php echo esc_attr($classes_str); ?>'.split(' ').includes(activeCategory))"
-             aria-label="View service: <?php echo esc_attr(get_the_title()); ?>"
+             aria-label="<?php echo esc_attr(sprintf(__('View service: %s', 'matrix-starter'), $svc_title)); ?>"
              x-show="activeCategory === 'all' || '<?php echo esc_attr($classes_str); ?>'.split(' ').includes(activeCategory)"
              x-transition.opacity.duration.300ms>
-            <div class="relative w-full h-[196px] overflow-hidden rounded-none">
-              <?php if ($img_url) : ?>
-                <img src="<?php echo esc_url($img_url); ?>"
-                     alt="<?php echo esc_attr($alt); ?>"
-                     class="object-cover w-full h-full transition-transform duration-300 ease-in-out transform group-hover:scale-110" />
-                <div class="absolute inset-0 bg-[#01242D] opacity-50" aria-hidden="true"></div>
-              <?php endif; ?>
-            </div>
-
-            <div class="flex flex-col w-full mt-4">
-              <h4 class="text-2xl font-bold leading-8 text-[#01242D]"><?php the_title(); ?></h4>
-              <div class="text-[#1D2939] text-base font-normal leading-6"><?php the_excerpt(); ?></div>
+            <div class="flex flex-col gap-4 w-full text-left">
+              <div class="overflow-hidden relative w-full h-48 bg-gradient-to-r rounded-lg from-slate-600 to-slate-700">
+                <?php if ($img_url) : ?>
+                  <img
+                    src="<?php echo esc_url($img_url); ?>"
+                    alt="<?php echo esc_attr($alt); ?>"
+                    class="object-cover w-full h-full transition-transform duration-300 ease-in-out transform group-hover:scale-105"
+                  />
+                <?php endif; ?>
+                <div
+                  class="pointer-events-none absolute inset-0 z-[1]"
+                  style="background: linear-gradient(90deg, rgba(43, 57, 144, 0.30) 0%, rgba(0, 110, 200, 0.30) 100%);"
+                  aria-hidden="true"
+                ></div>
+                <?php if ($primary_cat !== '') : ?>
+                  <div
+                    class="pointer-events-none absolute left-4 top-4 z-10 flex h-7 min-h-7 max-w-[calc(100%-2rem)] items-center justify-center rounded-full border border-solid border-[#2B3990] bg-white px-3 font-secondary text-sm font-medium leading-5 text-[#262262] transition-[background-color,border-color,color] duration-300 ease-out group-hover:border-[#00ACD8] group-hover:bg-[#00ACD8] group-hover:text-[#262262]"
+                    aria-hidden="true"
+                  >
+                    <span class="truncate"><?php echo esc_html($primary_cat); ?></span>
+                  </div>
+                <?php endif; ?>
+              </div>
+              <div class="flex flex-col gap-1">
+                <h3 class="text-[#262262] font-secondary text-[18px] font-bold leading-6"><?php the_title(); ?></h3>
+                <div class="text-[#344054] text-base font-normal leading-5 line-clamp-3"><?php the_excerpt(); ?></div>
+              </div>
             </div>
           </a>
         <?php endwhile; wp_reset_postdata();

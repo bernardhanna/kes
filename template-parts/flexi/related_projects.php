@@ -56,97 +56,105 @@ if ($selected_projects && is_array($selected_projects)) {
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
-    class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
-    style="background-color: <?php echo esc_attr($background_color); ?>;"
+    class="relative flex flex-col overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5 overflow-hidden">
-
+<div class="flex flex-col items-start w-full max-w-[1084px] mx-auto mb-8 max-xl:px-5">
         <?php if (!empty($heading)): ?>
             <<?php echo esc_attr($heading_tag); ?>
                 id="<?php echo esc_attr($section_id); ?>-heading"
-                class="text-2xl font-bold text-primary mb-8 text-center"
+                class="text-primary font-primary text-[30px] font-bold leading-[38px]"
             >
                 <?php echo esc_html($heading); ?>
             </<?php echo esc_attr($heading_tag); ?>>
         <?php endif; ?>
+        <div class="w-8 h-1 bg-cyan-500" role="presentation" aria-hidden="true"></div>
+    </div>
+<div class="py-12 w-full" style="background-color: <?php echo esc_attr($background_color); ?>;">
+    <div class="flex  flex-col items-center pt-5 pb-5 mx-auto w-full max-w-[1084px] max-xl:px-5">
+
 
         <?php if (!empty($projects_to_display)): ?>
-            <div class="w-full relative">
+            <div class="relative w-full">
                 <!-- Navigation Arrow Left -->
                 <button
                     type="button"
-                    class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-prev-custom"
+                    class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] rounded-full bg-transparent hover:shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-prev-custom"
                     aria-label="Previous projects"
-                >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    >
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="31" viewBox="0 0 17 31" fill="none">
+                    <path d="M15.5 30L1 15.5L15.5 1" stroke="#2B3990" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
 
                 <!-- Projects Slider -->
-                <div class="related-projects-slider mx-16" role="region" aria-label="Related projects carousel">
+                <div class="overflow-hidden mx-16 related-projects-slider" role="region" aria-label="Related projects carousel">
                     <?php foreach ($projects_to_display as $project):
                         $project_id = is_object($project) ? $project->ID : $project;
                         $project_title = get_the_title($project_id);
                         $project_permalink = get_permalink($project_id);
-                        $project_image = get_post_thumbnail_id($project_id);
-                        $project_image_alt = get_post_meta($project_image, '_wp_attachment_image_alt', true) ?: $project_title;
-                        $project_excerpt = get_the_excerpt($project_id);
+                        $project_image_id = get_post_thumbnail_id($project_id);
+                        $project_image_alt = $project_image_id ? get_post_meta($project_image_id, '_wp_attachment_image_alt', true) : '';
+                        $project_image_alt = $project_image_alt ?: $project_title;
+                        $project_image_url = get_the_post_thumbnail_url($project_id, 'large');
 
-                        // Get project location (assuming it's a custom field)
-                        $project_location = get_field('location', $project_id) ?: 'Location not specified';
+                        $project_location = get_field('project_location', $project_id);
+                        $project_location = is_string($project_location) ? trim($project_location) : '';
 
-                        // Get project categories for the label
                         $project_categories = wp_get_post_terms($project_id, 'project_category');
-                        $category_label = !empty($project_categories) ? $project_categories[0]->name : 'Heatload Testing';
+                        $category_label = '';
+                        if (!empty($project_categories) && !is_wp_error($project_categories)) {
+                            $sorted_categories = $project_categories;
+                            usort($sorted_categories, static function ($a, $b) {
+                                return (int) $a->term_id <=> (int) $b->term_id;
+                            });
+                            $category_label = $sorted_categories[0]->name;
+                        }
                     ?>
                         <article class="px-3">
-                            <div class="flex flex-col justify-center w-full">
-                                <!-- Project Image with Label -->
-                                <div class="overflow-hidden w-full text-sm font-medium leading-none rounded-lg text-primary">
-                                    <div class="flex relative flex-col w-full aspect-[1.602]">
-                                        <?php if ($project_image): ?>
-                                            <?php echo wp_get_attachment_image($project_image, 'large', false, [
-                                                'alt' => esc_attr($project_image_alt),
-                                                'class' => 'object-cover absolute inset-0 size-full',
-                                            ]); ?>
-                                        <?php else: ?>
-                                            <div class="absolute inset-0 bg-gray-200 flex items-center justify-center">
-                                                <span class="text-gray-500">No image available</span>
-                                            </div>
+                            <a
+                                href="<?php echo esc_url($project_permalink); ?>"
+                                class="block w-full group"
+                                aria-label="<?php echo esc_attr(sprintf(__('View project: %s', 'matrix-starter'), $project_title)); ?>"
+                            >
+                                <div class="flex flex-col gap-4 w-full text-left">
+                                    <div class="overflow-hidden relative w-full h-48 bg-gradient-to-r rounded-lg from-slate-600 to-slate-700">
+                                        <?php if ($project_image_url): ?>
+                                            <img
+                                                src="<?php echo esc_url($project_image_url); ?>"
+                                                alt="<?php echo esc_attr($project_image_alt); ?>"
+                                                class="object-cover w-full h-full transition-transform duration-300 ease-in-out transform group-hover:scale-105"
+                                            />
                                         <?php endif; ?>
 
-                                        <div class="flex relative gap-2.5 justify-center items-center pt-4 pr-7 pb-40 pl-4 w-full min-h-[196px] max-md:pr-5 max-md:pb-24">
-                                            <div class="flex gap-2 justify-center items-center self-stretch px-3 py-1 my-auto bg-emerald-100 min-h-7 rounded-[100px]">
-                                                <span class="self-stretch my-auto text-sm font-medium text-primary">
-                                                    <?php echo esc_html($category_label); ?>
-                                                </span>
+                                        <div
+                                            class="pointer-events-none absolute inset-0 z-[1]"
+                                            style="background: linear-gradient(90deg, rgba(43, 57, 144, 0.30) 0%, rgba(0, 110, 200, 0.30) 100%);"
+                                            aria-hidden="true"
+                                        ></div>
+
+                                        <?php if ($category_label !== '') : ?>
+                                            <div
+                                                class="pointer-events-none absolute left-4 top-4 z-10 flex h-7 min-h-7 max-w-[calc(100%-2rem)] items-center justify-center rounded-full border border-solid border-[#2B3990] bg-white px-3 font-secondary text-sm font-medium leading-5 text-[#262262] transition-[background-color,border-color,color] duration-300 ease-out group-hover:border-[#00ACD8] group-hover:bg-[#00ACD8] group-hover:text-[#262262]"
+                                                aria-hidden="true"
+                                            >
+                                                <span class="truncate"><?php echo esc_html($category_label); ?></span>
                                             </div>
-                                        </div>
+                                        <?php endif; ?>
                                     </div>
-                                </div>
 
-                                <!-- Project Details -->
-                                <div class="mt-4 w-full">
-                                    <h3 class="text-lg font-bold leading-none text-primary mb-1">
-                                        <a
-                                            href="<?php echo esc_url($project_permalink); ?>"
-                                            class="hover:text-violet-700 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 rounded"
-                                        >
+                                    <div class="flex flex-col gap-1">
+                                        <h3 class="text-[#262262] font-secondary text-[18px] font-bold leading-6">
                                             <?php echo esc_html($project_title); ?>
-                                        </a>
-                                    </h3>
-
-                                    <div class="flex flex-col items-start w-full text-base leading-none text-slate-700">
-                                        <div class="flex gap-3 justify-center items-center">
-                                            <span class="text-slate-700">
+                                        </h3>
+                                        <?php if ($project_location !== '') : ?>
+                                            <p class="text-[#344054] font-secondary text-base font-normal leading-5">
                                                 <?php echo esc_html($project_location); ?>
-                                            </span>
-                                        </div>
+                                            </p>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </article>
                     <?php endforeach; ?>
                 </div>
@@ -154,11 +162,11 @@ if ($selected_projects && is_array($selected_projects)) {
                 <!-- Navigation Arrow Right -->
                 <button
                     type="button"
-                    class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-next-custom"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full hover:shadow-lg flex items-center justify-center bg-transparent  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-next-custom"
                     aria-label="Next projects"
                 >
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="17" height="31" viewBox="0 0 17 31" fill="none">
+                    <path d="M1 30L15.5 15.5L1 1" stroke="#2B3990" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
             </div>
@@ -199,9 +207,10 @@ if ($selected_projects && is_array($selected_projects)) {
             </script>
 
         <?php else: ?>
-            <div class="text-center py-8">
+            <div class="py-8 text-center">
                 <p class="text-slate-700">No related projects found.</p>
             </div>
         <?php endif; ?>
+    </div>
     </div>
 </section>

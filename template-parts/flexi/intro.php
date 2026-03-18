@@ -29,7 +29,7 @@ $section_id = 'quote-section-' . uniqid();
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5">
         <div class="flex justify-between items-center self-stretch px-24 py-20 max-md:px-12 max-md:py-16 max-sm:px-6 max-sm:py-10">
             <div class="flex flex-col gap-6 justify-center items-center flex-1">
 

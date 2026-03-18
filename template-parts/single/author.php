@@ -152,7 +152,7 @@ $next_post = get_next_post();
 ?>
 
 <nav
-    class="flex flex-col justify-center py-4 w-full text-base font-bold leading-none text-blue-900 bg-white max-md:max-w-full"
+    class="flex flex-col justify-center py-4 w-full text-base font-bold leading-none text-[#262262] font-medium text-lg leading-6 font-secondary bg-white max-md:max-w-full"
     aria-label="Article navigation"
 >
     <div class="flex flex-wrap gap-10 justify-between items-center w-full max-md:max-w-full">
@@ -169,7 +169,7 @@ $next_post = get_next_post();
                     class="object-contain shrink-0 my-auto w-6 aspect-square"
                     aria-hidden="true"
                 />
-                <span class="my-auto text-blue-900">Previous article</span>
+                <span class="my-auto text-[#262262] font-medium text-lg leading-6 font-secondary">Previous article</span>
             </a>
         <?php else : ?>
             <!-- Disabled state when no previous post -->
@@ -183,7 +183,7 @@ $next_post = get_next_post();
                     class="object-contain shrink-0 my-auto w-6 aspect-square"
                     aria-hidden="true"
                 />
-                <span class="my-auto text-blue-900">Previous article</span>
+                <span class="my-auto text-[#262262] font-medium text-lg leading-6 font-secondary">Previous article</span>
             </span>
         <?php endif; ?>
 
@@ -194,7 +194,7 @@ $next_post = get_next_post();
                 class="flex gap-1 items-center py-1 pr-1 pl-2.5 my-auto w-fit whitespace-nowrap hover:bg-blue-50 transition-colors rounded focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                 aria-label="<?php echo esc_attr('Go to next article: ' . get_the_title($next_post)); ?>"
             >
-                <span class="my-auto text-blue-900">Next article</span>
+                <span class="my-auto text-[#262262] font-medium text-lg leading-6 font-secondary">Next article</span>
                 <img
                     src="https://api.builder.io/api/v1/image/assets/f35586c581c84ecf82b6de32c55ed39e/28dd02238dd46f2bd8a2091d38967b34b1f45438?placeholderIfAbsent=true"
                     alt=""
@@ -208,7 +208,7 @@ $next_post = get_next_post();
                 class="flex gap-1 items-center py-1 pr-1 pl-2.5 my-auto w-fit whitespace-nowrap rounded opacity-40 cursor-default"
                 aria-disabled="true"
             >
-                <span class="my-auto text-blue-900">Next article</span>
+                <span class="my-auto text-[#262262] font-medium text-lg leading-6 font-secondary">Next article</span>
                 <img
                     src="https://api.builder.io/api/v1/image/assets/f35586c581c84ecf82b6de32c55ed39e/28dd02238dd46f2bd8a2091d38967b34b1f45438?placeholderIfAbsent=true"
                     alt=""

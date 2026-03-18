@@ -29,9 +29,8 @@ $section_id = 'quote-section-' . uniqid();
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
-        <div class="flex justify-between items-center self-stretch px-24 py-20 max-md:px-12 max-md:py-16 max-sm:px-6 max-sm:py-10">
-            <div class="flex flex-col gap-6 justify-center items-center flex-1">
+    <div class="flex flex-col items-center pt-5 pb-5 lg:py-12  xl:py-16 mx-auto w-full max-w-[1250px] max-xl:px-5">
+            <div class="flex flex-col flex-1 gap-6 justify-center items-center pb-5 lg:pb-12 xl:pl-[7rem]">
 
                 <?php if (!empty($heading)): ?>
                 <header class="flex flex-col gap-1 items-start self-stretch">
@@ -50,7 +49,7 @@ $section_id = 'quote-section-' . uniqid();
                 <?php endif; ?>
 
                 <?php if (!empty($description)): ?>
-                <div class="self-stretch text-2xl leading-8 text-slate-800 max-md:text-xl max-md:leading-7 max-sm:text-lg max-sm:leading-6 wp_editor">
+                <div class="self-stretch text-[24px] font-normal leading-[32px] text-[#1D2939]">
                     <?php echo wp_kses_post($description); ?>
                 </div>
                 <?php endif; ?>
@@ -59,16 +58,16 @@ $section_id = 'quote-section-' . uniqid();
 
                     <?php if (!empty($content_section_1) || !empty($content_section_2)): ?>
                     <div class="flex gap-10 items-center self-stretch max-md:gap-6 max-sm:gap-4">
-                        <div class="flex gap-10 items-center flex-1 max-md:gap-6 max-sm:flex-col max-sm:gap-4">
+                        <div class="flex flex-1 gap-10 items-center max-md:gap-6 max-sm:flex-col max-sm:gap-4">
 
                             <?php if (!empty($content_section_1)): ?>
-                            <div class="text-base leading-5 flex-1 text-slate-800 wp_editor">
+                            <div class="flex-1 text-[#1D2939] text-[16px] font-normal leading-[20px] wp_editor font-secondary">
                                 <?php echo wp_kses_post($content_section_1); ?>
                             </div>
                             <?php endif; ?>
 
                             <?php if (!empty($content_section_2)): ?>
-                            <div class="text-base leading-5 flex-1 text-slate-800 wp_editor">
+                            <div class="flex-1 text-[#1D2939] text-[16px] font-normal leading-[20px] wp_editor font-secondary">
                                 <?php echo wp_kses_post($content_section_2); ?>
                             </div>
                             <?php endif; ?>
@@ -79,13 +78,13 @@ $section_id = 'quote-section-' . uniqid();
 
                     <?php if (!empty($content_section_3)): ?>
                     <div class="flex gap-10 items-center self-stretch max-md:gap-6 max-sm:gap-4">
-                        <div class="flex gap-10 items-center flex-1 max-md:gap-6 max-sm:flex-col max-sm:gap-4">
+                        <div class="flex flex-1 gap-10 items-center max-md:gap-6 max-sm:flex-col max-sm:gap-4">
 
-                            <div class="text-base leading-5 flex-1 text-slate-800 wp_editor">
+                            <div class="flex-1 text-base leading-5 text-slate-800 wp_editor font-secondary">
                                 <?php echo wp_kses_post($content_section_3); ?>
                             </div>
 
-                            <div class="text-base leading-5 flex-1 text-slate-800">
+                            <div class="flex-1 text-base leading-5 text-slate-800">
                                 <!-- Empty column for layout balance -->
                             </div>
 
@@ -95,6 +94,5 @@ $section_id = 'quote-section-' . uniqid();
 
                 </div>
             </div>
-        </div>
     </div>
 </section>

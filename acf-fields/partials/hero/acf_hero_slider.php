@@ -17,7 +17,7 @@ $hero_slider
                 'label' => 'Slide type',
                 'choices' => [
                     'content' => 'Content (image + text + buttons)',
-                    'map' => 'Map (Leaflet map with locations)',
+                    'map' => 'Map (pins from Projects with lat/long in sidebar)',
                 ],
                 'default_value' => 'content',
             ])

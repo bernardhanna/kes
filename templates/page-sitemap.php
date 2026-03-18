@@ -8,7 +8,7 @@ get_header();
 <main class="w-full min-h-screen overflow-hidden site-main">
     <?php load_hero_templates(); ?>
         <section class="relative flex overflow-hidden">
-            <div class="flex flex-col items-center w-full py-5 mx-auto max-w-[1085px] max-lg:px-5">
+            <div class="flex flex-col items-center w-full py-5 mx-auto max-w-[1085px] max-xl:px-5">
                 <div class="flex flex-col w-full gap-10 mt-10 md:flex-row">
                     <div class="w-full">
                         <h2 class="text-2xl font-semibold text-secondary">Pages</h2>

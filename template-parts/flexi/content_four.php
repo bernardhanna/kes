@@ -60,47 +60,57 @@ if (!$show_section) {
 }
 
 // Random section id
-$section_id = 'content-three-' . uniqid();
+$section_id = 'content-four-' . uniqid();
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" role="region" aria-label="<?php echo esc_attr__('About section', 'matrix-starter'); ?>" class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>">
-  <div class="flex flex-col items-center w-full mx-auto max-w-[1250px] pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
-    <main id="main-content" class="w-full">
-      <div class="grid grid-cols-1 gap-8 items-center w-full md:grid-cols-2 lg:gap-12">
+<section id="<?php echo esc_attr($section_id); ?>" class="content-four about-section relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>" role="region" aria-label="<?php echo esc_attr__('About section', 'matrix-starter'); ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-[1250px] pt-5 pb-5 <?php echo $padding_classes_str; ?>">
+    <div class="w-full">
+      <div class="grid grid-cols-1 gap-2 items-center w-full md:grid-cols-2 lg:grid-cols-[50%_50%] lg:gap-12">
 
         <!-- Left: Text -->
-        <article class="flex flex-col order-2 gap-6 md:order-1">
+        <article class="flex flex-col order-2 gap-6 md:order-1 px-5 xl:pl-[7rem]">
           <div class="flex flex-col gap-4">
             <?php if (!empty($heading)): ?>
-              <<?php echo esc_attr($heading_tag); ?> class="font-red-hat-display text-4xl lg:text-5xl font-bold leading-tight <?php echo esc_attr($heading_color); ?>">
+              <<?php echo esc_attr($heading_tag); ?> class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary <?php echo esc_attr($heading_color); ?>">
                 <?php echo esc_html($heading); ?>
               </<?php echo esc_attr($heading_tag); ?>>
             <?php endif; ?>
-
-            <div class="w-8 h-1 <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
+            <div class="w-8 h-1 relative -top-[10px] <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
           </div>
 
+          <?php if ($img_url): ?>
+          <!-- Image: show only at 640px and down (below heading), hidden on desktop -->
+          <img
+            src="<?php echo $img_url; ?>"
+            alt="<?php echo $img_alt; ?>"
+            title="<?php echo $img_title; ?>"
+            loading="lazy"
+            class="md:hidden w-full object-cover max-w-[582px] max-h-[333px] object-contain rounded-[8px] <?php echo esc_attr($image_radius); ?>"
+          />
+          <?php endif; ?>
+
           <?php if (!empty($description)): ?>
-            <div class="wp_editor font-red-hat-text text-lg lg:text-xl leading-relaxed <?php echo esc_attr($text_color); ?>">
+            <div class="wp_editor font-red-hat-text <?php echo esc_attr($text_color); ?>">
               <?php echo wp_kses_post($description); ?>
             </div>
           <?php endif; ?>
         </article>
 
-        <!-- Right: Image -->
-        <figure class="flex order-1 justify-center items-center w-full h-80 lg:h-auto lg:min-h-96 md:order-2">
+        <!-- Right: Image - show only above 640px, hidden on mobile -->
+        <figure class="flex order-1 justify-start items-start w-full rounded-[8px] md:order-2 hidden md:block">
           <?php if ($img_url): ?>
             <img
               src="<?php echo $img_url; ?>"
               alt="<?php echo $img_alt; ?>"
               title="<?php echo $img_title; ?>"
               loading="lazy"
-              class="w-full h-full object-cover <?php echo esc_attr($image_radius); ?>"
+              class="w-full h-full object-cover max-w-[582px] max-h-[333px] rounded-[8px] relative xl:-left-[1rem] <?php echo esc_attr($image_radius); ?>"
             />
           <?php endif; ?>
         </figure>
 
       </div>
-    </main>
+          </div>
   </div>
 </section>

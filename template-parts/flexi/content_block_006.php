@@ -24,7 +24,7 @@ $gradient_from = get_sub_field('gradient_from') ?: '#262262';
 $gradient_to   = get_sub_field('gradient_to') ?: '#2B3990';
 $heading_color = get_sub_field('heading_color') ?: 'text-white';
 $text_color    = get_sub_field('text_color') ?: 'text-white';
-$accent_color  = get_sub_field('accent_bar_color') ?: 'bg-blue-50';
+$accent_color  = get_sub_field('accent_bar_color') ?: 'bg-[#CBE9E1]';
 $image_radius  = get_sub_field('image_radius') ?: 'rounded-none';
 
 // Padding classes
@@ -78,44 +78,44 @@ $section_id = 'content-block-006-' . uniqid();
   id="<?php echo esc_attr($section_id); ?>"
   role="region"
   aria-label="<?php echo esc_attr__('Water treatment services and solutions', 'matrix-starter'); ?>"
-  class="relative flex overflow-hidden w-full"
+  class="flex overflow-hidden relative w-full content-section-five"
   style="background-image: linear-gradient(to right, <?php echo esc_attr($gradient_from); ?>, <?php echo esc_attr($gradient_to); ?>);"
 >
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-[1184px] <?php echo $padding_classes_str; ?>">
 
-    <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-0 w-full px-5 lg:px-0 py-12 lg:py-0">
+    <div class="flex flex-col gap-8 items-center w-full md:flex-row lg:gap-0 lg:px-0">
 
       <!-- Left image -->
-      <div class="w-full lg:w-1/2 h-64 lg:h-auto lg:min-h-[500px] flex-shrink-0">
+      <div class="w-full h-full lg:w-1/2">
         <?php if ($img_url): ?>
           <img
             src="<?php echo $img_url; ?>"
             alt="<?php echo $img_alt; ?>"
             title="<?php echo $img_title; ?>"
             loading="lazy"
-            class="w-full h-full object-cover <?php echo esc_attr($image_radius); ?>"
+            class="w-full max-sm:h-[311px] h-full  object-cover <?php echo esc_attr($image_radius); ?>"
           />
         <?php endif; ?>
       </div>
 
       <!-- Right content -->
-      <div class="w-full lg:w-1/2 flex items-center px-6 lg:px-12 py-8 lg:py-16">
+      <div class="flex items-center px-6 py-8 w-full lg:w-1/2 lg:px-12 lg:py-16">
         <main id="main-content" class="flex flex-col gap-8 max-w-md">
 
-          <!-- Heading + accent -->
+          <!-- Heading + accent (same as content-section-five) -->
           <div class="flex flex-col gap-4">
             <?php if (!empty($heading_text)): ?>
-              <<?php echo esc_attr($heading_tag); ?> class="font-red-hat-display text-3xl lg:text-4xl font-bold leading-tight <?php echo esc_attr($heading_color); ?>">
+              <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-none text-white">
                 <?php echo esc_html($heading_text); ?>
               </<?php echo esc_attr($heading_tag); ?>>
             <?php endif; ?>
-            <div class="w-8 h-1 <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
+            <div class="mt-1 w-8 h-1 <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
           </div>
 
-          <!-- Description -->
+          <!-- Description (16px/400/20px, white) -->
           <?php if (!empty($description)): ?>
             <article class="flex flex-col gap-4">
-              <div class="wp_editor font-red-hat-text text-base lg:text-lg font-normal leading-relaxed <?php echo esc_attr($text_color); ?>">
+              <div class="!text-[18px] !font-medium !leading-6 !font-secondary !text-white">
                 <?php echo wp_kses_post($description); ?>
               </div>
             </article>
@@ -128,13 +128,13 @@ $section_id = 'content-block-006-' . uniqid();
                 $txt = !empty($row['item_text']) ? esc_html($row['item_text']) : '';
                 if ($txt === '') continue;
               ?>
-                <li class="flex items-start gap-3">
+                <li class="flex gap-3 items-start">
                   <!-- Arrow icon -->
-                  <svg class="w-5 h-5 flex-shrink-0 mt-0.5 <?php echo esc_attr($text_color); ?>" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <svg class="flex-shrink-0 mt-0.5 w-5 h-5 text-white" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
                     <path d="M4.16699 10H15.8337" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M10 4.16663L15.8333 9.99996L10 15.8333" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
-                  <span class="font-red-hat-text text-base lg:text-lg font-normal <?php echo esc_attr($text_color); ?>">
+                  <span class="text-base font-normal leading-5 text-white font-red-hat-text">
                     <?php echo $txt; ?>
                   </span>
                 </li>
@@ -142,17 +142,18 @@ $section_id = 'content-block-006-' . uniqid();
             </ul>
           <?php endif; ?>
 
-          <!-- Download button -->
+          <!-- Download button (same hover/pressed/focus as content-section-five, 18px/500/24px, #2B3990) -->
           <?php if (!empty($btn_url)): ?>
             <div class="pt-4">
               <a
                 href="<?php echo $btn_url; ?>"
                 target="<?php echo $btn_target; ?>"
-                class="flex items-center justify-center gap-2 w-full lg:w-auto px-8 py-3 lg:py-4 bg-white text-blue-600 rounded-full font-red-hat-text font-medium text-lg hover:opacity-90 transition-opacity"
+                class="content-section-five-btn btn inline-flex gap-2 justify-center items-center w-full px-6 py-3.5 font-red-hat-text text-[18px] font-medium leading-[24px] bg-white rounded-full transition-all duration-300"
+                style="color: var(--Blue-300, #2B3990);"
                 aria-label="<?php echo esc_attr($btn_label); ?>"
               >
-                <svg class="w-6 h-6" width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M7 10L12 15M12 15L17 10M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <svg class="flex-shrink-0 w-5 h-5" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M19 13V17C19 17.5304 18.7893 18.0391 18.4142 18.4142C18.0391 18.7893 17.5304 19 17 19H3C2.46957 19 1.96086 18.7893 1.58579 18.4142C1.21071 18.0391 1 17.5304 1 17V13M5 8L10 13M10 13L15 8M10 13V1" stroke="var(--Blue-300, #2B3990)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <span><?php echo esc_html($btn_label); ?></span>
               </a>

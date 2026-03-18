@@ -95,7 +95,7 @@ if ($form_markup) {
 <section id="<?php echo esc_attr($section_id); ?>"
          class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
          style="<?php echo esc_attr($background_css ? ("background: {$background_css}; color: {$text_color};") : ("background-color: {$background_color}; color: {$text_color};")); ?>">
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5">
 
         <?php if ($heading): ?>
             <header class="w-full text-center mb-8">

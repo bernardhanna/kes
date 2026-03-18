@@ -102,7 +102,7 @@ if ($form_markup) {
 <section id="<?php echo esc_attr($section_id); ?>"
          class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
          style="background-color: <?php echo esc_attr($background_color); ?>; color: <?php echo esc_attr($text_color); ?>;">
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5">
 
         <div class="flex flex-wrap gap-3 items-start w-full px-16 pt-16 pb-20 bg-white max-md:px-5">
 

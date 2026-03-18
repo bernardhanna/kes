@@ -31,35 +31,54 @@ if ($blog_page_id) {
 }
 ?>
 
-<main class="w-full overflow-hidden min-h-fit site-main">
+<?php
+if (function_exists('matrix_starter_render_archive_index_header')) {
+    $blog_opts = get_field('blog_settings', 'option') ?: [];
+    $show_band = ! array_key_exists('show_blog_index_header', $blog_opts) || ! empty($blog_opts['show_blog_index_header']);
+    if ($show_band) {
+        $blog_page_id = get_option('page_for_posts');
+        $idx_heading   = isset($blog_opts['blog_index_heading']) ? trim((string) $blog_opts['blog_index_heading']) : '';
+        if ($idx_heading === '') {
+            $idx_heading = $blog_page_id ? get_the_title($blog_page_id) : __('Blog', 'matrix-starter');
+        }
+        matrix_starter_render_archive_index_header([
+            'heading'      => $idx_heading,
+            'heading_tag'  => $blog_opts['blog_index_heading_tag'] ?? 'h2',
+            'intro'        => $blog_opts['blog_index_intro'] ?? '',
+            'bg_color'     => $blog_opts['blog_index_bg'] ?? '#ffffff',
+            'accent_color' => $blog_opts['blog_index_underline'] ?? '#00ACD8',
+        ]);
+    }
+}
+?>
+
+<main class="overflow-hidden w-full min-h-fit site-main">
   <div class="w-full"
        x-data="blogFilter({
          initialCategory: '<?php echo esc_js($category_slug ?: 'all'); ?>',
        })">
 
-    <!-- Filter & Search -->
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1075px] text-sm leading-none max-xl:px-5">
-      <div class="flex flex-wrap items-center gap-6 max-md:max-w-full">
+    <!-- Filters -->
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1085px] px-8 text-sm leading-none max-xl:px-5">
+      <div class="flex flex-wrap gap-6 items-center max-md:max-w-full">
 
-        <div class="self-stretch my-auto text-slate-800" id="filterLabel">Filter by</div>
+        <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php esc_html_e('Filter by', 'matrix-starter'); ?></div>
 
-        <!-- Category radio group (no page reloads) -->
-        <div class="flex flex-wrap gap-4 items-center self-stretch my-auto font-semibold text-teal-950 max-md:max-w-full"
+        <div class="flex flex-wrap gap-4 items-center self-stretch my-auto max-md:max-w-full"
              role="radiogroup"
              aria-labelledby="filterLabel">
 
-          <!-- All -->
           <button
             type="button"
             role="radio"
-            class="gap-2 self-stretch px-6 py-3 my-auto whitespace-nowrap bg-white border border-slate-400 min-h-[42px] rounded-[100px] max-md:px-5"
-            :class="activeCategory === 'all' ? 'bg-[#025A70] text-white' : 'bg-white border text-[#025A70]'"
-            :aria-checked="activeCategory === 'all'"
+            class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            :class="activeCategory === 'all' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
+            :aria-checked="activeCategory === 'all' ? 'true' : 'false'"
             @click="setCategory('all')"
             @keydown.enter.prevent="setCategory('all')"
             @keydown.space.prevent="setCategory('all')"
           >
-            All
+            <?php esc_html_e('All', 'matrix-starter'); ?>
           </button>
 
           <?php
@@ -71,9 +90,9 @@ if ($blog_page_id) {
             <button
               type="button"
               role="radio"
-              class="gap-2 self-stretch px-6 py-3 my-auto whitespace-nowrap bg-white border border-slate-400 min-h-[42px] rounded-[100px] max-md:px-5"
-              :class="activeCategory === '<?php echo $slug; ?>' ? 'bg-[#025A70] text-white' : 'bg-white border text-[#025A70]'"
-              :aria-checked="activeCategory === '<?php echo $slug; ?>'"
+              class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              :class="activeCategory === '<?php echo $slug; ?>' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
+              :aria-checked="activeCategory === '<?php echo $slug; ?>' ? 'true' : 'false'"
               @click="setCategory('<?php echo $slug; ?>')"
               @keydown.enter.prevent="setCategory('<?php echo $slug; ?>')"
               @keydown.space.prevent="setCategory('<?php echo $slug; ?>')"
@@ -83,36 +102,15 @@ if ($blog_page_id) {
           <?php endforeach; ?>
         </div>
 
-        <!-- Live search -->
-        <div class="flex items-center gap-2">
-          <label for="article-search" class="sr-only">Search articles</label>
-          <input
-            id="article-search"
-            type="search"
-            x-model.trim.debounce.200ms="searchTerm"
-            placeholder="Search articles"
-            class="px-4 py-3 bg-white border border-slate-400 rounded min-h-[42px] text-slate-700"
-            aria-label="Search articles"
-          />
-          <button
-            type="button"
-            class="px-4 py-3 bg-slate-200 border border-slate-400 rounded min-h-[42px]"
-            @click="clearSearch()"
-            x-show="searchTerm.length"
-            aria-label="Clear search"
-          >Clear</button>
-        </div>
-
-        <!-- Clear all (category + search) -->
         <div>
           <button
             type="button"
-            class="px-4 py-3 bg-gray-200 rounded min-h-[42px] whitespace-nowrap hover:opacity-80"
+            class="px-4 py-3 min-h-[44px] rounded-[100px] whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] bg-white text-[#262262] hover:border-[#00ACD8] hover:bg-[#00ACD8] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             @click="clearAll()"
-            x-show="activeCategory !== 'all' || searchTerm.length"
-            aria-label="Clear filters"
+            x-show="activeCategory !== 'all'"
+            aria-label="<?php esc_attr_e('Reset filter to show all categories', 'matrix-starter'); ?>"
           >
-            Clear filters
+            <?php esc_html_e('Clear filters', 'matrix-starter'); ?>
           </button>
         </div>
 
@@ -120,8 +118,8 @@ if ($blog_page_id) {
     </div>
 
     <!-- Cards grid -->
-    <section class="w-full bg-[#F9FAFB] py-8 lg:py-16 min-h-fit" role="tabpanel">
-      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-[1160px] mx-auto bg-[#F9FAFB]">
+    <section class="w-full bg-[#F9FAFB] py-8 lg:py-16 min-h-fit" aria-label="<?php esc_attr_e('Blog posts listing', 'matrix-starter'); ?>">
+      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-[1084px] mx-auto bg-[#F9FAFB]">
         <?php
         $args = [
           'post_type'      => 'post',
@@ -163,37 +161,41 @@ if ($blog_page_id) {
         ?>
           <a
             href="<?php the_permalink(); ?>"
-            class="group block w-full"
+            class="block w-full group"
             data-categories="<?php echo esc_attr($post_classes_str); ?>"
-            data-title="<?php echo esc_attr(mb_strtolower($title_attr)); ?>"
             x-show="visible($el)"
             x-transition.opacity.duration.300ms
             aria-label="Read more about <?php echo esc_attr($title_attr); ?>"
           >
             <div class="flex flex-col gap-4 w-full text-left">
               <!-- Image + gradient + badge -->
-              <div class="relative w-full h-48 rounded-lg overflow-hidden bg-gradient-to-r from-slate-600 to-slate-700">
+              <div class="overflow-hidden relative w-full h-48 bg-gradient-to-r rounded-lg from-slate-600 to-slate-700">
                 <?php if (has_post_thumbnail()) : ?>
                   <img
                     src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"
                     alt="<?php echo esc_attr(get_post_meta(get_post_thumbnail_id(), '_wp_attachment_image_alt', true) ?: $title_attr); ?>"
-                    class="w-full h-full object-cover transition-transform duration-300 ease-in-out transform group-hover:scale-105"
+                    class="object-cover w-full h-full transition-transform duration-300 ease-in-out transform group-hover:scale-105"
                   />
                 <?php endif; ?>
 
-                <div class="absolute inset-0 bg-gradient-to-r from-[#01242D]/40 to-[#025A70]/40" aria-hidden="true"></div>
+                <div
+                  class="pointer-events-none absolute inset-0 z-[1]"
+                  style="background: linear-gradient(90deg, rgba(43, 57, 144, 0.30) 0%, rgba(0, 110, 200, 0.30) 100%);"
+                  aria-hidden="true"
+                ></div>
 
-                <div class="absolute top-4 left-4 h-7 px-3 flex justify-center items-center rounded-full bg-white/90">
-                  <span class="text-xs font-medium leading-5 tracking-wide text-[#01242D]">
-                    <?php echo esc_html($badge_label); ?>
-                  </span>
+                <div
+                  class="pointer-events-none absolute left-4 top-4 z-10 flex h-7 min-h-7 items-center justify-center rounded-full border border-solid border-[#2B3990] bg-white px-3 font-secondary text-sm font-medium leading-5 text-[#262262] transition-[background-color,border-color,color] duration-300 ease-out group-hover:border-[#00ACD8] group-hover:bg-[#00ACD8] group-hover:text-[#262262]"
+                  aria-hidden="true"
+                >
+                  <span><?php echo esc_html($badge_label); ?></span>
                 </div>
               </div>
 
               <!-- Content -->
               <div class="flex flex-col gap-1">
-                <h3 class="text-[#01242D] text-lg font-bold leading-6"><?php the_title(); ?></h3>
-                <p class="text-[#1D2939] text-base font-normal leading-5 line-clamp-3"><?php the_excerpt(); ?></p>
+                <h3 class="text-[#262262] font-secondary text-[18px] font-bold leading-6"><?php the_title(); ?></h3>
+                <p class="text-[#344054] text-base font-normal leading-5 "><?php the_excerpt(); ?></p>
               </div>
             </div>
           </a>
@@ -202,8 +204,8 @@ if ($blog_page_id) {
         <?php endif; ?>
       </div>
 
-      <!-- Pagination (auto hides when filtering/searching) -->
-      <nav class="flex items-center justify-center w-full py-12 pagination"
+      <!-- Pagination (hidden when a category filter is active) -->
+      <nav class="flex justify-center items-center py-12 w-full pagination"
            aria-label="Pagination"
            x-show="showPagination">
         <?php my_custom_pagination(); ?>
@@ -217,7 +219,6 @@ if ($blog_page_id) {
   function blogFilter({ initialCategory = 'all' } = {}) {
     return {
       activeCategory: initialCategory,
-      searchTerm: '',
       showPagination: true,
 
       setCategory(cat) {
@@ -225,32 +226,19 @@ if ($blog_page_id) {
         this.updatePagination();
       },
 
-      clearSearch() {
-        this.searchTerm = '';
-        this.updatePagination();
-      },
-
       clearAll() {
         this.activeCategory = 'all';
-        this.searchTerm = '';
         this.updatePagination();
       },
 
-      // Determine if a card should be visible
       visible(el) {
         const catsRaw = (el.getAttribute('data-categories') || '').trim();
         const cats    = catsRaw ? catsRaw.split(/\s+/) : [];
-        const title   = (el.getAttribute('data-title') || '').toLowerCase();
-
-        const catOK    = this.activeCategory === 'all' || cats.includes(this.activeCategory);
-        const searchOK = !this.searchTerm || title.indexOf(this.searchTerm.toLowerCase()) !== -1;
-
-        return catOK && searchOK;
+        return this.activeCategory === 'all' || cats.includes(this.activeCategory);
       },
 
       updatePagination() {
-        // Hide pagination if any client-side filter is active
-        this.showPagination = (this.activeCategory === 'all' && this.searchTerm.length === 0);
+        this.showPagination = this.activeCategory === 'all';
       }
     }
   }

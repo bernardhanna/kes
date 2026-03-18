@@ -32,14 +32,14 @@ if (have_rows('padding_settings')) {
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
-    class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
+    class="relative flex  <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     style="background-color: <?php echo esc_attr($background_color); ?>;"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
-        <div class="flex flex-wrap gap-8 items-center w-full">
+    <div class="flex flex-col items-center py-10 mx-auto w-full md:py-14 max-w-[1084px] max-xl:px-5">
+        <div class="grid grid-cols-1 gap-8 l:gap-16 items-center w-full lg:grid-cols-[45%_50%]">
 
             <!-- Project Information Column -->
-            <article class="flex flex-col self-stretch py-20 pr-10 pl-24 my-auto w-full max-w-[640px] max-md:px-5 max-md:max-w-full">
+            <article class="flex flex-col w-full">
 
                 <!-- Project Heading Section -->
                 <?php if (!empty($heading)): ?>
@@ -52,7 +52,7 @@ if (have_rows('padding_settings')) {
                     </div>
 
                     <?php if (!empty($description)): ?>
-                    <div class="mt-3 text-2xl leading-8 opacity-96 text-slate-800 max-md:max-w-full wp_editor">
+                    <div class="mt-3  opacity-96 !text-2xl !not-italic !font-normal !leading-8 !text-[#1D2939]">
                         <?php echo wp_kses_post($description); ?>
                     </div>
                     <?php endif; ?>
@@ -64,8 +64,8 @@ if (have_rows('padding_settings')) {
 
                     <?php if (!empty($status)): ?>
                     <div class="leading-none">
-                        <div class="font-bold text-blue-900">Status</div>
-                        <div class="mt-1 opacity-96 text-slate-800">
+                        <div class="text-lg not-italic font-bold leading-6 text-[#2B3990] font-secondary">Status</div>
+                        <div class="mt-1 text-lg not-italic font-normal leading-6 text-[#1D2939] opacity-96 font-secondary">
                             <?php echo esc_html($status); ?>
                         </div>
                     </div>
@@ -73,8 +73,8 @@ if (have_rows('padding_settings')) {
 
                     <?php if (!empty($completion_year)): ?>
                     <div class="mt-4 leading-none">
-                        <div class="font-bold text-blue-900">Completion Year</div>
-                        <div class="mt-1 opacity-96 text-slate-800">
+                        <div class="text-lg not-italic font-bold leading-6 text-[#2B3990] font-secondary">Completion Year</div>
+                        <div class="mt-1 text-lg not-italic font-normal leading-6 text-[#1D2939] opacity-96 font-secondary">
                             <?php echo esc_html($completion_year); ?>
                         </div>
                     </div>
@@ -82,8 +82,8 @@ if (have_rows('padding_settings')) {
 
                     <?php if (!empty($size_details)): ?>
                     <div class="mt-4">
-                        <div class="font-bold leading-none text-blue-900">Size</div>
-                        <div class="mt-1 leading-6 opacity-96 text-slate-800 wp_editor">
+                        <div class="text-lg not-italic font-bold leading-6 text-[#2B3990] font-secondary">Size</div>
+                        <div class="mt-1 text-lg not-italic font-normal leading-6 text-[#1D2939] opacity-96 font-secondary wp_editor">
                             <?php echo wp_kses_post($size_details); ?>
                         </div>
                     </div>
@@ -91,8 +91,8 @@ if (have_rows('padding_settings')) {
 
                     <?php if (!empty($client)): ?>
                     <div class="self-stretch mt-4 leading-none">
-                        <div class="font-bold text-blue-900">Client</div>
-                        <div class="mt-1 opacity-96 text-slate-800">
+                        <div class="text-lg not-italic font-bold leading-6 text-[#2B3990] font-secondary">Client</div>
+                        <div class="mt-1 text-lg not-italic font-normal leading-6 text-[#1D2939] opacity-96 font-secondary">
                             <?php echo esc_html($client); ?>
                         </div>
                     </div>
@@ -100,8 +100,8 @@ if (have_rows('padding_settings')) {
 
                     <?php if (!empty($team_details)): ?>
                     <div class="mt-4">
-                        <div class="font-bold leading-none text-blue-900">Team</div>
-                        <div class="mt-1 leading-6 opacity-96 text-slate-800 wp_editor">
+                        <div class="text-lg not-italic font-bold leading-6 text-[#2B3990] font-secondary">Team</div>
+                        <div class="mt-1 text-lg not-italic font-normal leading-6 text-[#1D2939] opacity-96 font-secondary wp_editor">
                             <?php echo wp_kses_post($team_details); ?>
                         </div>
                     </div>
@@ -112,10 +112,10 @@ if (have_rows('padding_settings')) {
 
             <!-- Project Image Column -->
             <?php if ($project_image): ?>
-            <div class="overflow-hidden self-stretch my-auto rounded-lg w-full max-w-[502px] max-md:max-w-full">
+            <div class="flex justify-center items-center self-stretch my-auto w-full h-full rounded-lg lg:justify-self-end">
                 <?php echo wp_get_attachment_image($project_image, 'full', false, [
                     'alt' => esc_attr($project_image_alt),
-                    'class' => 'object-contain w-full h-auto',
+                    'class' => 'object-contain w-full h-auto lg:max-w-[575px] lg:max-h-[595px]  rounded-lg relative xxl:-right-[2rem] max-md:max-w-[375px] max-md:h-[398px] xxl:top-[.8rem] ',
                     'loading' => 'lazy'
                 ]); ?>
             </div>

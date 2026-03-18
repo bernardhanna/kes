@@ -48,6 +48,7 @@ require_once get_template_directory() . '/inc/enqueue-scripts.php';
 // load the helper functions
 require_once get_template_directory() . '/inc/hero-functions.php';
 require_once get_template_directory() . '/inc/flexible-content-functions.php';
+require_once get_template_directory() . '/inc/archive-index-header.php';
 
 // Function to handle Tailwind config updates and trigger rebuilds
 function handle_tailwind_config_update()
@@ -101,9 +102,7 @@ require_once get_template_directory() . '/inc/autoload-acf-fields.php';
 
 // Autoload Custom Post Types and Taxonomies
 require_once get_template_directory() . '/inc/cpts/init.php';
-
-// Seed sample locations for hero map (only when none exist)
-require_once get_template_directory() . '/inc/seed-locations.php';
+require_once get_template_directory() . '/inc/seed-project-map-coordinates.php';
 
 // Include the ACF theme options setup
 require_once get_template_directory() . '/inc/theme-options.php';

@@ -49,36 +49,43 @@ if (empty($slides) || !is_array($slides)) {
     return;
 }
 
-// Locations payload for map slides (from Locations CPT)
+// Map markers: Projects with map latitude + longitude (Hero map → Projects CPT)
 $hero_locations_payload = [];
-$location_ids = get_posts([
-    'post_type'      => 'locations',
+$project_ids            = get_posts([
+    'post_type'      => 'projects',
     'posts_per_page' => -1,
     'post_status'    => 'publish',
     'fields'         => 'ids',
+    'orderby'        => 'title',
+    'order'          => 'ASC',
 ]);
-foreach ($location_ids as $loc_id) {
-    $lat_raw = get_post_meta($loc_id, 'latitude', true);
-    $lng_raw = get_post_meta($loc_id, 'longitude', true);
-    if ($lat_raw === '' || $lat_raw === null) {
-        $lat_raw = get_field('latitude', $loc_id);
-    }
-    if ($lng_raw === '' || $lng_raw === null) {
-        $lng_raw = get_field('longitude', $loc_id);
-    }
-    $lat = is_string($lat_raw) ? str_replace(',', '.', trim((string) $lat_raw)) : $lat_raw;
-    $lng = is_string($lng_raw) ? str_replace(',', '.', trim((string) $lng_raw)) : $lng_raw;
-    if ($lat === '' || $lng === '' || !is_numeric($lat) || !is_numeric($lng)) {
+foreach ($project_ids as $pid) {
+    $lat_raw = get_field('map_latitude', $pid);
+    $lng_raw = get_field('map_longitude', $pid);
+    $lat     = is_string($lat_raw) ? str_replace(',', '.', trim((string) $lat_raw)) : $lat_raw;
+    $lng     = is_string($lng_raw) ? str_replace(',', '.', trim((string) $lng_raw)) : $lng_raw;
+    if ($lat === '' || $lng === '' || $lat === null || $lng === null || ! is_numeric($lat) || ! is_numeric($lng)) {
         continue;
     }
+    $popup_excerpt = wp_strip_all_tags((string) get_the_excerpt($pid));
+    if ($popup_excerpt === '') {
+        $popup_excerpt = wp_trim_words(wp_strip_all_tags((string) get_post_field('post_content', $pid)), 18, '…');
+    }
+    $popup_image = get_the_post_thumbnail_url($pid, 'medium_large');
+    if (! $popup_image) {
+        $popup_image = get_the_post_thumbnail_url($pid, 'medium');
+    }
+
     $hero_locations_payload[] = [
-        'id'    => (int) $loc_id,
-        'title' => (string) get_the_title($loc_id),
-        'lat'   => (float) $lat,
-        'lng'   => (float) $lng,
-        'address'   => (string) get_field('address', $loc_id),
-        'url'       => (string) get_field('url', $loc_id),
-        'link_label'=> (string) get_field('link_label', $loc_id) ?: 'View details',
+        'id'         => (int) $pid,
+        'title'      => (string) get_the_title($pid),
+        'lat'        => (float) $lat,
+        'lng'        => (float) $lng,
+        'address'    => (string) (get_field('project_location', $pid) ?: ''),
+        'excerpt'    => (string) $popup_excerpt,
+        'image'      => (string) $popup_image,
+        'url'        => (string) get_permalink($pid),
+        'link_label' => (string) __('View project', 'matrix-starter'),
     ];
 }
 
@@ -194,7 +201,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
                     data-locations-id="<?php echo esc_attr($section_id); ?>-locations"
                     <?php if ($marker_icon_url): ?>data-marker-icon="<?php echo esc_url($marker_icon_url); ?>"<?php endif; ?>
                     role="application"
-                    aria-label="Interactive map of locations">
+                    aria-label="<?php echo esc_attr__('Interactive map of projects', 'matrix-starter'); ?>">
                   </div>
                 </div>
                 <?php if (!empty($map_gradient)): ?>
@@ -475,6 +482,28 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
   }
 
+  function markerPopupHtml(g) {
+    if (!g) return "";
+    var title = String(g.title || "").trim();
+    var url = String(g.url || "").trim();
+    var image = String(g.image || "").trim();
+    var html = '<div class="hero-map-popup" style="max-width:260px;">';
+    if (url) {
+      html += '<a href="' + escapeHtml(encodeURI(url)) + '" target="_self" rel="noopener" class="hero-map-popup-item">';
+    } else {
+      html += '<div class="hero-map-popup-item">';
+    }
+    if (image) {
+      html += '<img src="' + escapeHtml(encodeURI(image)) + '" alt="" style="display:block;width:56px;height:56px;object-fit:cover;border-radius:6px;flex:0 0 56px;" />';
+    }
+    if (title) {
+      html += '<span class="hero-map-popup-title">' + escapeHtml(title) + '</span>';
+    }
+    html += url ? '</a>' : '</div>';
+    html += "</div>";
+    return html;
+  }
+
   function initVectorMap(container) {
     if (!container || container.dataset.heroMapInit === "1") return;
     if (typeof window.maplibregl === "undefined") return;
@@ -523,7 +552,39 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
         el.style.border = "2px solid #fff";
         el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.3)";
       }
-      var marker = new maplibregl.Marker({ element: el }).setLngLat([g.lng, g.lat]).addTo(map);
+      var marker = new maplibregl.Marker({ element: el }).setLngLat([g.lng, g.lat]);
+      var popupHtml = markerPopupHtml(g);
+      if (popupHtml) {
+        var popup = new maplibregl.Popup({ offset: 20 }).setHTML(popupHtml);
+        if (g.url) {
+          popup.on("open", function() {
+            var popupEl = popup.getElement && popup.getElement();
+            if (!popupEl) return;
+            var contentEl = popupEl.querySelector(".maplibregl-popup-content");
+            if (!contentEl) return;
+
+            contentEl.style.cursor = "pointer";
+            contentEl.setAttribute("role", "link");
+            contentEl.tabIndex = 0;
+
+            var navigate = function(ev) {
+              if (ev && ev.target && ev.target.closest(".maplibregl-popup-close-button")) return;
+              window.location.href = g.url;
+            };
+
+            contentEl.onclick = navigate;
+            contentEl.onkeydown = function(ev) {
+              if (!ev) return;
+              if (ev.key === "Enter" || ev.key === " ") {
+                ev.preventDefault();
+                navigate(ev);
+              }
+            };
+          });
+        }
+        marker.setPopup(popup);
+      }
+      marker.addTo(map);
       bounds.push([g.lng, g.lat]);
     });
     function applyVectorView() {
@@ -597,6 +658,10 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     groups.forEach(function(g) {
       if (!g || !Number.isFinite(g.lat) || !Number.isFinite(g.lng)) return;
       var marker = L.marker([g.lat, g.lng], markerIcon ? { icon: markerIcon } : {}).addTo(map);
+      var popupHtml = markerPopupHtml(g);
+      if (popupHtml) {
+        marker.bindPopup(popupHtml);
+      }
       bounds.push([g.lat, g.lng]);
     });
     if (bounds.length > 1) map.fitBounds(bounds, { padding: [30, 30], maxZoom: 12, minZoom: Math.max(4, zoom - 2) });

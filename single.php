@@ -1,7 +1,7 @@
 <?php
 get_header();
 ?>
-<main class="overflow-hidden min-h-screen site-main max-md:px-5 w-full  max-w-container mx-auto">
+<main class="overflow-hidden w-full min-h-screen site-main">
   <?php
   // Optional hero partial (yours)
   get_template_part('template-parts/single/hero');
@@ -11,9 +11,11 @@ get_header();
     load_hero_templates();
   }
 
+  $is_project_single = is_singular('projects');
+
   // Breadcrumbs (Theme Options toggle)
   $enable_breadcrumbs = get_field('enable_breadcrumbs', 'option');
-  if ($enable_breadcrumbs !== false) {
+  if ($enable_breadcrumbs !== false && ! $is_project_single) {
     get_template_part('template-parts/header/breadcrumbs');
   }
   ?>
@@ -34,6 +36,7 @@ get_header();
       $intro       = get_the_excerpt($post_id);
     ?>
 
+    <?php if (! in_array(get_post_type(), ['services', 'projects'], true)) : ?>
     <article
       <?php post_class('flex overflow-hidden justify-between items-center"'); ?>
       role="article"
@@ -73,18 +76,19 @@ get_header();
         <?php endif; ?>
       </div>
     </article>
+    <?php endif; ?>
 
     <?php
       // Main content
       if (trim(get_the_content()) !== '') :
     ?>
-      <div class="max-w-container mx-auto max-xl:px-5">
+      <div class="mx-auto max-w-container max-xl:px-5">
         <?php get_template_part('template-parts/content/content', 'page'); ?>
       </div>
     <?php endif; ?>
 
   <?php endwhile; else : ?>
-    <div class="max-w-container mx-auto px-5 py-12">
+    <div class="px-5 py-12 mx-auto max-w-container">
       <p>No content found</p>
     </div>
   <?php endif; ?>

@@ -26,10 +26,10 @@ $secondary_navigation = Navi::make()->build('secondary');
     }
   }"
   x-init="window.addEventListener('resize', () => checkWindowSize())"
-  class="py-4 bg-white"
+  class="py-4 bg-[#F9FAFB]"
   x-effect="isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''">
-  <nav class="flex justify-between items-center w-full mx-auto max-w-[1168px] px-5 navbar:px-0">
-    <a style="z-index: 1000;" class="flex <?php echo esc_attr($logo_position_class); ?>" href="<?php echo esc_url(home_url('/')); ?>">
+  <nav class="flex justify-between items-center w-full mx-auto max-w-[1280px] max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0">
+    <a style="z-index: 1000;" class="flex lg:px-5 xl:pl-10 xxl:pl-14 <?php echo esc_attr($logo_position_class); ?>" href="<?php echo esc_url(home_url('/')); ?>">
       <?php if ($logo_url) : ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>" />
       <?php else : ?>
@@ -48,29 +48,29 @@ $secondary_navigation = Navi::make()->build('secondary');
           <?php
             $is_last = ($i === $total - 1);
 
-            // last item = white; others = primary (text color does not change on hover; underline effect on non-last)
-            $text_class = $is_last ? 'text-white' : 'text-primary';
+            // last item = white; others = Blue-500 (text color does not change on hover; underline effect on non-last)
+            $text_class = $is_last ? 'text-white' : 'text-blue-500';
             $underline_class = $is_last ? '' : 'relative pb-3 after:content-[""] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full';
           ?>
           <li class="relative group pt-3 <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
             <a href="<?php echo esc_url($item->url); ?>"
-               class="gap-2.5 self-stretch my-auto whitespace-nowrap text-base font-semibold leading-[22px] flex items-center capitalize <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?>">
+               class="gap-2.5 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?>">
               <?php echo esc_html($item->label); ?>
               <?php if (!empty($item->children)) : ?>
-                <span class="ml-[2px]">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="18" viewBox="0 0 17 18" fill="none" aria-hidden="true" focusable="false">
-                    <path d="M4.25 6.875L8.5 11.125L12.75 6.875" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <span class="ml-[2px] inline-flex transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+                    <path d="M4.25 6.375L8.5 10.625L12.75 6.375" />
                   </svg>
                 </span>
               <?php endif; ?>
             </a>
 
             <?php if (!empty($item->children)) : ?>
-              <ul class="absolute left-0 hidden space-y-2 border-b-2 border-[#F68D2E] bg-white group-hover:block min-w-[200px] z-50">
+              <ul class="absolute left-0 top-full pt-1 hidden min-w-[200px] z-50 group-hover:block rounded-lg border border-gray-200 bg-white py-2 shadow-lg" aria-label="<?php echo esc_attr__('Submenu', 'matrix-starter'); ?>">
                 <?php foreach ($item->children as $child) : ?>
-                  <li class="group <?php echo esc_attr($child->classes); ?> <?php echo $child->active ? 'current-item' : ''; ?> hover:bg-secondary">
+                  <li class="<?php echo esc_attr($child->classes); ?> <?php echo $child->active ? 'current-item' : ''; ?>">
                     <a href="<?php echo esc_url($child->url); ?>"
-                       class="block px-4 py-2 text-sm font-normal leading-normal text-primary hover:text-primary-light">
+                       class="block px-4 py-2.5 font-secondary text-sm font-medium leading-[22px] text-blue-500 hover:bg-gray-50 hover:text-primary-dark">
                       <?php echo esc_html($child->label); ?>
                     </a>
                   </li>

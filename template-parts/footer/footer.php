@@ -55,7 +55,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
 
   <!-- Nav + Social (content at max width) -->
   <div class="flex flex-wrap justify-between items-center py-4 mx-auto w-full max-w-container max-xl:px-5 max-md:flex-col max-md:items-start">
-      <nav class="flex flex-1 items-center my-auto basis-0 min-w-60" aria-label="Footer navigation" role="navigation">
+      <nav class="flex flex-1 items-center my-auto w-full basis-0 min-w-60" aria-label="Footer navigation" role="navigation">
         <?php if (!empty($link_items)): ?>
 
           <!-- Desktop/Tablet list (>= sm) -->

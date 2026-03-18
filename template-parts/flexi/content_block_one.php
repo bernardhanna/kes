@@ -20,7 +20,8 @@ $benefits       = get_sub_field('benefits');
 $cta_link       = get_sub_field('cta_link');
 
 // Layout
-$reverse_layout = (bool) get_sub_field('reverse_layout'); // toggle
+$reverse_layout      = (bool) get_sub_field('reverse_layout');
+$enable_left_offset  = (bool) get_sub_field('enable_left_offset');
 
 // Padding classes
 $padding_classes = [];
@@ -90,9 +91,9 @@ if ($reverse_layout) {
 }
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" class="relative flex overflow-hidden <?php echo esc_attr($section_bg_class); ?>">
-  <div class="flex flex-col items-center w-full mx-auto max-w-[1250px] pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-[1200px] pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?> relative<?php echo $enable_left_offset ? ' xl:left-[2.5rem]' : ''; ?>">
 
-      <div class="w-full xl:pt-[3.8rem] xl:pb-[4rem] relative xxl:left-[5.2rem] py-[2.5rem] grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 items-start <?php echo esc_attr($body_text_color); ?>">
+      <div class="w-full xl:pt-[3.8rem] xl:pb-[4rem] relative<?php echo $enable_left_offset ? ' xxl:left-[5.2rem]' : ''; ?> py-[2.5rem] grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 items-start <?php echo esc_attr($body_text_color); ?>">
 
         <!-- Heading + Accent (first on mobile, then column 2 row 1 on desktop) -->
         <div class="w-full <?php echo esc_attr($heading_order); ?>">
@@ -102,24 +103,14 @@ if ($reverse_layout) {
             </<?php echo esc_attr($heading_tag); ?>>
           <?php endif; ?>
           <div class="w-8 h-1 bg-[#00ACD8] rounded"></div>
-        </div>
 
-        <!-- Image (second on mobile, column 1 full height on desktop) -->
-        <div class="w-full <?php echo esc_attr($img_order); ?>">
-          <div class="relative w-full overflow-hidden <?php echo esc_attr($image_radius_class); ?>">
-            <?php if ($img_url): ?>
+        <!-- Description + Benefits + CTA (third on mobile, column 2 row 2 on desktop) -->
+        <div class="flex flex-col gap-6 w-full pt-5 <?php echo esc_attr($rest_order); ?>">
               <img
                 src="<?php echo $img_url; ?>"
                 alt="<?php echo $img_alt; ?>"
                 title="<?php echo $img_title; ?>"
-                class="w-full h-full object-cover <?php echo esc_attr($image_radius_class); ?> max-h-[310px]" />
-            <?php endif; ?>
-          </div>
-        </div>
-
-        <!-- Description + Benefits + CTA (third on mobile, column 2 row 2 on desktop) -->
-        <div class="flex flex-col gap-6 w-full <?php echo esc_attr($rest_order); ?>">
-
+                class="object-contain w-full h-full rounded-lg max-sm:flex sm:hidden" />
           <?php if (!empty($description)): ?>
             <div class="wp_editor font-secondary text-[#1D2939] text-base font-normal leading-5 max-w-[400px]">
               <?php echo wp_kses_post($description); ?>
@@ -157,6 +148,21 @@ if ($reverse_layout) {
           <?php endif; ?>
 
         </div>
+        </div>
+
+        <!-- Image (second on mobile, column 1 full height on desktop) -->
+        <div class="w-full <?php echo esc_attr($img_order); ?>">
+          <div class="relative w-full overflow-hidden <?php echo esc_attr($image_radius_class); ?>">
+            <?php if ($img_url): ?>
+              <img
+                src="<?php echo $img_url; ?>"
+                alt="<?php echo $img_alt; ?>"
+                title="<?php echo $img_title; ?>"
+                class="w-full h-full max-sm:hidden object-cover <?php echo esc_attr($image_radius_class); ?> max-h-[310px]" />
+            <?php endif; ?>
+          </div>
+        </div>
+
       </div>
 
   </div>

@@ -37,7 +37,7 @@ if ($use_gradient && $background_gradient) {
     aria-label="Customer Testimonials"
     id="<?php echo esc_attr($slider_id); ?>-kudos"
 >
-    <div class="flex flex-col items-center mx-auto w-full max-w-container max-lg:px-5">
+    <div class="flex flex-col items-center mx-auto w-full max-w-container max-xl:px-5 xxl:left-[5rem] relative">
 
         <?php if ($testimonials): ?>
             <div
@@ -108,10 +108,10 @@ if ($use_gradient && $background_gradient) {
 
                                     if ($i === 0) {
                                     // First paragraph (Display sm / Bold)
-                                    $add = "text-white text-[30px] leading-[38px] font-bold font-primary pb-[2rem]";
+                                    $add = "!text-white !text-[30px] !leading-[38px] !font-bold !font-primary !pb-[2rem]";
                                     } else {
                                     // Second and subsequent paragraphs (Text lg / Regular)
-                                    $add = "text-white text-[18px] leading-[24px] font-normal font-secondary";
+                                    $add = "!text-white !text-[18px] !leading-[24px] !font-normal !font-secondary";
                                     }
 
                                     $p->setAttribute('class', trim($existing . ' ' . $add));

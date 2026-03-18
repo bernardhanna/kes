@@ -26,11 +26,12 @@ if (have_rows('padding_settings')) {
 // Default gradient if none specified
 $default_gradient = 'linear-gradient(90deg, rgba(38, 34, 98, 0.90) 20.39%, rgba(43, 57, 144, 0.00) 80.17%)';
 $overlay_style = $gradient_overlay ? $gradient_overlay : $default_gradient;
+$mobile_overlay_style = 'linear-gradient(1deg, rgba(38, 34, 98, 0.90) 20.85%, rgba(43, 57, 144, 0.00) 79.62%)';
 ?>
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
-    class="relative flex overflow-hidden w-full h-[398px] max-md:h-[300px] max-sm:h-[250px] <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
+    class="relative mt-[5rem] flex overflow-hidden w-full h-[398px] max-md:h-[380px] <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     role="banner"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
@@ -53,29 +54,37 @@ $overlay_style = $gradient_overlay ? $gradient_overlay : $default_gradient;
     <?php endif; ?>
 
     <div
-        class="absolute top-0 left-0 opacity-70 size-full"
+        class="hidden absolute top-0 left-0 opacity-80 size-full sm:block"
         style="background: <?php echo esc_attr($overlay_style); ?>;"
         aria-hidden="true"
     ></div>
 
-    <div class="flex absolute left-24 top-36 flex-col gap-2 items-start h-28 w-[556px] max-md:left-8 max-md:h-auto max-md:top-[100px] max-md:w-[calc(100%_-_64px)] max-sm:left-4 max-sm:top-20 max-sm:gap-3 max-sm:w-[calc(100%_-_32px)]">
-        <?php if (!empty($heading)): ?>
-            <div class="relative self-stretch">
-                <<?php echo esc_attr($heading_tag); ?>
-                    id="<?php echo esc_attr($section_id); ?>-heading"
-                    class="text-5xl font-bold tracking-tighter text-emerald-100 leading-[60px] max-md:text-4xl max-md:tracking-tighter max-md:leading-10 max-sm:text-3xl max-sm:tracking-tight max-sm:leading-9"
-                >
-                    <?php echo esc_html($heading); ?>
-                </<?php echo esc_attr($heading_tag); ?>>
-            </div>
-        <?php endif; ?>
+    <div
+        class="absolute top-0 left-0 size-full sm:hidden"
+        style="background: <?php echo esc_attr($mobile_overlay_style); ?>;"
+        aria-hidden="true"
+    ></div>
 
-        <?php if (!empty($description)): ?>
-            <div class="relative self-stretch">
-                <p class="text-base font-medium leading-6 text-white max-md:text-base max-md:leading-5 max-sm:text-sm max-sm:leading-5">
-                    <?php echo esc_html($description); ?>
-                </p>
-            </div>
-        <?php endif; ?>
+    <div class="w-full max-w-[1084px] mx-auto h-full flex flex-col justify-center max-md:px-5 max-sm:justify-end max-sm:pb-5">
+
+            <?php if (!empty($heading)): ?>
+                <div class="relative self-stretch">
+                    <<?php echo esc_attr($heading_tag); ?>
+                        id="<?php echo esc_attr($section_id); ?>-heading"
+                        class="text-[#CBE9E1] max-sm:text-3xl max-sm:leading-[38px] text-[48px] font-bold leading-[60px] tracking-[-0.96px] font-primary"
+                    >
+                        <?php echo esc_html($heading); ?> 
+                    </<?php echo esc_attr($heading_tag); ?>>
+                </div>
+            <?php endif; ?>
+
+            <?php if (!empty($description)): ?>
+                <div class="relative self-stretch w-full max-w-[556px] pt-2">
+                    <p class="text-white font-secondary  text-base font-medium leading-[22px]">
+                        <?php echo esc_html($description); ?>
+                    </p>
+                </div>
+            <?php endif; ?>
+
     </div>
 </section>

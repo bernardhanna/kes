@@ -100,7 +100,7 @@ function matrix_jobs_featured_image($post_id, $size = 'large') {
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?>">
 
     <main class="w-full grid grid-cols-1 lg:grid-cols-3 gap-8" role="main" aria-label="<?php echo esc_attr__('Careers page', 'matrix-starter'); ?>">
       <!-- Left: Jobs list (spans 2 cols on lg) -->
@@ -188,7 +188,7 @@ function matrix_jobs_featured_image($post_id, $size = 'large') {
 
         <section class="mt-6 w-full" aria-labelledby="<?php echo esc_attr("job-desc-{$f_id}"); ?>">
           <header>
-            <h2 id="<?php echo esc_attr("job-desc-{$f_id}"); ?>" class="font-bold text-blue-900">
+            <h2 id="<?php echo esc_attr("job-desc-{$f_id}"); ?>" class="font-bold text-[#262262] font-medium text-lg leading-6 font-secondary">
               <?php esc_html_e('Job description:', 'matrix-starter'); ?>
             </h2>
           </header>

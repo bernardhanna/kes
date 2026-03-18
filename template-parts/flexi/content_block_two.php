@@ -79,8 +79,8 @@ if ($reverse_layout) {
 }
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative bg-white">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container xl:py-[5rem] pt-5 pb-5 max-xl:px-5 <?php echo $padding_classes_str; ?>">
-    <div class="grid grid-cols-1 gap-8 items-start w-full sm:grid-cols-[42%_58%]">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container xl:py-[5rem] pt-5 pb-5 max-xl:px-5 <?php echo $padding_classes_str; ?> xxl:left-[5rem] relative">
+    <div class="grid grid-cols-1 gap-x-8 items-start w-full sm:grid-cols-[42%_58%]">
 
         <!-- Heading (first on mobile, column 1 row 1 on desktop; column 2 row 1 when reversed) -->
         <header class="flex flex-col gap-1 <?php echo esc_attr($heading_order); ?>">
@@ -111,7 +111,7 @@ if ($reverse_layout) {
           <?php endif; ?>
 
           <?php if (!empty($wysiwyg_two)): ?>
-            <div class="wp_editor text-[16px] leading-[20px] font-normal text-slate-800">
+            <div class="small_wp_editor text-[16px] leading-[20px] font-normal text-slate-800">
               <?php echo wp_kses_post($wysiwyg_two); ?>
             </div>
           <?php endif; ?>

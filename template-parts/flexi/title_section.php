@@ -27,7 +27,7 @@ $section_id = 'title-section-' . wp_rand(1000, 9999);
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5">
         <div class="flex overflow-hidden justify-between items-center self-stretch px-24 py-20 max-md:px-5">
             <div class="flex flex-col flex-1 shrink justify-center self-stretch my-auto w-full basis-0 min-w-60 max-md:max-w-full">
                 <?php if (!empty($heading)): ?>

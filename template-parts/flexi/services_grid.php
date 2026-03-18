@@ -25,15 +25,15 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
-    class="relative flex overflow-hidden"
+    class="flex overflow-hidden relative"
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-lg:px-5">
+    <div class="flex flex-col items-center w-full mx-auto py-12 lg:py-24 max-w-[1088px] <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-xl:px-5">
 
         <?php if (!empty($services) && is_array($services)) : ?>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <div class="grid grid-cols-1 gap-8 w-full md:grid-cols-2">
                 <?php foreach ($services as $index => $service) :
                     // --- Image (ACF return: id). Be robust if the field returns array/id.
                     $image_raw = isset($service['image']) ? $service['image'] : 0;
@@ -60,31 +60,31 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
                             <a
                                 href="<?php echo esc_url($link['url']); ?>"
                                 target="<?php echo esc_attr(!empty($link['target']) ? $link['target'] : '_self'); ?>"
-                                class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg min-h-[400px] transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 btn"
+                                class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg lg:min-h-[400px] transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 btn max-md:pb-6 md:px-11"
                                 aria-labelledby="<?php echo esc_attr($service_id); ?>-title"
                                 aria-describedby="<?php echo esc_attr($service_id); ?>-description"
                             >
                         <?php else : ?>
-                            <div class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg min-h-[400px]">
+                            <div class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg  lg:min-h-[300px]">
                         <?php endif; ?>
 
                                 <?php if ($image_id) : ?>
-                                    <div class="self-stretch pl-11 my-auto w-[167px]">
+                                    <div class="self-stretch flex  justify-center  w-full md:max-w-[244px] items-center">
                                         <?php echo wp_get_attachment_image($image_id, 'medium', false, [
                                             'alt'    => esc_attr($image_alt),
                                             'title'  => esc_attr($image_title),
                                             // no aspect-* utilities
-                                            'class'  => 'object-contain w-[123px] h-[123px]',
+                                            'class'  => 'object-contain w-auto h-auto max-md:w-[135px] max-md:h-[135px]',
                                             'loading'=> 'lazy',
                                         ]); ?>
                                     </div>
                                 <?php endif; ?>
 
-                                <div class="flex-1 shrink self-stretch px-16 my-auto basis-0 max-md:px-5">
+                                <div class="flex-1 items-center self-sjustify-center max-md:px-5">
                                     <header class="w-full">
                                         <<?php echo esc_attr($title_tag); ?>
                                             id="<?php echo esc_attr($service_id); ?>-title"
-                                            class="text-xl font-bold leading-tight text-blue-900"
+                                            class="text-[#2B3990] font-bold text-xl leading-[26px] font-secondary"
                                         >
                                             <?php echo esc_html($title); ?>
                                         </<?php echo esc_attr($title_tag); ?>>
@@ -99,7 +99,7 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
 
                                     <div
                                         id="<?php echo esc_attr($service_id); ?>-description"
-                                        class="mt-4 text-sm leading-5 text-slate-700 wp_editor"
+                                        class="mt-4 !text-sm !font-normal !leading-5"
                                     >
                                         <?php echo wp_kses_post($description); ?>
                                     </div>
@@ -115,18 +115,18 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
             </div>
         <?php else : ?>
             <!-- Empty state placeholders -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
+            <div class="grid grid-cols-1 gap-8 w-full md:grid-cols-2">
                 <?php for ($i = 1; $i <= 4; $i++) : ?>
-                    <article class="overflow-hidden bg-gray-100">
-                        <div class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg min-h-[400px]">
-                            <div class="self-stretch pl-11 my-auto w-[167px]">
-                                <div class="w-[123px] h-[123px] bg-gray-200 rounded flex items-center justify-center">
-                                    <span class="text-gray-400 text-sm">Image</span>
+                    <article class="overflow-hidden bg-gray-100 xl:min-h-[400px]">
+                        <div class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg">
+                            <div class="self-stretch  justify-center  w-full md:max-w-[244px]">
+                                <div class="flex justify-center items-center bg-gray-200 rounded">
+                                    <span class="text-sm text-gray-400">Image</span>
                                 </div>
                             </div>
-                            <div class="flex-1 shrink self-stretch px-16 my-auto basis-0 max-md:px-5">
+                            <div class="flex-1 items-center self-sjustify-center max-md:px-5">
                                 <header class="w-full">
-                                    <h3 class="text-xl font-bold leading-tight text-blue-900">Service Title <?php echo (int)$i; ?></h3>
+                                    <h3 class="text-xl font-bold leading-tight text-[#262262] font-medium text-lg leading-6 font-secondary">Service Title <?php echo (int)$i; ?></h3>
                                     <div class="flex mt-1 w-8 bg-cyan-500 min-h-1" role="presentation" aria-hidden="true"></div>
                                 </header>
                                 <div class="mt-4 text-sm leading-5 text-slate-700">

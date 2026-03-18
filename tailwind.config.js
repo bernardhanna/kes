@@ -103,7 +103,7 @@ module.exports = {
       width: {
         'container-md': '1024px',
         'container-lg': '1280px',
-        container: '1208px',
+        container: '1280px',
       },
 
       maxWidth: {

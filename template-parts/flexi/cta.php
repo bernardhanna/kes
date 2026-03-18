@@ -77,7 +77,7 @@ if (is_array($button_link) && !empty($button_link['url'])) {
   aria-label="<?php echo esc_attr__('Contact us call to action', 'matrix-starter'); ?>"
   class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>"
 >
-  <div class="flex flex-col items-center w-full mx-auto max-w-container py-24 max-lg:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container py-24 max-xl:px-5<?php echo $padding_classes_str; ?>">
     <div id="div-content" class="w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 px-0 lg:px-12">
 
       <!-- Left: Text -->

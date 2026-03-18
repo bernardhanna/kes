@@ -51,6 +51,45 @@ $blogFields
       'default_value'=> 'Filter by',
     ])
 
+    // — Posts index title band (above filters) —
+    ->addMessage('blog_index_header_note', [
+      'message' => 'Title band shown on the blog / posts index (above “Filter by”). Edit the intro below.',
+    ])
+    ->addTrueFalse('show_blog_index_header', [
+      'label'         => 'Show posts index header',
+      'instructions'  => 'White band with heading, accent line, and optional intro text.',
+      'default_value' => 1,
+      'ui'            => 1,
+    ])
+    ->addSelect('blog_index_heading_tag', [
+      'label'         => 'Index header heading tag',
+      'choices'       => [
+        'h1' => 'H1', 'h2' => 'H2', 'h3' => 'H3', 'h4' => 'H4', 'h5' => 'H5', 'h6' => 'H6',
+      ],
+      'default_value' => 'h2',
+      'ui'            => 1,
+    ])
+    ->addText('blog_index_heading', [
+      'label'         => 'Index header title',
+      'instructions'  => 'Leave empty to use the Posts page title.',
+    ])
+    ->addWysiwyg('blog_index_intro', [
+      'label'         => 'Index header intro',
+      'instructions'  => 'Optional text below the heading (e.g. short description).',
+      'media_upload'  => 0,
+      'toolbar'       => 'basic',
+      'tabs'          => 'visual',
+      'wrapper'       => ['class' => 'wp_editor'],
+    ])
+    ->addColorPicker('blog_index_bg', [
+      'label'         => 'Index header background',
+      'default_value' => '#FFFFFF',
+    ])
+    ->addColorPicker('blog_index_underline', [
+      'label'         => 'Index header underline color',
+      'default_value' => '#00ACD8',
+    ])
+
   ->endGroup();
 
 return $blogFields;

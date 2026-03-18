@@ -28,12 +28,12 @@ $section_id = 'team-' . uniqid();
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
+    <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">
         <div class="box-border flex flex-col gap-8 items-center px-24 pt-0 pb-20 mx-auto my-0 w-full max-w-screen-xl max-md:px-12 max-md:pt-0 max-md:pb-16 max-sm:px-6 max-sm:pt-0 max-sm:pb-10">
 
             <?php if ($team_members && is_array($team_members)): ?>
                 <!-- 3-column responsive grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 max-md:gap-8 max-sm:gap-6 w-full">
+                <div class="grid grid-cols-1 gap-10 w-full sm:grid-cols-2 lg:grid-cols-3 max-md:gap-8 max-sm:gap-6">
                     <?php foreach ($team_members as $member):
                         $image = $member['image'] ?? 0;
                         $name = $member['name'] ?? '';
@@ -51,7 +51,7 @@ $section_id = 'team-' . uniqid();
                                 <div class="w-full">
                                     <?php echo wp_get_attachment_image($image, 'large', false, [
                                         'alt'   => esc_attr($image_alt),
-                                        'class' => 'object-cover w-full h-80 rounded-lg max-md:h-[280px] max-sm:h-60',
+                                        'class' => 'object-contain md:object-cover w-full sm:h-80 rounded-lg',
                                     ]); ?>
                                 </div>
                             <?php endif; ?>
@@ -59,9 +59,9 @@ $section_id = 'team-' . uniqid();
                             <div class="flex flex-col gap-2 items-start w-full max-sm:gap-1.5">
                                 <div class="flex flex-col gap-2 items-start w-full max-sm:gap-1">
                                     <?php if ($name): ?>
-                                        <h3 class="w-full text-lg font-bold leading-6 text-primary max-md:text-base max-md:leading-6">
+                                        <span class="w-full text-lg font-bold leading-6 text-primary max-md:text-base max-md:leading-6">
                                             <?php echo esc_html($name); ?>
-                                        </h3>
+                                        </span>
                                     <?php endif; ?>
 
                                     <?php if ($job_title): ?>
@@ -72,7 +72,7 @@ $section_id = 'team-' . uniqid();
                                 </div>
 
                                 <?php if ($description): ?>
-                                    <div class="w-full text-base leading-5 text-slate-700 max-md:text-sm max-md:leading-5 wp_editor">
+                                    <div class="w-full text-base leading-5 text-slate-700 max-md:text-sm max-md:leading-5 small_wp_editor">
                                         <?php echo wp_kses_post($description); ?>
                                     </div>
                                 <?php endif; ?>

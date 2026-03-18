@@ -5,7 +5,7 @@
 use StoutLogic\AcfBuilder\FieldsBuilder;
 
 $services_grid = new FieldsBuilder('services_grid', [
-    'label' => 'Services 2 Column Grid',
+    'label' => 'Services Grid',
 ]);
 
 $services_grid
