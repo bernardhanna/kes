@@ -124,7 +124,7 @@ $prev_arrow_markup = '<button type="button" class="absolute left-4 top-1/2 z-20 
 $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20 -translate-y-1/2 slick-next">'.($next_img_html ?: '&#10095;').'</button>';
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative hero-slider-section">
+<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative hero-slider-section">
   <div class="flex flex-col mt-[6rem] items-center w-full <?php echo $padding_classes_str ? esc_attr(' '.$padding_classes_str) : ''; ?>">
 
     <!-- Fixed height container (533px so slider height stays consistent) -->

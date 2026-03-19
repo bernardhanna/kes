@@ -96,6 +96,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
 
 <section
   id="<?php echo esc_attr($section_id); ?>"
+  data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
   role="region"
   aria-label="<?php echo esc_attr__('Frequently Asked Questions', 'matrix-starter'); ?>"
   class="flex overflow-hidden relative w-full"

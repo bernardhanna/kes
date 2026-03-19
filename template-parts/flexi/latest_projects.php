@@ -68,7 +68,7 @@ if (empty($projects)) {
 $section_id = 'latest-projects-' . uniqid();
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative bg-[#FCFDFE]">
+<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative bg-[#FCFDFE]">
   <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?>">
 
     <?php

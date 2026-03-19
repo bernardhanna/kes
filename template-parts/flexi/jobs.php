@@ -99,7 +99,7 @@ function matrix_jobs_featured_image($post_id, $size = 'large') {
 }
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>">
+<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>">
   <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?>">
 
     <main class="w-full grid grid-cols-1 lg:grid-cols-3 gap-8" role="main" aria-label="<?php echo esc_attr__('Careers page', 'matrix-starter'); ?>">

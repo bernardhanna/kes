@@ -73,6 +73,7 @@ if (is_array($button_link) && !empty($button_link['url'])) {
 
 <section
   id="<?php echo esc_attr($section_id); ?>"
+  data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
   role="region"
   aria-label="<?php echo esc_attr__('Contact us call to action', 'matrix-starter'); ?>"
   class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>"

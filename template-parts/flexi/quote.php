@@ -33,6 +33,7 @@ $section_id = 'quote-' . uniqid();
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
+    data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
     class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     style="background: <?php echo esc_attr($background_color); ?>;"
     role="region"

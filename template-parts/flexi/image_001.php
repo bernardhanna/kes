@@ -67,6 +67,7 @@ if ($image_id) {
 ?>
 <section
   id="<?php echo esc_attr($section_id); ?>"
+  data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
   class="relative flex overflow-hidden"
   style="background-color: <?php echo esc_attr($background_color); ?>;"
   role="region"

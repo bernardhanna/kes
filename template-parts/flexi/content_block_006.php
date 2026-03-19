@@ -76,6 +76,7 @@ $section_id = 'content-block-006-' . uniqid();
 
 <section
   id="<?php echo esc_attr($section_id); ?>"
+  data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
   role="region"
   aria-label="<?php echo esc_attr__('Water treatment services and solutions', 'matrix-starter'); ?>"
   class="flex overflow-hidden relative w-full content-section-five"

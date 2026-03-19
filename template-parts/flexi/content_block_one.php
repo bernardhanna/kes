@@ -90,7 +90,7 @@ if ($reverse_layout) {
     $rest_order    = 'order-3 sm:col-start-1 sm:row-start-2';
 }
 ?>
-<section id="<?php echo esc_attr($section_id); ?>" class="relative flex overflow-hidden <?php echo esc_attr($section_bg_class); ?>">
+<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="relative flex overflow-hidden <?php echo esc_attr($section_bg_class); ?>">
   <div class="flex flex-col items-center w-full mx-auto max-w-[1200px] pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?> relative<?php echo $enable_left_offset ? ' xl:left-[2.5rem]' : ''; ?>">
 
       <div class="w-full xl:pt-[3.8rem] xl:pb-[4rem] relative<?php echo $enable_left_offset ? ' xxl:left-[5.2rem]' : ''; ?> py-[2.5rem] grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 items-start <?php echo esc_attr($body_text_color); ?>">

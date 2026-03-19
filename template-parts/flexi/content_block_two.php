@@ -78,7 +78,7 @@ if ($reverse_layout) {
     $rest_order    = 'order-3 sm:col-start-2 sm:row-start-2';
 }
 ?>
-<section id="<?php echo esc_attr($section_id); ?>" class="flex overflow-hidden relative bg-white">
+<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative bg-white">
   <div class="flex flex-col items-center w-full mx-auto max-w-container xl:py-[5rem] pt-5 pb-5 max-xl:px-5 <?php echo $padding_classes_str; ?> xxl:left-[5rem] relative">
     <div class="grid grid-cols-1 gap-x-8 items-start w-full sm:grid-cols-[42%_58%]">
 

@@ -31,6 +31,7 @@ $mobile_overlay_style = 'linear-gradient(1deg, rgba(38, 34, 98, 0.90) 20.85%, rg
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
+    data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
     class="relative mt-[5rem] flex overflow-hidden w-full h-[398px] max-md:h-[380px] <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     role="banner"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"

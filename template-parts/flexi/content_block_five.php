@@ -46,6 +46,7 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
+    data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
     class="content-section-five relative overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     style="<?php echo esc_attr($background_style); ?>"
     role="region"

@@ -25,6 +25,7 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
 
 <section
     id="<?php echo esc_attr($section_id); ?>"
+    data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
     class="flex overflow-hidden relative"
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     role="region"

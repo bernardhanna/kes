@@ -63,7 +63,7 @@ if (!$show_section) {
 $section_id = 'content-four-' . uniqid();
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" class="content-four about-section relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>" role="region" aria-label="<?php echo esc_attr__('About section', 'matrix-starter'); ?>">
+<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="content-four about-section relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>" role="region" aria-label="<?php echo esc_attr__('About section', 'matrix-starter'); ?>">
   <div class="flex flex-col items-center w-full mx-auto max-w-[1250px] pt-5 pb-5 <?php echo $padding_classes_str; ?>">
     <div class="w-full">
       <div class="grid grid-cols-1 gap-2 items-center w-full md:grid-cols-2 lg:grid-cols-[50%_50%] lg:gap-12">
