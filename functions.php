@@ -240,3 +240,31 @@ add_filter('acf/load_field/name=menu_item', function ($field) {
     return $field;
 });
 
+/**
+ * Practice area hero eyebrow fallback:
+ * Keep custom copy intact, but normalize the default plural label to singular.
+ */
+add_action('wp_footer', function () {
+    if (is_admin()) {
+        return;
+    }
+    $uri = isset($_SERVER['REQUEST_URI']) ? (string) $_SERVER['REQUEST_URI'] : '';
+    if (strpos($uri, '/practice-areas/') === false) {
+        return;
+    }
+    ?>
+    <script>
+    (function () {
+      var nodes = document.querySelectorAll('.max-md\\:text-\\[1rem\\].text-lg.font-medium.tracking-\\[1px\\]');
+      if (!nodes || !nodes.length) return;
+      nodes.forEach(function (node) {
+        var text = (node.textContent || '').trim();
+        if (text === 'Practice Areas' || text === 'Practice areas') {
+          node.textContent = 'Practice Area';
+        }
+      });
+    })();
+    </script>
+    <?php
+}, 99);
+

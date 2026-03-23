@@ -94,7 +94,7 @@ if ( is_singular() ) {
 ?>
 
 <nav aria-label="<?php echo esc_attr__('Breadcrumb', 'matrix-starter'); ?>"
-     class="flex flex-col justify-center items-start py-3 mt-[5rem] pl-11 bg-gray-50 max-md:px-5 max-w-container mx-auto">
+     class="flex justify-between items-center w-full mx-auto max-w-[1125px] max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0 py-3 mt-[5rem]">
   <ol class="flex overflow-hidden gap-2 justify-center items-center font-red-hat-text text-[12px] leading-[18px] text-gray-800" role="list">
     <?php
     $last = count($items) - 1;
@@ -107,7 +107,7 @@ if ( is_singular() ) {
         <li class="self-stretch my-auto <?php echo esc_attr($weight_class); ?>"<?php echo $current ? ' aria-current="page"' : ''; ?>>
           <?php if (!$current && !empty($it['url'])): ?>
             <a href="<?php echo esc_url($it['url']); ?>"
-               class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light hover:opacity-90 transition-colors duration-200">
+               class="transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light hover:opacity-90">
               <?php echo esc_html($it['label']); ?>
             </a>
           <?php else: ?>
@@ -117,7 +117,7 @@ if ( is_singular() ) {
         <?php if (!$is_last): ?>
           <li class="self-stretch my-auto" aria-hidden="true">
             <!-- Font Awesome chevron-right -->
-            <i class="fas fa-chevron-right w-3 inline-block align-middle"></i>
+            <i class="inline-block w-3 align-middle fas fa-chevron-right"></i>
           </li>
         <?php endif; ?>
     <?php endforeach; ?>
