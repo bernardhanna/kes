@@ -94,7 +94,7 @@ if ( is_singular() ) {
 ?>
 
 <nav aria-label="<?php echo esc_attr__('Breadcrumb', 'matrix-starter'); ?>"
-     class="flex justify-between items-center w-full mx-auto max-w-[1125px] max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0 py-3 mt-[5rem]">
+     class="flex justify-between items-center w-full mx-auto max-w-[1125px] max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0 py-3 mt-[5rem] lg:mt-[7rem]">
   <ol class="flex overflow-hidden gap-2 justify-center items-center font-red-hat-text text-[12px] leading-[18px] text-gray-800" role="list">
     <?php
     $last = count($items) - 1;
