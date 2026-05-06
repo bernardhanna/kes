@@ -94,20 +94,6 @@ wp_add_inline_script(
     wp_enqueue_script('turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], null, true);
   }
 
-  // Fonts
-  wp_enqueue_style(
-    'ubuntu',
-    'https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap',
-    [],
-    null
-  );
-  wp_enqueue_style(
-    'great-fonts',
-    'https://fonts.googleapis.com/css2?family=Great+Vibes:wght@400&display=swap',
-    [],
-    null
-  );
-
   // Register optional third-parties
   wp_register_style('font-awesome','https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',[],null);
   wp_register_script('flowbite','https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js',['alpine'],'1.6.5',true);

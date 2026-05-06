@@ -32,58 +32,60 @@ $contact_form
             'rows' => 3
         ])
 
-        // Contact Information Section
-        ->addText('contact_heading', [
-            'label' => 'Contact Section Heading',
-            'default_value' => 'Contact our office'
+        ->addRepeater('offices', [
+            'label' => 'Offices',
+            'button_label' => 'Add Office',
+            'layout' => 'block',
         ])
-        ->addSelect('contact_heading_tag', [
-            'label' => 'Contact Heading Tag',
-            'choices' => [
-                'h1' => 'H1',
-                'h2' => 'H2',
-                'h3' => 'H3',
-                'h4' => 'H4',
-                'h5' => 'H5',
-                'h6' => 'H6',
-                'p' => 'Paragraph',
-                'span' => 'Span'
-            ],
-            'default_value' => 'h3',
-        ])
-        ->addText('office_name', [
-            'label' => 'Office Name',
-            'default_value' => 'Sligo Office'
-        ])
-        ->addTextarea('address', [
-            'label' => 'Office Address',
-            'default_value' => '28, Foster Avenue, Blackrock, D04 A021, Ireland',
-            'rows' => 3
-        ])
-        ->addText('phone', [
-            'label' => 'Phone Number',
-            'default_value' => '+353 83 045 87 46'
-        ])
-        ->addEmail('email', [
-            'label' => 'Email Address',
-            'default_value' => 'info@Kes.ie'
-        ])
-        ->addWysiwyg('business_hours', [
-            'label' => 'Business Hours',
-            'wrapper' => ['class' => 'wp_editor'],
-            'media_upload' => 0,
-            'tabs' => 'visual',
-            'default_value' => '<p>Mon - Fri: 09:00 - 20:00<br>Sat - Sun: 10:00 - 17:00<br>Bank Holidays: 10:00 – 16:00</p>'
-        ])
+            ->addText('office_name', [
+                'label' => 'Office Name',
+                'default_value' => 'Sligo Office'
+            ])
+            ->addTextarea('address', [
+                'label' => 'Office Address',
+                'default_value' => '28, Foster Avenue, Blackrock, D04 A021, Ireland',
+                'rows' => 3
+            ])
+            ->addText('phone', [
+                'label' => 'Phone Number',
+                'default_value' => '+353 83 045 87 46'
+            ])
+            ->addEmail('email', [
+                'label' => 'Email Address',
+                'default_value' => 'info@Kes.ie'
+            ])
+            ->addWysiwyg('business_hours', [
+                'label' => 'Business Hours',
+                'wrapper' => ['class' => 'wp_editor'],
+                'media_upload' => 0,
+                'tabs' => 'visual',
+                'default_value' => '<p>Mon - Fri: 09:00 - 20:00<br>Sat - Sun: 10:00 - 17:00<br>Bank Holidays: 10:00 – 16:00</p>'
+            ])
+            ->addTrueFalse('show_map', [
+                'label' => 'Show Map?',
+                'ui' => 1,
+                'default_value' => 1,
+            ])
+            ->addText('map_lat', [
+                'label' => 'Map Latitude',
+                'instructions' => 'Decimal degrees (e.g. 54.2766). Used for OpenStreetMap map.',
+                'conditional_logic' => [[['field' => 'show_map', 'operator' => '==', 'value' => 1]]],
+            ])
+            ->addText('map_lng', [
+                'label' => 'Map Longitude',
+                'instructions' => 'Decimal degrees (e.g. -8.4761). Used for OpenStreetMap map.',
+                'conditional_logic' => [[['field' => 'show_map', 'operator' => '==', 'value' => 1]]],
+            ])
+            ->addNumber('map_zoom', [
+                'label' => 'Map Zoom',
+                'min' => 1,
+                'max' => 20,
+                'default_value' => 13,
+                'conditional_logic' => [[['field' => 'show_map', 'operator' => '==', 'value' => 1]]],
+            ])
+        ->endRepeater()
 
         // Form Configuration
-        ->addWysiwyg('form_markup', [
-            'label' => 'Form HTML (paste static form here)',
-            'instructions' => 'Paste the static HTML form code here.',
-            'toolbar' => 'basic',
-            'media_upload' => 0,
-            'wrapper' => ['class' => 'wp_editor'],
-        ])
         ->addUrl('privacy_policy_url', [
             'label' => 'Privacy Policy URL',
             'default_value' => '#'

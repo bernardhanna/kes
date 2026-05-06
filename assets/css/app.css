@@ -34,6 +34,19 @@ body {
   @apply font-primary;
 }
 
+/* Contact block office map — “blueprint” tint */
+[data-office-map].leaflet-container,
+[data-office-map] .leaflet-container {
+  background: #eaf3fb;
+}
+[data-office-map] .leaflet-tile {
+  filter: saturate(1.15) hue-rotate(190deg) brightness(1.08) contrast(0.92);
+}
+[data-office-map] .leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(4px);
+}
+
 /* Global typography: titles = Red Hat Display, paragraphs = Red Hat Text */
 h1, h2, h3, h4, h5, h6 {
   font-family: "Red Hat Display", sans-serif;
