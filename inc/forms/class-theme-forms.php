@@ -213,6 +213,7 @@ class Theme_Forms {
     $default_subject = $form_name ? "$form_name – new entry" : 'Website form entry';
 
     $cfg_to         = $_POST['_cfg_to']        ?? '';
+    $cfg_cc         = $_POST['_cfg_cc']        ?? '';
     $cfg_bcc        = $_POST['_cfg_bcc']       ?? '';
     $cfg_subject    = sanitize_text_field($_POST['_cfg_subject'] ?? '');
     $cfg_from_name  = wp_strip_all_tags($_POST['_cfg_from_name']  ?? '');
@@ -223,6 +224,7 @@ class Theme_Forms {
 
     $to_list  = $this->parse_emails($cfg_to);
     if (!$to_list) $to_list = $this->parse_emails(get_option('admin_email'));
+    $cc_list  = $this->parse_emails($cfg_cc);
     $bcc_list = $this->parse_emails($cfg_bcc);
 
     $subject    = $cfg_subject ?: $default_subject;
@@ -234,6 +236,9 @@ class Theme_Forms {
     $headers[] = 'From: ' . sprintf('%s <%s>', $from_name, $from_email);
     if (!empty($fields['email']) && is_email($fields['email'])) {
       $headers[] = 'Reply-To: ' . sanitize_email($fields['email']);
+    }
+    foreach ($cc_list as $cc) {
+      $headers[] = 'Cc: ' . $cc;
     }
     foreach ($bcc_list as $bcc) {
       $headers[] = 'Bcc: ' . $bcc;

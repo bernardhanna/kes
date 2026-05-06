@@ -38,18 +38,19 @@ get_header();
 
     <?php if (! in_array(get_post_type(), ['services', 'projects'], true)) : ?>
     <article
-      <?php post_class('flex overflow-hidden justify-between items-center"'); ?>
+      <?php post_class('flex overflow-hidden justify-between items-center'); ?>
       role="article"
       aria-labelledby="article-heading"
     >
-      <div class="flex flex-col shrink justify-center mt-[2.5rem] w-full  max-md:max-w-full">
+      <div class="mx-auto w-full max-w-[1088px] max-xl:px-5">
+      <div class="flex flex-col shrink justify-center mt-[2.5rem] w-full max-md:max-w-full">
         <div class="flex flex-col w-full text-primary max-md:max-w-full">
           <?php if ($cat_label) : ?>
             <div
               class="flex gap-2 items-center self-start px-3 py-1 text-sm font-medium leading-none whitespace-nowrap bg-emerald-100 min-h-7 rounded-[100px]"
               aria-label="<?php echo esc_attr($cat_label); ?> category"
             >
-              <span class= my-auto text-primary"><?php echo esc_html($cat_label); ?></span>
+              <span class="my-auto text-primary"><?php echo esc_html($cat_label); ?></span>
             </div>
           <?php endif; ?>
 
@@ -75,6 +76,7 @@ get_header();
           </p>
         <?php endif; ?>
       </div>
+      </div>
     </article>
     <?php endif; ?>
 
@@ -82,13 +84,13 @@ get_header();
       // Main content
       if (trim(get_the_content()) !== '') :
     ?>
-      <div class="mx-auto max-w-container max-xl:px-5">
+      <div class="mx-auto w-full max-w-[1088px] max-xl:px-5">
         <?php get_template_part('template-parts/content/content', 'page'); ?>
       </div>
     <?php endif; ?>
 
   <?php endwhile; else : ?>
-    <div class="px-5 py-12 mx-auto max-w-container">
+    <div class="py-12 mx-auto w-full max-w-[1088px] px-5">
       <p>No content found</p>
     </div>
   <?php endif; ?>

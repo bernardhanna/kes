@@ -112,6 +112,16 @@ $faq_003
     ])
 
   ->addTab('Layout', ['label' => 'Layout'])
+    ->addSelect('content_max_width', [
+      'label' => 'Content max width',
+      'instructions' => 'Width of the FAQ column (centered).',
+      'choices' => [
+        '1018' => '1018px (default)',
+        '1200' => '1200px',
+      ],
+      'default_value' => '1018',
+      'return_format' => 'value',
+    ])
     ->addRepeater('padding_settings', [
       'label' => 'Padding Settings',
       'instructions' => 'Customize padding for different screen sizes.',

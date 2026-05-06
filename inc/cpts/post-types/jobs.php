@@ -14,23 +14,23 @@ add_action('init', function() {
     ]);
 });
 
-// Job Categories taxonomy
+// Career categories (taxonomy key: job_category — used as “labels” / chips on job cards).
 add_action('init', function () {
     register_extended_taxonomy('job_category', 'jobs', [
-        'hierarchical'       => true,           // behaves like Categories
-        'show_ui'            => true,           // show taxonomy UI
+        'hierarchical'       => true,
+        'show_ui'            => true,
         'show_in_menu'       => true,
-        'show_admin_column'  => true,           // column in list table
+        'show_admin_column'  => true,
         'show_in_quick_edit' => true,
-        'show_in_rest'       => true,           // Gutenberg sidebar panel
+        'show_in_rest'       => true,
         'rewrite'            => ['slug' => 'job-category'],
         // Key bit: use the default hierarchical meta box (with "Add New")
         // You can also set 'meta_box' => 'checkbox' explicitly if you prefer.
         // Remove 'meta_box' => 'simple' (that UI is limited).
         // 'meta_box' => 'checkbox',
     ], [
-        'singular' => 'Job Category',
-        'plural'   => 'Job Categories',
+        'singular' => 'Career category',
+        'plural'   => 'Career categories',
         'slug'     => 'job-category',
     ]);
 });

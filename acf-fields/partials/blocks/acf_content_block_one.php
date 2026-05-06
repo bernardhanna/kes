@@ -34,6 +34,12 @@ $content_block_one
             'media_upload' => 0,
             'delay' => 0,
         ])
+        ->addTrueFalse('description_full_width', [
+            'label' => 'Description full width',
+            'instructions' => 'When enabled, the description uses full available width instead of 400px.',
+            'ui' => 1,
+            'default_value' => 0,
+        ])
         ->addRepeater('benefits', [
             'label' => 'Benefits',
             'button_label' => 'Add Benefit',
@@ -62,19 +68,42 @@ $content_block_one
             'ui' => 1,
             'default_value' => 0,
         ])
-        ->addSelect('image_radius', [
-            'label' => 'Image Border Radius',
+        ->addSelect('container_width_mode', [
+            'label' => 'Container max width',
+            'instructions' => 'Choose the section container width behavior.',
             'choices' => [
-                'rounded-none' => 'None',
-                'rounded'      => 'Rounded',
-                'rounded-sm'   => 'Rounded sm',
-                'rounded-md'   => 'Rounded md',
-                'rounded-lg'   => 'Rounded lg',
-                'rounded-xl'   => 'Rounded xl',
-                'rounded-2xl'  => 'Rounded 2xl',
-                'rounded-3xl'  => 'Rounded 3xl',
+                '1088'    => '1088px (default)',
+                '1048'    => '1048px',
+                '1180'    => '1180px',
+                'default' => '1088px (legacy default)',
+                'theme'   => 'Theme default (1200 / 1100 on single projects)',
+                'none'    => 'No max width',
             ],
-            'default_value' => 'rounded-none', // editor default; template renders 10px unless changed
+            'default_value' => '1088',
+            'ui' => 1,
+        ])
+        ->addTrueFalse('center_text_vertically', [
+            'label' => 'Center text vertically',
+            'instructions' => 'Vertically centers the text column against the image on desktop.',
+            'ui' => 1,
+            'default_value' => 0,
+        ])
+        ->addTrueFalse('limit_heading_width', [
+            'label' => 'Limit heading max width',
+            'instructions' => 'Enable to constrain heading width.',
+            'ui' => 1,
+            'default_value' => 0,
+        ])
+        ->addNumber('heading_max_width_px', [
+            'label' => 'Heading max width (px)',
+            'min' => 200,
+            'max' => 1200,
+            'step' => 1,
+            'default_value' => 554,
+            'append' => 'px',
+            'conditional_logic' => [
+                ['field' => 'limit_heading_width', 'operator' => '==', 'value' => 1],
+            ],
         ])
         ->addRepeater('padding_settings', [
             'label'        => 'Padding Settings',

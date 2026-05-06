@@ -52,9 +52,10 @@ $blogFields
     ])
 
     // — Posts index title band (above filters) —
-    ->addMessage('blog_index_header_note', [
-      'message' => 'Title band shown on the blog / posts index (above “Filter by”). Edit the intro below.',
-    ])
+    ->addMessage(
+      'blog_index_header_note',
+      'Title band shown on the blog / posts index (above "Filter by"). Edit the intro below.'
+    )
     ->addTrueFalse('show_blog_index_header', [
       'label'         => 'Show posts index header',
       'instructions'  => 'White band with heading, accent line, and optional intro text.',

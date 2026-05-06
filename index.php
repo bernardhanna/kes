@@ -47,6 +47,10 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
             'intro'        => $blog_opts['blog_index_intro'] ?? '',
             'bg_color'     => $blog_opts['blog_index_bg'] ?? '#ffffff',
             'accent_color' => $blog_opts['blog_index_underline'] ?? '#00ACD8',
+            // Main posts index only (not category/date views that also use index.php).
+            'inner_wrapper_class' => is_home()
+                ? 'flex flex-col items-center pt-[5rem] pb-5 mx-auto w-full max-w-container max-xl:px-5'
+                : '',
         ]);
     }
 }
@@ -82,7 +86,15 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
           </button>
 
           <?php
-          $categories = get_categories(['exclude' => get_cat_ID('All')]);
+          $filter_exclude_ids = array_filter([
+            get_cat_ID('All') ?: null,
+            (int) get_option('default_category') ?: null,
+            ($uncat = get_category_by_slug('uncategorized')) ? (int) $uncat->term_id : null,
+          ]);
+          $filter_exclude_ids = array_values(array_unique($filter_exclude_ids));
+          $categories         = get_categories(
+            $filter_exclude_ids ? ['exclude' => $filter_exclude_ids] : []
+          );
           foreach ($categories as $category) :
             $slug = esc_attr($category->slug);
             $name = esc_html($category->name);
@@ -169,7 +181,7 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
           >
             <div class="flex flex-col gap-4 w-full text-left">
               <!-- Image + gradient + badge -->
-              <div class="overflow-hidden relative w-full h-48 bg-gradient-to-r rounded-lg from-slate-600 to-slate-700">
+              <div class="overflow-hidden relative w-full h-48 rounded-lg bg-[#262262]">
                 <?php if (has_post_thumbnail()) : ?>
                   <img
                     src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>"

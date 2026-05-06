@@ -4,6 +4,7 @@ $heading_tag = get_sub_field('heading_tag');
 $content = get_sub_field('content');
 $background_color = get_sub_field('background_color');
 $divider_color = get_sub_field('divider_color');
+$container_width_mode = (string) (get_sub_field('container_width_mode') ?: '1088');
 
 $padding_classes = [];
 if (have_rows('padding_settings')) {
@@ -18,6 +19,15 @@ if (have_rows('padding_settings')) {
 }
 
 $section_id = 'title-section-' . wp_rand(1000, 9999);
+$container_max_width_class = 'max-w-[1088px]';
+$container_width_mode_normalized = strtolower(trim($container_width_mode));
+if (in_array($container_width_mode_normalized, ['1048', '1048px'], true)) {
+    $container_max_width_class = 'max-w-[1048px]';
+} elseif ($container_width_mode_normalized === 'theme') {
+    $container_max_width_class = 'max-w-container';
+} elseif ($container_width_mode_normalized === 'none') {
+    $container_max_width_class = 'max-w-none';
+}
 ?>
 
 <section
@@ -28,8 +38,8 @@ $section_id = 'title-section-' . wp_rand(1000, 9999);
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">
-        <div class="flex overflow-hidden justify-between items-center self-stretch px-24 py-8 max-md:px-5">
+    <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full <?php echo esc_attr($container_max_width_class); ?> max-xl:px-5">
+        <div class="flex overflow-hidden justify-between items-center self-stretch py-8 max-md:px-5">
             <div class="flex flex-col flex-1 justify-center self-stretch my-auto w-full shrink basis-0 min-w-60 max-md:max-w-full">
                 <?php if (!empty($heading)): ?>
                     <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">

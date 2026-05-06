@@ -87,14 +87,6 @@ $content_block_006
             ],
             'default_value' => 'bg-blue-50',
         ])
-        ->addSelect('image_radius', [
-            'label' => 'Image Border Radius',
-            'choices' => [
-                'rounded-none'=>'None','rounded'=>'Rounded','rounded-md'=>'Rounded md',
-                'rounded-lg'=>'Rounded lg','rounded-xl'=>'Rounded xl','rounded-2xl'=>'Rounded 2xl'
-            ],
-            'default_value' => 'rounded-none',
-        ])
 
     ->addTab('layout_tab', ['label' => 'Layout'])
         ->addRepeater('padding_settings', [

@@ -37,9 +37,10 @@ $prev_post = get_previous_post();
 $next_post = get_next_post();
 ?>
 
+<div class="mx-auto w-full max-w-[1088px] max-xl:px-5">
 <!-- Author + Share -->
 <section
-    class="flex flex-wrap gap-10 justify-between items-center px-6 py-4 w-full border-t-2 border-solid border-t-emerald-100 max-md:px-5 max-md:max-w-full"
+    class="flex flex-wrap gap-10 justify-between items-center py-4 w-full border-t-2 border-solid border-t-emerald-100 max-md:max-w-full"
     role="region"
     aria-labelledby="author-heading"
 >
@@ -219,3 +220,4 @@ $next_post = get_next_post();
         <?php endif; ?>
     </div>
 </nav>
+</div>

@@ -19,7 +19,6 @@ $bg_color       = get_sub_field('background_color') ?: 'bg-white';
 $text_color     = get_sub_field('text_color') ?: 'text-gray-800';
 $heading_color  = get_sub_field('heading_color') ?: 'text-blue-500';
 $accent_color   = get_sub_field('accent_bar_color') ?: 'bg-blue-100';
-$image_radius   = get_sub_field('image_radius') ?: 'rounded-none';
 
 // Layout: padding utility builder
 $padding_classes = [];
@@ -86,7 +85,7 @@ $section_id = 'content-four-' . uniqid();
             alt="<?php echo $img_alt; ?>"
             title="<?php echo $img_title; ?>"
             loading="lazy"
-            class="md:hidden w-full object-cover max-w-[582px] max-h-[333px] object-contain rounded-[8px] <?php echo esc_attr($image_radius); ?>"
+            class="md:hidden w-full max-w-[582px] max-h-[333px] object-contain rounded-[8px]"
           />
           <?php endif; ?>
 
@@ -98,14 +97,14 @@ $section_id = 'content-four-' . uniqid();
         </article>
 
         <!-- Right: Image - show only above 640px, hidden on mobile -->
-        <figure class="flex order-1 justify-start items-start w-full rounded-[8px] md:order-2 hidden md:block">
+        <figure class="order-1 justify-start items-start w-full rounded-[8px] md:order-2 hidden md:block">
           <?php if ($img_url): ?>
             <img
               src="<?php echo $img_url; ?>"
               alt="<?php echo $img_alt; ?>"
               title="<?php echo $img_title; ?>"
               loading="lazy"
-              class="w-full h-full object-cover max-w-[582px] max-h-[333px] rounded-[8px] relative xl:-left-[1rem] <?php echo esc_attr($image_radius); ?>"
+              class="w-full h-full object-cover max-w-[582px] max-h-[333px] rounded-[8px] relative xl:-left-[1rem]"
             />
           <?php endif; ?>
         </figure>

@@ -14,7 +14,6 @@ $image_id         = get_sub_field('image');           // return: ID
 $link             = get_sub_field('link');            // ACF link array
 $caption          = get_sub_field('caption');         // WYSIWYG (optional)
 $background_color = get_sub_field('background_color') ?: '#ffffff';
-$radius           = get_sub_field('border_radius') ?: 'none';
 
 // padding controls → classes
 $padding_classes = ['pt-5', 'pb-5']; // base
@@ -32,17 +31,7 @@ if (have_rows('padding_settings')) {
   }
 }
 
-// radius map (default none)
-$radius_map = [
-  'none' => 'rounded-none',
-  'sm'   => 'rounded-sm',
-  'md'   => 'rounded-md',
-  'lg'   => 'rounded-lg',
-  'xl'   => 'rounded-xl',
-  '2xl'  => 'rounded-2xl',
-  'full' => 'rounded-full',
-];
-$radius_class = isset($radius_map[$radius]) ? $radius_map[$radius] : $radius_map['none'];
+$radius_class = 'rounded-[8px]';
 
 // resolve image attrs
 $img_html = '';

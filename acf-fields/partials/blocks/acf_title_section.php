@@ -51,6 +51,18 @@ $title_section
         'default_value' => '#00ACD8',
     ])
     ->addTab('Layout', ['label' => 'Layout'])
+    ->addSelect('container_width_mode', [
+        'label' => 'Container max width',
+        'instructions' => 'Choose the section container width behavior.',
+        'choices' => [
+            '1088' => '1088px (default)',
+            '1048' => '1048px',
+            'theme' => 'Theme default',
+            'none' => 'No max width',
+        ],
+        'default_value' => '1088',
+        'ui' => 1,
+    ])
     ->addRepeater('padding_settings', [
         'label' => 'Padding Settings',
         'instructions' => 'Customize padding for different screen sizes.',

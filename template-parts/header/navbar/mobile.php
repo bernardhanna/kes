@@ -97,20 +97,29 @@ if (!in_array($hamburger_style, $valid_styles)) {
     @click.away="isOpen = false">
     <nav class="flex flex-col justify-center items-center px-8 h-full">
       <ul class="flex relative flex-col justify-center mx-auto space-y-8 w-full h-full text-center stretch">
-        <?php foreach ($primary_navigation->toArray() as $index => $item) : ?>
-          <li class="relative mb-4 border-b border-[#CCDEE2] pb-6 <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
+        <?php
+        $mobile_primary_items = array_values($primary_navigation->toArray());
+        $mobile_primary_count  = count($mobile_primary_items);
+        ?>
+        <?php foreach ($mobile_primary_items as $index => $item) : ?>
+          <?php
+          $mobile_li_classes = trim((string) $item->classes);
+          $mobile_is_last    = ($index === $mobile_primary_count - 1);
+          $mobile_last_cta   = $mobile_is_last ? 'btn-primary' : '';
+          ?>
+          <li class="relative mb-4 border-b border-[#CCDEE2] pb-6 <?php echo esc_attr($mobile_li_classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
             <div class="flex justify-between items-center max-lg:justify-center">
-              <!-- Top-Level Link -->
+              <!-- Top-Level Link (menu classes + last item CTA pill on <a>) -->
               <a
                 href="<?php echo esc_url($item->url); ?>"
-                class="text-lg font-normal leading-7 text-secondary-800 .btn-primary">
+                class="text-lg font-normal leading-7 text-secondary-800 <?php echo esc_attr($mobile_li_classes); ?> <?php echo esc_attr($mobile_last_cta); ?>">
                 <?php echo esc_html($item->label); ?>
               </a>
 
               <!-- If the item has children, show a toggle button -->
               <?php if ($item->children) : ?>
                 <button
-                  type=" button"
+                  type="button"
                   class="ml-4"
                   @click.stop="toggleDropdown(<?php echo $index; ?>)"
                   aria-label="Toggle sub-menu">

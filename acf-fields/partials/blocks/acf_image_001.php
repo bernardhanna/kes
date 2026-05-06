@@ -32,20 +32,6 @@ $image_001
       'label'         => 'Section Background Color',
       'default_value' => '#ffffff',
     ])
-    ->addSelect('border_radius', [
-      'label'         => 'Image Border Radius',
-      'choices'       => [
-        'none' => 'None',
-        'sm'   => 'Small',
-        'md'   => 'Medium',
-        'lg'   => 'Large',
-        'xl'   => 'XL',
-        '2xl'  => '2XL',
-        'full' => 'Full',
-      ],
-      'default_value' => 'none', // rounded none as default
-      'ui'            => 1,
-    ])
 
   ->addTab('Layout', ['label' => 'Layout'])
     ->addRepeater('padding_settings', [

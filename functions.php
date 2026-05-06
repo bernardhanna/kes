@@ -106,6 +106,7 @@ require_once get_template_directory() . '/inc/seed-project-map-coordinates.php';
 
 // Include the ACF theme options setup
 require_once get_template_directory() . '/inc/theme-options.php';
+require_once get_template_directory() . '/inc/request-callback.php';
 
 // Include login customizations
 require_once get_template_directory() . '/inc/login-customizations.php';

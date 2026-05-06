@@ -25,7 +25,7 @@
 
     const reSiteKey = (typeof window.themeFormsRecaptchaV3 === 'string' ? window.themeFormsRecaptchaV3.trim() : '');
 
-    document.querySelectorAll('form[data-theme-form]').forEach(form => {
+    document.querySelectorAll('form[data-theme-form], form[data-matrix-request-callback]').forEach(form => {
       form.addEventListener('submit', ev => {
         if (!form.checkValidity()) { ev.preventDefault(); form.reportValidity(); return; }
         ev.preventDefault();
@@ -51,15 +51,26 @@
             method: 'POST',
             body: data,
             headers: { 'X-Requested-With': 'XMLHttpRequest' },
-            signal: form._submitController.signal
+            signal: form._submitController.signal,
+            credentials: 'same-origin',
           })
             .then(async r => {
               const ct = (r.headers.get('content-type') || '').toLowerCase();
-              const body = ct.includes('application/json') ? await r.json() : await r.text();
+              let body;
+              try {
+                body = ct.includes('application/json') ? await r.json() : await r.text();
+              } catch (parseErr) {
+                showBanner(form, 'Invalid response from server. Please reload and try again.', false);
+                return;
+              }
               const ok = typeof body === 'object' ? !!body.success : false;
 
               if (ok) {
-                showBanner(form, 'Thanks! Your message has been sent.', true);
+                const okMsg =
+                  (typeof body === 'object' && body.data && body.data.message)
+                    ? body.data.message
+                    : 'Thanks! Your message has been sent.';
+                showBanner(form, okMsg, true);
                 form.reset();
                 // Reset Turnstile invisible widget if one was rendered
                 if (window.turnstile && form._tsWidgetId) {
@@ -69,8 +80,13 @@
                 let msg = 'Sorry, something went wrong. Please try again.';
                 if (typeof body === 'object' && body && body.data) {
                   const d = body.data;
-                  if (d.mail_error) msg += ` (Mail error: ${d.mail_error})`;
+                  if (d.message) msg = d.message;
+                  if (d.mail_error) msg += ` (${d.mail_error})`;
                   if (d.to) msg += ` [to: ${d.to}]`;
+                } else if (typeof body === 'string' && body.length && body.length < 500) {
+                  msg = body;
+                } else if (!r.ok) {
+                  msg = `Request failed (${r.status}). Please try again.`;
                 }
                 showBanner(form, msg, false);
               }

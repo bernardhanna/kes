@@ -37,7 +37,7 @@ if (have_rows('padding_settings')) {
     style="background-color: <?php echo esc_attr($background_color); ?>;"
 >
     <div class="flex flex-col items-center py-10 mx-auto w-full md:py-14 max-w-[1084px] max-xl:px-5">
-        <div class="grid grid-cols-1 gap-8 l:gap-16 items-center w-full lg:grid-cols-[45%_50%]">
+        <div class="grid grid-cols-1 gap-8 md:gap-16 items-center w-full md:grid-cols-[45%_50%]">
 
             <!-- Project Information Column -->
             <article class="flex flex-col w-full">
@@ -113,10 +113,10 @@ if (have_rows('padding_settings')) {
 
             <!-- Project Image Column -->
             <?php if ($project_image): ?>
-            <div class="flex justify-center items-center self-stretch my-auto w-full h-full rounded-lg lg:justify-self-end">
+            <div class="flex justify-end items-center rounded-lg max-lg:px-2 max-lg:justify-center lg:justify-self-end">
                 <?php echo wp_get_attachment_image($project_image, 'full', false, [
                     'alt' => esc_attr($project_image_alt),
-                    'class' => 'object-contain w-full h-auto lg:max-w-[575px] lg:max-h-[595px]  rounded-lg relative xxl:-right-[2rem] max-md:max-w-[375px] max-md:h-[398px] xxl:top-[.8rem] ',
+                    'class' => 'object-contain lg:object-cover w-full h-auto lg:max-w-[575px] lg:max-h-[595px]  rounded-lg relative xxl:-right-[2rem] max-md:max-w-[375px] max-md:h-[398px] xxl:top-[.8rem] ',
                     'loading' => 'lazy'
                 ]); ?>
             </div>

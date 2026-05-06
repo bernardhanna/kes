@@ -15,26 +15,73 @@ $jobs
     ->addText('sr_heading', [
       'label' => 'Screen Reader Heading',
       'instructions' => 'Optional hidden H1 for accessibility.',
-      'default_value' => 'Available Job Positions',
+      'default_value' => 'Career Opportunities',
     ])
-    ->addTrueFalse('manual_featured', [
-      'label' => 'Choose Featured Job Manually',
-      'ui' => 1,
-      'default_value' => 0,
+    ->addSelect('jobs_source', [
+      'label' => 'How jobs are chosen',
+      'instructions' => 'Automated pulls the newest published jobs (with optional pinned first job). Manual uses only the roles you pick, in order.',
+      'choices' => [
+        'automated' => 'Automated — latest jobs',
+        'manual'    => 'Manual — select jobs below',
+      ],
+      'default_value' => 'automated',
     ])
-    ->addRelationship('featured_job', [
-      'label' => 'Featured Job',
+    ->addRelationship('selected_jobs', [
+      'label' => 'Jobs to show',
+      'instructions' => 'Drag to reorder cards on the page.',
       'post_type' => ['jobs'],
+      'filters' => ['search'],
       'return_format' => 'object',
-      'max' => 1,
-      'conditional_logic' => [[['field' => 'manual_featured','operator' => '==','value' => 1]]],
+      'max' => 24,
+      'conditional_logic' => [[[
+        'field'    => 'jobs_source',
+        'operator' => '==',
+        'value'    => 'manual',
+      ]]],
     ])
     ->addNumber('jobs_to_show', [
-      'label' => 'How many jobs to list on the left',
+      'label' => 'How many job cards to show',
+      'instructions' => 'Filled from newest published jobs.',
       'default_value' => 4,
       'min' => 1,
       'max' => 24,
       'step' => 1,
+      'conditional_logic' => [[[
+        'field'    => 'jobs_source',
+        'operator' => '==',
+        'value'    => 'automated',
+      ]]],
+    ])
+    ->addTrueFalse('manual_featured', [
+      'label' => 'Pin one job first (optional)',
+      'instructions' => 'When on, choose a job below; it appears above the automated list.',
+      'ui' => 1,
+      'default_value' => 0,
+      'conditional_logic' => [[[
+        'field'    => 'jobs_source',
+        'operator' => '==',
+        'value'    => 'automated',
+      ]]],
+    ])
+    ->addRelationship('featured_job', [
+      'label' => 'Pinned job',
+      'post_type' => ['jobs'],
+      'return_format' => 'object',
+      'max' => 1,
+      'conditional_logic' => [
+        [
+          [
+            'field'    => 'jobs_source',
+            'operator' => '==',
+            'value'    => 'automated',
+          ],
+          [
+            'field'    => 'manual_featured',
+            'operator' => '==',
+            'value'    => 1,
+          ],
+        ],
+      ],
     ])
 
   ->addTab('design_tab', ['label' => 'Design'])

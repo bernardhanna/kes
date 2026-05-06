@@ -222,18 +222,6 @@ $hero_slider
             'ui' => 1,
             'default_value' => 1,
         ])
-        ->addSelect('rounded', [
-            'label' => 'Border Radius',
-            'choices' => [
-                'rounded-none' => 'None',
-                'rounded' => 'Rounded',
-                'rounded-md' => 'Rounded md',
-                'rounded-lg' => 'Rounded lg',
-                'rounded-xl' => 'Rounded xl',
-                'rounded-2xl' => 'Rounded 2xl',
-            ],
-            'default_value' => 'rounded-none',
-        ])
 
     ->addTab('layout_tab', ['label' => 'Layout'])
         ->addRepeater('padding_settings', [

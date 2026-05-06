@@ -25,7 +25,6 @@ $gradient_to   = get_sub_field('gradient_to') ?: '#2B3990';
 $heading_color = get_sub_field('heading_color') ?: 'text-white';
 $text_color    = get_sub_field('text_color') ?: 'text-white';
 $accent_color  = get_sub_field('accent_bar_color') ?: 'bg-[#CBE9E1]';
-$image_radius  = get_sub_field('image_radius') ?: 'rounded-none';
 
 // Padding classes
 $padding_classes = [];
@@ -94,7 +93,8 @@ $section_id = 'content-block-006-' . uniqid();
             alt="<?php echo $img_alt; ?>"
             title="<?php echo $img_title; ?>"
             loading="lazy"
-            class="w-full max-sm:h-[311px] h-full  object-cover <?php echo esc_attr($image_radius); ?>"
+            class="w-full max-sm:h-[311px] h-full object-cover rounded-none"
+            style="border-radius: 0 !important;"
           />
         <?php endif; ?>
       </div>

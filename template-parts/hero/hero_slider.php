@@ -18,7 +18,7 @@ $show_gradient  = null; // per slide
 $overlay_from   = get_sub_field('overlay_from') ?: 'from-blue-dark/90';
 $overlay_via    = get_sub_field('overlay_via') ?: 'via-blue-dark/50';
 $overlay_to     = get_sub_field('overlay_to') ?: 'to-transparent';
-$rounded        = get_sub_field('rounded') ?: 'rounded-none';
+$rounded        = 'rounded-none';
 
 $arrow_prev     = get_sub_field('arrow_prev');
 $arrow_next     = get_sub_field('arrow_next');
@@ -529,6 +529,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       minZoom: 4,
       maxBounds: [[-31, 27], [40, 71]]
     });
+    map.scrollZoom.disable();
     var initialCenter = [lng, lat];
     var initialZoom = zoom;
     var bounds = [];
@@ -603,6 +604,12 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
         applyVectorView();
       }, 150);
     });
+    container.addEventListener("click", function() {
+      map.scrollZoom.enable();
+    });
+    container.addEventListener("mouseleave", function() {
+      map.scrollZoom.disable();
+    });
   }
 
   function initHeroMap(container) {
@@ -632,7 +639,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
         popupAnchor: [0, -50]
       });
     }
-    var map = L.map(container, { scrollWheelZoom: true, minZoom: 4 }).setView([lat, lng], Math.max(4, zoom - 2));
+    var map = L.map(container, { scrollWheelZoom: false, minZoom: 4 }).setView([lat, lng], Math.max(4, zoom - 2));
     var tileUrl, tileOpts = {};
     var jawgStyleId = (container.getAttribute("data-jawg-style-id") || "").trim();
     var wantsJawg = (provider === "jawg-light" || provider === "jawg-dark" || provider === "jawg-custom");
@@ -668,6 +675,12 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
     if (bounds.length === 1) map.setView(bounds[0], Math.max(zoom, 12));
     if (bounds.length === 0) map.setView([lat, lng], Math.max(4, zoom - 2));
     container.dataset.heroMapInit = "1";
+    container.addEventListener("click", function() {
+      map.scrollWheelZoom.enable();
+    });
+    container.addEventListener("mouseleave", function() {
+      map.scrollWheelZoom.disable();
+    });
     container._leafletMap = map;
     setTimeout(function() { map.invalidateSize(); }, 50);
     setTimeout(function() { map.invalidateSize(); }, 250);

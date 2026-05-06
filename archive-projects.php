@@ -2,6 +2,18 @@
 get_header();
 
 $projects_opts = get_field('projects_settings', 'option') ?: [];
+$archive_blocks_page_id = function_exists('get_field') ? (int) get_field('projects_archive_blocks_page', 'option') : 0;
+
+if ($archive_blocks_page_id > 0 && function_exists('load_hero_templates')) {
+    load_hero_templates($archive_blocks_page_id);
+}
+
+if (!empty($projects_opts['show_projects_map'])) {
+    get_template_part('template-parts/archive/projects-map', null, [
+        'projects_opts' => $projects_opts,
+    ]);
+}
+
 if (function_exists('matrix_starter_render_archive_index_header')) {
     matrix_starter_render_archive_index_header([
         'heading'      => $projects_opts['hero_heading_text'] ?? __('Projects', 'matrix-starter'),
@@ -13,6 +25,10 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
     ]);
 }
 
+if ($archive_blocks_page_id > 0 && function_exists('load_flexible_content_templates')) {
+    load_flexible_content_templates($archive_blocks_page_id);
+}
+
 $active_slug = 'all';
 ?>
 <main class="overflow-hidden w-full min-h-fit site-main">
@@ -20,21 +36,65 @@ $active_slug = 'all';
   <div class="w-full"
        x-data="{
          activeCategory: '<?php echo esc_js($active_slug); ?>',
-         setCategory(category) { this.activeCategory = category; }
+         filterDragging: false,
+         filterStartX: 0,
+         filterStartScrollLeft: 0,
+         filterHasOverflow: false,
+         filterCanScrollRight: false,
+         setCategory(category) { this.activeCategory = category; },
+         init() {
+           this.$nextTick(() => {
+             this.updateFilterOverflow();
+             window.addEventListener('resize', () => this.updateFilterOverflow());
+           });
+         },
+         updateFilterOverflow() {
+           const el = this.$refs.filterScroller;
+           if (!el) return;
+           const maxScrollLeft = Math.max(0, el.scrollWidth - el.clientWidth);
+           this.filterHasOverflow = maxScrollLeft > 0;
+           this.filterCanScrollRight = el.scrollLeft < (maxScrollLeft - 2);
+         },
+         startFilterDrag(event) {
+           const el = this.$refs.filterScroller;
+           if (!el) return;
+           this.filterDragging = true;
+           this.filterStartX = event.pageX;
+           this.filterStartScrollLeft = el.scrollLeft;
+         },
+         onFilterDrag(event) {
+           const el = this.$refs.filterScroller;
+           if (!el || !this.filterDragging) return;
+           const walk = event.pageX - this.filterStartX;
+           el.scrollLeft = this.filterStartScrollLeft - walk;
+           this.updateFilterOverflow();
+         },
+         stopFilterDrag() {
+           this.filterDragging = false;
+         }
        }">
 
     <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1085px] px-8 text-sm leading-none max-xl:px-5">
-      <div class="flex flex-wrap gap-6 items-center">
+      <div class="flex flex-wrap gap-6 items-center w-full">
         <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php esc_html_e('Filter by', 'matrix-starter'); ?></div>
 
-        <div class="flex flex-wrap gap-4 items-center self-stretch my-auto"
-             role="radiogroup"
-             aria-labelledby="filterLabel">
+        <div class="relative self-stretch my-auto w-full sm:w-auto">
+          <div class="flex gap-4 items-center self-stretch my-auto overflow-x-auto whitespace-nowrap no-scrollbar select-none"
+               x-ref="filterScroller"
+               role="radiogroup"
+               aria-labelledby="filterLabel"
+               :class="filterDragging ? 'cursor-grabbing' : 'cursor-grab'"
+               @scroll="updateFilterOverflow"
+               @mousedown.prevent="startFilterDrag($event)"
+               @mousemove="onFilterDrag($event)"
+               @mouseup="stopFilterDrag"
+               @mouseleave="stopFilterDrag"
+               @mouseup.window="stopFilterDrag">
 
           <button
             type="button"
             role="radio"
-            class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            class="inline-flex shrink-0 gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             :class="activeCategory === 'all' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
             :aria-checked="activeCategory === 'all' ? 'true' : 'false'"
             @click="setCategory('all')"
@@ -57,7 +117,7 @@ $active_slug = 'all';
               <button
                 type="button"
                 role="radio"
-                class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                class="inline-flex shrink-0 gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 :class="activeCategory === '<?php echo $term_slug; ?>' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
                 :aria-checked="activeCategory === '<?php echo $term_slug; ?>' ? 'true' : 'false'"
                 @click="setCategory('<?php echo $term_slug; ?>')"
@@ -68,6 +128,12 @@ $active_slug = 'all';
               </button>
             <?php endforeach;
           endif; ?>
+          </div>
+          <div
+            x-show="filterHasOverflow && filterCanScrollRight"
+            x-transition.opacity
+            class="pointer-events-none absolute right-0 top-0 h-full w-16 bg-gradient-to-l from-white to-transparent"
+            aria-hidden="true"></div>
         </div>
       </div>
     </div>

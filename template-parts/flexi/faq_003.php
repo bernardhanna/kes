@@ -40,6 +40,17 @@ if (have_rows('padding_settings')) {
 }
 $padding_classes_str = !empty($padding_classes) ? ' ' . esc_attr(implode(' ', $padding_classes)) : '';
 
+$content_max_width_raw = get_sub_field('content_max_width');
+if (is_array($content_max_width_raw) && isset($content_max_width_raw['value'])) {
+  $content_max_width_raw = $content_max_width_raw['value'];
+}
+// ACF may store select keys as int (1200) or string ('1200').
+$content_max_width_key = (string) ( $content_max_width_raw ?? '' );
+if (! in_array($content_max_width_key, ['1018', '1200'], true)) {
+  $content_max_width_key = '1018';
+}
+$faq_content_max_w_class = ( '1200' === $content_max_width_key ) ? 'max-w-[1200px]' : 'max-w-[1018px]';
+
 $section_id = 'faq-003-' . uniqid();
 
 // Build FAQ list
@@ -102,7 +113,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
   class="flex overflow-hidden relative w-full"
   style="background-color: <?php echo esc_attr($section_background); ?>;"
 >
-  <div class="flex flex-col items-center w-full mx-auto max-w-[1018px] py-[56px] max-xl:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($faq_content_max_w_class); ?> py-[56px] max-xl:px-5<?php echo $padding_classes_str; ?>">
     <!-- Heading -->
     <div class="flex flex-col gap-4 pb-4 mb-8 w-full">
       <?php if (!empty($heading_text)): ?>

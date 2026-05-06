@@ -1,10 +1,8 @@
+/* Google Fonts load in PHP: inc/enqueue-fonts.php (imports here do not reliably reach dist/app.css after Tailwind/PostCSS). */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
 
 /* Red Hat Display - for headings */
 .red-hat-display {
@@ -49,6 +47,249 @@ p {
   font-style: normal;
   font-weight: 400;
   line-height: 24px;
+}
+
+/* Jobs flexi — Builder-style “Key attributes” lists (space-y-3, 24px bullet column) */
+.job-card-builder-content ul,
+.job-card-accordion__content ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* space-y-3 */
+}
+.job-card-builder-content ul > li,
+.job-card-accordion__content ul > li {
+  display: flex;
+  gap: 1rem; /* gap-4 */
+  align-items: center;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 1rem;
+  line-height: 1; /* leading-none on Builder list */
+  color: #1e293b;
+}
+/* Careers job lists — right-arrow icon (24×24, #2B3990) */
+.job-card-builder-content ul > li::before,
+.job-card-accordion__content ul > li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5%2012H19M19%2012L12%205M19%2012L12%2019' stroke='%232B3990' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+.job-card-builder-content ul > li span,
+.job-card-accordion__content ul > li span {
+  line-height: 1.5;
+}
+
+/* Paragraphs following “Key attributes” list — Builder trailing copy (text-base / leading-5) */
+.job-card-builder-content ul ~ p {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0;
+  color: #1e293b;
+}
+
+.job-card-builder-content h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #1e3a8a;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+/* Careers jobs flexi — card border (closed = Blue-50), open = cyan border + mint fill */
+.jobs-flexi article.job-card-careers {
+  border: 3px solid #cbe9e1;
+}
+
+.jobs-flexi article.job-card-careers:has(.job-card-careers__details[open]) {
+  background-color: #cbe9e1;
+  border: 3px solid #00acd8;
+}
+
+.jobs-flexi .job-card-careers__title {
+  color: #262262;
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+/* Excerpt: Gray-800, Text lg / Regular (explicit chain so it beats global `p` / utilities) */
+.jobs-flexi article.job-card-careers .job-card-careers__excerpt,
+.jobs-flexi article.job-card-careers .job-card-careers__excerpt p {
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__body-copy {
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+/* Body copy paragraphs — rhythm vs generic .is-not-woo .wp_editor p (mb-4 / leading) */
+.jobs-flexi article.job-card-careers .job-card-careers__body-copy p {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 1rem;
+  padding-bottom: 0;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__body-copy p:last-child {
+  margin-bottom: 0;
+}
+
+/* Category pills — Text sm / Medium, Blue-300 */
+.jobs-flexi article.job-card-careers .job-card-careers__tag {
+  color: #2b3990;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+/* “Job description:” — Blue-300, Text lg / Bold (Red Hat Text, not global Display h3) */
+.jobs-flexi article.job-card-careers h3.job-card-careers__section-label {
+  color: #2b3990;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 24px;
+}
+
+/* Open panel — list items: Text md / Regular, Gray-800 */
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content ul > li,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-accordion__content ul > li {
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content ul > li span,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-accordion__content ul > li span {
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+/* Open panel — strong + in-content headings: Text lg / Bold, Blue-300 */
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content strong,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content b {
+  color: #2b3990;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 700;
+  line-height: inherit;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content h2,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content h3,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content h4,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content h5,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content h6 {
+  color: #2b3990;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 0 0 0.5rem;
+}
+
+/* Space above in-content titles when they follow body copy or lists */
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content :where(p, ul) ~ :where(h2, h3, h4, h5, h6) {
+  margin-top: 1.25rem;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content :where(h2, h3, h4, h5, h6) ~ :where(h2, h3, h4, h5, h6) {
+  margin-top: 1.25rem;
+}
+
+/* Lists in open panel — space after block without doubling ul ~ p gap */
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content > ul {
+  margin: 0 0 1rem;
+}
+
+/* Trailing paragraphs after lists in panel */
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content ul ~ p {
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin-top: 0.75rem;
+}
+
+.jobs-flexi article.job-card-careers:has(.job-card-careers__details[open]) .job-card-careers__tags {
+  margin-bottom: 1.5rem;
+}
+
+.jobs-flexi article.job-card-careers:has(.job-card-careers__details[open]) .job-card-careers__excerpt {
+  display: none;
+}
+
+/* Open: hide top disclosure (down chevron); close control is the rotated chevron after Apply */
+.job-card-careers__details[open] > .job-card-careers__summary {
+  display: none;
+}
+
+.job-card-careers__chevron--close {
+  transform: rotate(180deg);
+  transition: transform 0.2s ease-out;
+}
+
+/* Jobs block — Apply now (full width pill, gradient, theme-option mailto) */
+.job-card-careers__apply {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 100px;
+  background: linear-gradient(90deg, #2b3990 0%, #006ec8 100%);
+  color: #fff;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.job-card-careers__apply:hover {
+  background: linear-gradient(90deg, #006ec8 0%, #2b3990 100%);
+  color: #fff;
+}
+.job-card-careers__apply:active {
+  background: #262262;
+  color: #fff;
+}
+.job-card-careers__apply:visited {
+  color: #fff;
 }
 
 .small_wp_editor p {

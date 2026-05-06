@@ -9,7 +9,7 @@ function matrix_starter_enqueue_fonts() {
   wp_enqueue_style(
     'my-google-fonts',
     // THIS IS YOUR COMPLETE URL WITH ALL FAMILIES
-    'https://fonts.googleapis.com/css2?family=Great+Vibes&family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap',
+    'https://fonts.googleapis.com/css2?family=Great+Vibes&family=League+Spartan:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Red+Hat+Display:ital,wght@0,300..900;1,300..900&family=Red+Hat+Text:ital,wght@0,300..700;1,300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap',
     [],
     null // or a version number if you like
   );

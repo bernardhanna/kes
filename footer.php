@@ -12,6 +12,8 @@
     <?php endif; ?>
 </footer>
 
+<?php get_template_part('template-parts/modals/request-callback'); ?>
+
 <?php wp_footer(); ?>
 
 

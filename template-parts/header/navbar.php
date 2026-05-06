@@ -47,14 +47,26 @@ $secondary_navigation = Navi::make()->build('secondary');
         <?php foreach ($items as $i => $item) : ?>
           <?php
             $is_last = ($i === $total - 1);
+            $li_classes = trim((string) $item->classes);
+            $is_request_call = str_contains($li_classes, 'request-call');
 
-            // last item = white; others = Blue-500 (text color does not change on hover; underline effect on non-last)
-            $text_class = $is_last ? 'text-white' : 'text-blue-500';
-            $underline_class = $is_last ? '' : 'relative pb-3 after:content-[""] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full';
+            // Callback / custom CTA: menu classes on the link control color (avoid forced white on light bar).
+            if ($is_request_call) {
+              $text_class        = '';
+              $underline_class   = '';
+            } elseif ($is_last) {
+              $text_class        = 'text-white';
+              $underline_class   = '';
+            } else {
+              $text_class        = 'text-blue-500';
+              $underline_class   = 'relative pb-3 after:content-[""] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full';
+            }
+            // Last primary item: pill CTA (always on the <a>, even if the menu only added classes on <li>).
+            $last_primary_cta_class = $is_last ? 'btn-primary' : '';
           ?>
           <li class="relative group pt-3 <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
             <a href="<?php echo esc_url($item->url); ?>"
-               class="gap-2.5 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?>">
+               class="gap-2.5 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo esc_attr($li_classes); ?> <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?> <?php echo esc_attr($last_primary_cta_class); ?>">
               <?php echo esc_html($item->label); ?>
               <?php if (!empty($item->children)) : ?>
                 <span class="ml-[2px] inline-flex transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">

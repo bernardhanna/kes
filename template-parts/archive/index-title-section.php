@@ -1,7 +1,7 @@
 <?php
 /**
  * Index/archive title band markup.
- * Variables: $section_id, $tag, $heading, $intro, $bg_color, $accent, $aria_labelledby
+ * Variables: $section_id, $tag, $heading, $intro, $bg_color, $accent, $aria_labelledby, $inner_wrapper_class
  *
  * @package matrix-starter
  */
@@ -28,8 +28,8 @@ $section_classes = trim('relative flex overflow-hidden ' . ($section_class ?? ''
         aria-label="<?php echo esc_attr__('Archive', 'matrix-starter'); ?>"
     <?php endif; ?>
 >
-    <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">
-        <div class="flex overflow-hidden justify-between items-center self-stretch px-24 pt-[7rem] pb-5 max-md:px-5">
+    <div class="<?php echo esc_attr($inner_wrapper_class ?? ''); ?>">
+        <div class="flex overflow-hidden justify-between items-center self-stretch px-24 pb-5 max-md:px-5">
             <div class="flex flex-col flex-1 justify-center self-stretch my-auto w-full shrink basis-0 min-w-60 max-md:max-w-full">
                 <?php if ($heading !== '') : ?>
                     <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">

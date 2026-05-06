@@ -69,7 +69,7 @@ $section_id = 'latest-projects-' . uniqid();
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative bg-[#FCFDFE]">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-[1180px] pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?>">
 
     <?php
       if (!empty($cta_link) && is_array($cta_link)) {
@@ -106,7 +106,7 @@ $section_id = 'latest-projects-' . uniqid();
       </div>
 
       <!-- Grid -->
-      <div class="grid grid-cols-1 gap-4 md:gap-8 sm:grid-cols-3 lg:grid-cols-3 lg:gap-10">
+      <div class="grid grid-cols-1 gap-4 md:gap-8 md:grid-cols-3 lg:grid-cols-3 lg:gap-10">
         <?php foreach ($projects as $p): ?>
           <?php
             $pid   = is_object($p) ? $p->ID : (int) $p;
@@ -129,7 +129,7 @@ $section_id = 'latest-projects-' . uniqid();
           <article class="flex flex-col gap-6">
             <a class="block overflow-hidden relative w-full rounded-[4px]" href="<?php echo $perma; ?>">
               <?php if ($img_url): ?>
-                <img class="object-cover w-[358px] h-[246px] rounded-[4px]" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" title="<?php echo $img_title; ?>">
+                <img class="object-cover max-md:w-full w-[358px] h-[246px] rounded-[4px]" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" title="<?php echo $img_title; ?>">
               <?php endif; ?>
             </a>
 
