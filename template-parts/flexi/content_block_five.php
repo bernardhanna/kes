@@ -57,7 +57,7 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
 
             <!-- Content Column -->
             <div class="<?php echo esc_attr($content_order_class); ?> min-w-0">
-                <header class="w-full">
+                <header class="flex flex-col gap-2 w-full">
                     <<?php echo esc_attr($heading_tag); ?>
                         id="<?php echo esc_attr($section_id); ?>-heading"
                         class="text-3xl font-bold leading-none text-white"
@@ -66,7 +66,7 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
                     </<?php echo esc_attr($heading_tag); ?>>
 
                         <div
-                            class="w-8 h-1 relative -top-[10px]"
+                            class="w-8 h-1 shrink-0"
                             style="background-color: <?php echo esc_attr($heading_underline_color ?: '#00ACD8'); ?>;"
                             aria-hidden="true"
                         ></div>

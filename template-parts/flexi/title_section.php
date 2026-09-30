@@ -38,7 +38,7 @@ if ($container_width_mode_normalized === 'none') {
         <div class="flex overflow-hidden justify-between items-center self-stretch py-10 lg:py-20 max-md:px-5">
             <div class="flex flex-col flex-1 justify-center self-stretch my-auto w-full shrink basis-0 min-w-60 mx-auto max-md:max-w-full">
                 <?php if (!empty($heading)): ?>
-                    <div class="flex flex-col gap-4 w-full max-md:max-w-full">
+                    <div class="flex flex-col gap-2 w-full max-md:max-w-full">
                         <<?php echo esc_attr($heading_tag); ?>
                             id="<?php echo esc_attr($section_id); ?>-heading"
                             class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary text-blue-500 max-md:max-w-full"
@@ -46,7 +46,7 @@ if ($container_width_mode_normalized === 'none') {
                             <?php echo esc_html($heading); ?>
                         </<?php echo esc_attr($heading_tag); ?>>
                         <div
-                            class="w-8 h-1 relative -top-[10px]<?php echo $divider_color ? '' : ' bg-blue-100'; ?>"
+                            class="w-8 h-1 shrink-0 <?php echo $divider_color ? '' : ' bg-blue-100'; ?>"
                             <?php if ($divider_color) : ?>style="background-color: <?php echo esc_attr($divider_color); ?>;"<?php endif; ?>
                             role="presentation"
                             aria-hidden="true"

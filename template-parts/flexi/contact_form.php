@@ -265,11 +265,11 @@ $map_id_prefix = $section_id . '-office-map-';
             <div class="flex flex-col justify-center w-full px-0 py-2 md:py-4 rounded-2xl max-md:px-0">
                 <div class="w-full max-w-[720px] mx-auto">
                     <div class="flex flex-col justify-center w-full">
-                        <div class="w-full">
+                        <div class="flex flex-col gap-2 w-full">
                             <div class="text-[#262262] font-primary text-[36px] font-bold leading-[44px] tracking-[-0.72px]">
                                 How can we help?
                             </div>
-                            <div class="w-8 h-1 relative -top-[10px] bg-blue-100"></div>
+                            <div class="w-8 h-1 shrink-0 bg-blue-100" aria-hidden="true"></div>
                         </div>
 
                         <?php if ($description): ?>

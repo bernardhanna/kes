@@ -69,13 +69,13 @@ $section_id = 'content-four-' . uniqid();
 
         <!-- Left: Text -->
         <article class="flex flex-col order-2 gap-6 md:order-1 max-xl:px-5">
-          <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2">
             <?php if (!empty($heading)): ?>
               <<?php echo esc_attr($heading_tag); ?> class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary <?php echo esc_attr($heading_color); ?>">
                 <?php echo esc_html($heading); ?>
               </<?php echo esc_attr($heading_tag); ?>>
             <?php endif; ?>
-            <div class="w-8 h-1 relative -top-[10px] <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
+            <div class="w-8 h-1 shrink-0 <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
           </div>
 
           <?php if ($img_url): ?>

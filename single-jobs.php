@@ -19,16 +19,16 @@ $enable_breadcrumbs = function_exists('get_field') ? get_field('enable_breadcrum
       ?>
 
       <header class="mx-auto w-full max-w-container px-6 py-12 sm:px-12 lg:px-24 lg:py-16 max-xl:px-5">
-        <div class="flex w-full max-w-3xl flex-col gap-1">
+        <div class="flex w-full max-w-3xl flex-col gap-2">
           <h1
             id="job-application-heading"
             class="font-red-hat-display text-[36px] font-bold leading-[44px] tracking-[-0.72px] text-[#262262] max-md:text-[28px] max-md:leading-[34px]"
           >
             <?php echo esc_html($config['page_heading']); ?>
           </h1>
-          <div class="w-8 h-1 relative -top-[10px] bg-blue-100" aria-hidden="true"></div>
+          <div class="w-8 h-1 shrink-0 bg-blue-100" aria-hidden="true"></div>
           <?php if ($config['intro'] !== '') : ?>
-            <p class="mt-4 font-red-hat-text text-[18px] font-normal leading-[24px] text-[#1D2939]">
+            <p class="mt-2 font-red-hat-text text-[18px] font-normal leading-[24px] text-[#1D2939]">
               <?php echo wp_kses_post($config['intro']); ?>
             </p>
           <?php endif; ?>

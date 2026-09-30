@@ -104,13 +104,13 @@ $section_id = 'content-block-006-' . uniqid();
         <main id="main-content" class="flex flex-col gap-8 max-w-md">
 
           <!-- Heading + accent (same as content-section-five) -->
-          <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2">
             <?php if (!empty($heading_text)): ?>
               <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-none text-white">
                 <?php echo esc_html($heading_text); ?>
               </<?php echo esc_attr($heading_tag); ?>>
             <?php endif; ?>
-            <div class="w-8 h-1 relative -top-[10px] <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
+            <div class="w-8 h-1 shrink-0 <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
           </div>
 
           <!-- Description (16px/400/20px, white) -->

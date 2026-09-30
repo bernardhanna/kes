@@ -45,11 +45,11 @@ if (have_rows('padding_settings')) {
                 <!-- Project Heading Section -->
                 <?php if (!empty($heading)): ?>
                 <header class="w-full max-md:max-w-full">
-                    <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">
-                        <<?php echo esc_attr($heading_tag); ?> class="text-primary max-md:max-w-full">
+                    <div class="flex flex-col gap-2 w-full max-md:max-w-full">
+                        <<?php echo esc_attr($heading_tag); ?> class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary text-blue-500 max-md:max-w-full">
                             <?php echo esc_html($heading); ?>
                         </<?php echo esc_attr($heading_tag); ?>>
-                        <div class="w-8 h-1 relative -top-[10px] bg-blue-100" role="presentation" aria-hidden="true"></div>
+                        <div class="w-8 h-1 shrink-0 bg-blue-100" role="presentation" aria-hidden="true"></div>
                     </div>
 
                     <?php if (!empty($description)): ?>

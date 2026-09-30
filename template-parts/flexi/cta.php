@@ -84,13 +84,13 @@ if (is_array($button_link) && !empty($button_link['url'])) {
 
       <!-- Left: Text -->
       <article class="flex flex-col flex-1 gap-6 w-full">
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-2">
           <?php if (!empty($heading_text)): ?>
             <<?php echo esc_attr($heading_tag); ?> class="font-red-hat-display text-3xl lg:text-4xl font-bold leading-tight <?php echo esc_attr($heading_color); ?>">
               <?php echo esc_html($heading_text); ?>
             </<?php echo esc_attr($heading_tag); ?>>
           <?php endif; ?>
-          <div class="w-8 h-1 relative -top-[10px] <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
+          <div class="w-8 h-1 shrink-0 <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
         </div>
 
         <?php if (!empty($subheading)): ?>
