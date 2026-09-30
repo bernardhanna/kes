@@ -36,7 +36,7 @@ $section_id = 'title-section-' . wp_rand(1000, 9999);
             <?php endif; ?>
 
             <div
-                class="relative w-8 h-1 bg-cyan-500 max-sm:w-7 max-sm:h-[3px]"
+                class="w-8 h-1 relative -top-[10px] bg-blue-100 max-sm:w-7 max-sm:h-[3px]"
                 role="presentation"
                 aria-hidden="true"
             ></div>

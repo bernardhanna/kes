@@ -88,7 +88,7 @@ $section_id = 'latest-projects-' . uniqid();
             <span class="mb-3 font-primary text-[30px] font-bold leading-[38px] text-primary">
               <?php echo esc_html($heading); ?>
             </span>
-            <div class="w-8 h-1 rounded bg-[#00ACD8]"></div>
+            <div class="w-8 h-1 relative -top-[10px] bg-blue-100"></div>
           </div>
 
           <?php if (!empty($intro)): ?>

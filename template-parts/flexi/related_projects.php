@@ -69,7 +69,7 @@ if ($selected_projects && is_array($selected_projects)) {
                 <?php echo esc_html($heading); ?>
             </<?php echo esc_attr($heading_tag); ?>>
         <?php endif; ?>
-        <div class="w-8 h-1 bg-cyan-500" role="presentation" aria-hidden="true"></div>
+        <div class="w-8 h-1 relative -top-[10px] bg-blue-100" role="presentation" aria-hidden="true"></div>
     </div>
 <div class="py-12 w-full" style="background-color: <?php echo esc_attr($background_color); ?>;">
     <div class="flex  flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">

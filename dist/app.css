@@ -1618,9 +1618,6 @@ select {
   margin-top: auto;
   margin-bottom: auto;
 }
-.-mt-2\.5 {
-  margin-top: -0.625rem;
-}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1653,6 +1650,9 @@ select {
 }
 .ml-4 {
   margin-left: 1rem;
+}
+.mr-0 {
+  margin-right: 0px;
 }
 .mt-0\.5 {
   margin-top: 0.125rem;
@@ -1861,9 +1861,6 @@ select {
 }
 .max-h-full {
   max-height: 100%;
-}
-.min-h-1 {
-  min-height: 0.25rem;
 }
 .min-h-14 {
   min-height: 3.5rem;
@@ -4132,10 +4129,6 @@ select {
   --tw-border-opacity: 1;
   border-top-color: rgb(209 250 229 / var(--tw-border-opacity, 1));
 }
-.bg-\[\#00ACD8\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 172 216 / var(--tw-bg-opacity, 1));
-}
 .bg-\[\#262262\] {
   --tw-bg-opacity: 1;
   background-color: rgb(38 34 98 / var(--tw-bg-opacity, 1));
@@ -4185,10 +4178,6 @@ select {
 .bg-blue-bright {
   --tw-bg-opacity: 1;
   background-color: rgb(0 110 200 / var(--tw-bg-opacity, 1));
-}
-.bg-cyan-500 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(6 182 212 / var(--tw-bg-opacity, 1));
 }
 .bg-gray-100 {
   --tw-bg-opacity: 1;
@@ -9047,6 +9036,9 @@ select {
   .max-md\:text-\[28px\] {
     font-size: 28px;
   }
+  .max-md\:text-\[30px\] {
+    font-size: 30px;
+  }
   .max-md\:text-base {
     font-size: 16px;
   }
@@ -9076,6 +9068,9 @@ select {
   .max-md\:leading-\[34px\] {
     line-height: 34px;
   }
+  .max-md\:leading-\[38px\] {
+    line-height: 38px;
+  }
   .max-md\:leading-\[53px\] {
     line-height: 53px;
   }
@@ -9087,9 +9082,6 @@ select {
   }
   .max-sm\:mb-4 {
     margin-bottom: 1rem;
-  }
-  .max-sm\:mt-1 {
-    margin-top: 0.25rem;
   }
   .max-sm\:mt-4 {
     margin-top: 1rem;
@@ -9217,9 +9209,6 @@ select {
   }
   .max-sm\:pr-0 {
     padding-right: 0px;
-  }
-  .max-sm\:pr-1 {
-    padding-right: 0.25rem;
   }
   .max-sm\:pr-5 {
     padding-right: 1.25rem;
@@ -16144,6 +16133,10 @@ select {
   .sm\:p-\[9rem\] {
     padding: 9rem;
   }
+  .sm\:px-10 {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
   .sm\:px-12 {
     padding-left: 3rem;
     padding-right: 3rem;
@@ -17595,6 +17588,9 @@ select {
   }
   .sm\:pl-\[9rem\] {
     padding-left: 9rem;
+  }
+  .sm\:pr-2 {
+    padding-right: 0.5rem;
   }
   .sm\:pr-\[100rem\] {
     padding-right: 100rem;
@@ -25938,6 +25934,15 @@ select {
     padding-left: 0px;
     padding-right: 0px;
   }
+  .navbar\:pl-0 {
+    padding-left: 0px;
+  }
+  .navbar\:pr-0 {
+    padding-right: 0px;
+  }
+  .navbar\:pr-5 {
+    padding-right: 1.25rem;
+  }
 }
 @media (min-width: 1277px) {
   .min-\[1277px\]\:hidden {
@@ -26262,6 +26267,10 @@ select {
   }
   .xl\:p-\[9rem\] {
     padding: 9rem;
+  }
+  .xl\:px-20 {
+    padding-left: 5rem;
+    padding-right: 5rem;
   }
   .xl\:px-\[100rem\] {
     padding-left: 100rem;
@@ -37565,11 +37574,19 @@ blockquote.right {
   }
 }
 
-/* Hero slider: hide arrows at 1152px and below */
-@media (max-width: 1152px) {
+/* Hero slider: hide arrows on smaller viewports where they collide with copy */
+@media (max-width: 1280px) {
   .hero-slider-section .slick-prev,
   .hero-slider-section .slick-next {
     display: none !important;
+  }
+}
+
+/* When arrows are visible, keep slide copy clear of arrow hit-area */
+@media (min-width: 1281px) {
+  .hero-slider-section .hero-slider-content {
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
   }
 }
 

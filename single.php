@@ -58,7 +58,7 @@ get_header();
             <h1 id="article-heading" class="text-primary mt-1 max-md:max-w-full">
               <?php echo esc_html($title); ?>
             </h1>
-            <div class="flex mt-1 mb-2 w-8 bg-cyan-500 min-h-1" aria-hidden="true"></div>
+            <div class="w-8 h-1 relative -top-[10px] bg-blue-100" aria-hidden="true"></div>
           </div>
 
           <time

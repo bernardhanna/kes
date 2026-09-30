@@ -2346,11 +2346,19 @@ blockquote.right {
   }
 }
 
-/* Hero slider: hide arrows at 1152px and below */
-@media (max-width: 1152px) {
+/* Hero slider: hide arrows on smaller viewports where they collide with copy */
+@media (max-width: 1280px) {
   .hero-slider-section .slick-prev,
   .hero-slider-section .slick-next {
     display: none !important;
+  }
+}
+
+/* When arrows are visible, keep slide copy clear of arrow hit-area */
+@media (min-width: 1281px) {
+  .hero-slider-section .hero-slider-content {
+    padding-left: 5.5rem;
+    padding-right: 5.5rem;
   }
 }
 

@@ -36,7 +36,7 @@ $secondary_navigation = Navi::make()->build('secondary');
   x-init="window.addEventListener('resize', () => checkWindowSize())"
   class="py-4 bg-[#F9FAFB]"
   x-effect="isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''">
-  <nav class="relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center w-full mx-auto <?php echo esc_attr($nav_shell_class); ?> max-sm:pl-5 max-sm:pr-5 px-5 navbar:px-0">
+  <nav class="relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center w-full mx-auto <?php echo esc_attr($nav_shell_class); ?> max-sm:pl-5 max-sm:pr-5 px-5 navbar:pl-0 navbar:pr-5">
     <a style="z-index: 1000;" class="flex justify-self-start <?php echo esc_attr(trim($logo_inset_class . ' ' . $logo_position_class)); ?>" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr(sprintf(__('Home — %s', 'matrix'), get_bloginfo('name'))); ?>">
       <?php if ($logo_url) : ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>" />
@@ -100,21 +100,21 @@ $secondary_navigation = Navi::make()->build('secondary');
           </li>
         <?php endforeach; ?>
       </ul>
-      <div class="flex justify-self-end items-center gap-3 max-sm:pr-1">
+      <div class="flex justify-self-end items-center gap-3 pr-1 sm:pr-2 navbar:pr-0">
       <?php if ($cta_item) : ?>
         <?php
           $cta_classes = trim((string) $cta_item->classes);
           $cta_is_request = str_contains($cta_classes, 'request-call');
         ?>
         <a id="primary-menu-cta" href="<?php echo esc_url($cta_item->url); ?>"
-           class="hidden lg:flex gap-1 items-center whitespace-nowrap font-secondary text-base font-medium leading-[22px] btn-primary <?php echo esc_attr($cta_classes); ?> <?php echo $cta_item->active ? 'active-item' : ''; ?> <?php echo $cta_is_request ? '' : 'text-white'; ?>">
+           class="hidden lg:flex gap-1 items-center whitespace-nowrap font-secondary text-base font-medium leading-[22px] btn-primary mr-0 <?php echo esc_attr($cta_classes); ?> <?php echo $cta_item->active ? 'active-item' : ''; ?> <?php echo $cta_is_request ? '' : 'text-white'; ?>">
           <?php echo esc_html($cta_item->label); ?>
         </a>
       <?php endif; ?>
       <?php get_template_part('template-parts/header/navbar/mobile'); ?>
       </div>
     <?php else : ?>
-      <div class="flex justify-self-end items-center gap-3 max-sm:pr-1">
+      <div class="flex justify-self-end items-center gap-3 pr-1 sm:pr-2 navbar:pr-0">
         <?php get_template_part('template-parts/header/navbar/mobile'); ?>
       </div>
     <?php endif; ?>

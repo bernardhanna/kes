@@ -120,7 +120,7 @@ if ($center_text_vertically) {
               <?php echo esc_html($heading); ?>
             </<?php echo esc_attr($heading_tag); ?>>
           <?php endif; ?>
-          <div class="w-8 h-1 bg-[#00ACD8] rounded -mt-2.5 mb-4 sm:mb-0"></div>
+          <div class="w-8 h-1 relative -top-[10px] bg-blue-100 rounded mb-4 sm:mb-0"></div>
 
           <?php if ($center_text_vertically): ?>
             <!-- Desktop-centered text stack -->
