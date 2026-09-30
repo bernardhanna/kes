@@ -19,7 +19,7 @@ $enable_breadcrumbs = function_exists('get_field') ? get_field('enable_breadcrum
       ?>
 
       <header class="mx-auto w-full max-w-container px-6 py-12 sm:px-12 lg:px-24 lg:py-16 max-xl:px-5">
-        <div class="flex w-full max-w-3xl flex-col gap-2">
+        <div class="flex w-full max-w-3xl flex-col gap-3">
           <h1
             id="job-application-heading"
             class="font-red-hat-display text-[36px] font-bold leading-[44px] tracking-[-0.72px] text-[#262262] max-md:text-[28px] max-md:leading-[34px]"

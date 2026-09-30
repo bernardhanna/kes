@@ -60,7 +60,7 @@ if ($selected_projects && is_array($selected_projects)) {
     class="relative flex flex-col overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-<div class="flex flex-col gap-2 items-start w-full max-w-container mx-auto mb-8 max-xl:px-5">
+<div class="flex flex-col gap-3 items-start w-full max-w-container mx-auto mb-8 max-xl:px-5">
         <?php if (!empty($heading)): ?>
             <<?php echo esc_attr($heading_tag); ?>
                 id="<?php echo esc_attr($section_id); ?>-heading"

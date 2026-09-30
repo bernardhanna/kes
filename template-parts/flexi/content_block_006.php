@@ -104,9 +104,9 @@ $section_id = 'content-block-006-' . uniqid();
         <main id="main-content" class="flex flex-col gap-8 max-w-md">
 
           <!-- Heading + accent (same as content-section-five) -->
-          <div class="flex flex-col gap-2">
+          <div class="flex flex-col gap-3">
             <?php if (!empty($heading_text)): ?>
-              <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-none text-white">
+              <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-tight text-white">
                 <?php echo esc_html($heading_text); ?>
               </<?php echo esc_attr($heading_tag); ?>>
             <?php endif; ?>

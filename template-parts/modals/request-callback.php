@@ -82,7 +82,7 @@ if ($privacy_url) {
 
           <div class="flex z-0 flex-col w-full max-md:max-w-full">
             <header class="flex flex-col justify-center w-full max-md:max-w-full pr-10">
-              <div class="flex flex-col gap-2 w-full max-md:max-w-full">
+              <div class="flex flex-col gap-3 w-full max-md:max-w-full">
                 <h2 id="request-callback-form-title" class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary text-blue-500 max-md:max-w-full">
                   <?php echo esc_html($title); ?>
                 </h2>

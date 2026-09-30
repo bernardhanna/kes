@@ -84,7 +84,7 @@ if (is_array($button_link) && !empty($button_link['url'])) {
 
       <!-- Left: Text -->
       <article class="flex flex-col flex-1 gap-6 w-full">
-        <div class="flex flex-col gap-2">
+        <div class="flex flex-col gap-3">
           <?php if (!empty($heading_text)): ?>
             <<?php echo esc_attr($heading_tag); ?> class="font-red-hat-display text-3xl lg:text-4xl font-bold leading-tight <?php echo esc_attr($heading_color); ?>">
               <?php echo esc_html($heading_text); ?>

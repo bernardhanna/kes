@@ -54,7 +54,7 @@ get_header();
             </div>
           <?php endif; ?>
 
-          <div class="mt-2 flex flex-col gap-2 w-full max-md:max-w-full">
+          <div class="mt-2 flex flex-col gap-3 w-full max-md:max-w-full">
             <h1 id="article-heading" class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary text-blue-500 max-md:max-w-full">
               <?php echo esc_html($title); ?>
             </h1>

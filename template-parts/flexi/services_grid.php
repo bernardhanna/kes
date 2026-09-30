@@ -83,7 +83,7 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
                                 <?php endif; ?>
 
                                 <div class="flex flex-col flex-1 gap-4 justify-center items-start min-w-0 px-11 max-md:px-5 max-md:w-full">
-                                    <header class="flex flex-col gap-1 items-start w-full">
+                                    <header class="flex flex-col gap-3 items-start w-full">
                                         <<?php echo esc_attr($title_tag); ?>
                                             id="<?php echo esc_attr($service_id); ?>-title"
                                             class="text-[#2B3990] font-bold text-xl leading-[26px] font-secondary break-words"

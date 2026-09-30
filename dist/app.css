@@ -483,7 +483,7 @@ input::placeholder,textarea::placeholder {
   padding-bottom: 0;
 }
 select {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 20 20%27%3e%3cpath stroke=%27%236b7280%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%271.5%27 d=%27M6 8l4 4 4-4%27/%3e%3c/svg%3e");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
   background-size: 1.5em 1.5em;
@@ -547,7 +547,7 @@ select {
   background-repeat: no-repeat;
 }
 [type='checkbox']:checked {
-  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27white%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e");
 }
 @media (forced-colors: active)  {
   [type='checkbox']:checked {
@@ -557,7 +557,7 @@ select {
   }
 }
 [type='radio']:checked {
-  background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27white%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e");
 }
 @media (forced-colors: active)  {
   [type='radio']:checked {
@@ -571,7 +571,7 @@ select {
   background-color: currentColor;
 }
 [type='checkbox']:indeterminate {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
+  background-image: url("data:image/svg+xml,%3csvg xmlns=%27http://www.w3.org/2000/svg%27 fill=%27none%27 viewBox=%270 0 16 16%27%3e%3cpath stroke=%27white%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27 stroke-width=%272%27 d=%27M4 8h8%27/%3e%3c/svg%3e");
   border-color: transparent;
   background-color: currentColor;
   background-size: 100% 100%;
@@ -1487,9 +1487,6 @@ select {
 .-left-\[7rem\] {
   left: -7rem;
 }
-.-top-\[10px\] {
-  top: -10px;
-}
 .bottom-0 {
   bottom: 0px;
 }
@@ -1624,9 +1621,6 @@ select {
 .mb-2\.5 {
   margin-bottom: 0.625rem;
 }
-.mb-3 {
-  margin-bottom: 0.75rem;
-}
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -1650,9 +1644,6 @@ select {
 }
 .ml-4 {
   margin-left: 1rem;
-}
-.mr-0 {
-  margin-right: 0px;
 }
 .mt-0\.5 {
   margin-top: 0.125rem;
@@ -15755,9 +15746,6 @@ select {
   }
   .sm\:row-start-2 {
     grid-row-start: 2;
-  }
-  .sm\:mb-0 {
-    margin-bottom: 0px;
   }
   .sm\:block {
     display: block;
@@ -35860,7 +35848,7 @@ p {
   flex-shrink: 0;
   width: 1.5rem;
   height: 1.5rem;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'%3E%3Cpath d='M5%2012H19M19%2012L12%205M19%2012L12%2019' stroke='%232B3990' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+  background: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2724%27 height=%2724%27 viewBox=%270 0 24 24%27 fill=%27none%27%3E%3Cpath d=%27M5%2012H19M19%2012L12%205M19%2012L12%2019%27 stroke=%27%232B3990%27 stroke-width=%272%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E")
     center / contain no-repeat;
 }
 .job-card-builder-content ul > li span,
@@ -36228,7 +36216,7 @@ p {
   width: 1.25rem;
   height: 1.25rem;
   margin-top: 0.125rem;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M4.16675 10H15.8334' stroke='%232B3990' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 4.16663L15.8333 9.99996L10 15.8333' stroke='%232B3990' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+  background: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2720%27 height=%2720%27 viewBox=%270 0 20 20%27 fill=%27none%27%3E%3Cpath d=%27M4.16675 10H15.8334%27 stroke=%27%232B3990%27 stroke-width=%271.66667%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3Cpath d=%27M10 4.16663L15.8333 9.99996L10 15.8333%27 stroke=%27%232B3990%27 stroke-width=%271.66667%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27/%3E%3C/svg%3E")
     center / contain no-repeat;
 }
 
@@ -37719,7 +37707,7 @@ blockquote.right {
 }
 
 [type='radio']:checked {
-    background-image: url(data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e);
+    background-image: url("data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27white%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%273%27/%3e%3c/svg%3e");
     min-width: 20px;
     min-height: 20px;
 }

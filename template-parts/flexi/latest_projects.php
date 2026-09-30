@@ -84,7 +84,7 @@ $section_id = 'latest-projects-' . uniqid();
       <!-- Header (button shown here on lg only) -->
       <div class="flex flex-col gap-8 mb-4 lg:flex-row lg:justify-between lg:items-start">
         <div class="flex-1">
-          <div class="mb-5 flex flex-col gap-2">
+          <div class="mb-5 flex flex-col gap-3">
             <span class="font-primary text-[30px] font-bold leading-[38px] text-primary">
               <?php echo esc_html($heading); ?>
             </span>

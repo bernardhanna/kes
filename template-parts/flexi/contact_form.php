@@ -265,7 +265,7 @@ $map_id_prefix = $section_id . '-office-map-';
             <div class="flex flex-col justify-center w-full px-0 py-2 md:py-4 rounded-2xl max-md:px-0">
                 <div class="w-full max-w-[720px] mx-auto">
                     <div class="flex flex-col justify-center w-full">
-                        <div class="flex flex-col gap-2 w-full">
+                        <div class="flex flex-col gap-3 w-full">
                             <div class="text-[#262262] font-primary text-[36px] font-bold leading-[44px] tracking-[-0.72px]">
                                 How can we help?
                             </div>

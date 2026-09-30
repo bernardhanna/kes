@@ -114,13 +114,15 @@ if ($center_text_vertically) {
       <div class="w-full mx-auto max-w-container xl:pt-[5rem] xl:pb-[5rem] relative py-6 sm:py-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 sm:gap-8 lg:gap-12 <?php echo esc_attr($content_alignment_class); ?>">
 
         <!-- Heading + Accent (first on mobile, then column 2 row 1 on desktop) -->
-        <div class="flex flex-col gap-2 w-full <?php echo esc_attr($heading_order); ?>">
+        <div class="flex flex-col gap-6 w-full <?php echo esc_attr($heading_order); ?>">
+          <div class="flex flex-col gap-3 w-full">
           <?php if (!empty($heading)): ?>
             <<?php echo esc_attr($heading_tag); ?> class="font-primary text-[30px] font-bold leading-[38px] text-[#262262]"<?php echo $heading_max_width_style !== '' ? ' style="' . esc_attr($heading_max_width_style) . '"' : ''; ?>>
               <?php echo esc_html($heading); ?>
             </<?php echo esc_attr($heading_tag); ?>>
           <?php endif; ?>
           <div class="w-8 h-1 shrink-0 bg-blue-100" aria-hidden="true"></div>
+          </div>
 
           <?php if ($center_text_vertically): ?>
             <!-- Desktop-centered text stack -->
