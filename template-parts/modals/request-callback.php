@@ -86,7 +86,7 @@ if ($privacy_url) {
                 <h2 id="request-callback-form-title" class="text-primary max-md:max-w-full">
                   <?php echo esc_html($title); ?>
                 </h2>
-                <div class="flex mt-1 w-8 bg-cyan-500 min-h-1" aria-hidden="true"></div>
+                <div class="w-8 h-1 relative -top-[10px] bg-blue-100" aria-hidden="true"></div>
               </div>
               <?php if ($intro !== '') : ?>
                 <p class="mt-6 text-lg leading-6 text-slate-800 max-md:max-w-full">

@@ -26,7 +26,7 @@ $enable_breadcrumbs = function_exists('get_field') ? get_field('enable_breadcrum
           >
             <?php echo esc_html($config['page_heading']); ?>
           </h1>
-          <div class="mt-1 h-1 w-8 bg-[#00ACD8]" aria-hidden="true"></div>
+          <div class="w-8 h-1 relative -top-[10px] bg-blue-100" aria-hidden="true"></div>
           <?php if ($config['intro'] !== '') : ?>
             <p class="mt-4 font-red-hat-text text-[18px] font-normal leading-[24px] text-[#1D2939]">
               <?php echo wp_kses_post($config['intro']); ?>

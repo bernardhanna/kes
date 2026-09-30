@@ -115,7 +115,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
 >
   <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($faq_content_max_w_class); ?> py-[56px] max-xl:px-5<?php echo $padding_classes_str; ?>">
     <!-- Heading -->
-    <div class="flex flex-col gap-4 mb-8 w-full">
+    <div class="flex flex-col gap-4 pb-0 mb-8 w-full">
       <?php if (!empty($heading_text)): ?>
         <<?php echo esc_attr($heading_tag); ?>
           class="text-[30px] font-bold leading-[38px] font-red-hat-display sm:text-4xl sm:leading-[38px] lg:text-5xl lg:leading-[38px]"
@@ -125,7 +125,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
         </<?php echo esc_attr($heading_tag); ?>>
       <?php endif; ?>
 
-      <div class="-mt-2.5 w-8 h-1" aria-hidden="true" role="presentation"
+      <div class="w-8 h-1 relative -top-[10px]" aria-hidden="true" role="presentation"
            style="background-color: <?php echo esc_attr($accent_bar_color); ?>;"></div>
     </div>
 

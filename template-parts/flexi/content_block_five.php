@@ -66,8 +66,8 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
                     </<?php echo esc_attr($heading_tag); ?>>
 
                         <div
-                            class="mt-1 w-8 h-1"
-                            style="background-color: <?php echo esc_attr($heading_underline_color); ?>;"
+                            class="w-8 h-1 relative -top-[10px]"
+                            style="background-color: <?php echo esc_attr($heading_underline_color ?: '#00ACD8'); ?>;"
                             aria-hidden="true"
                         ></div>
                 </header>

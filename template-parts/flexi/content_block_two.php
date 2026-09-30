@@ -87,7 +87,7 @@ if ($reverse_layout) {
           <<?php echo esc_attr($heading_tag); ?> class="text-3xl font-bold leading-10 text-primary">
             <?php echo esc_html($heading); ?>
           </<?php echo esc_attr($heading_tag); ?>>
-          <div class="w-8 h-1 bg-cyan-500 max-sm:mt-1" aria-hidden="true"></div>
+          <div class="w-8 h-1 relative -top-[10px] bg-blue-100" aria-hidden="true"></div>
         </header>
 
         <!-- Image (second on mobile, column 2 full height on desktop; column 1 when reversed) -->

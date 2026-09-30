@@ -49,7 +49,7 @@ if (have_rows('padding_settings')) {
                         <<?php echo esc_attr($heading_tag); ?> class="text-primary max-md:max-w-full">
                             <?php echo esc_html($heading); ?>
                         </<?php echo esc_attr($heading_tag); ?>>
-                        <div class="flex mt-1 w-8 bg-cyan-500 min-h-1" role="presentation" aria-hidden="true"></div>
+                        <div class="w-8 h-1 relative -top-[10px] bg-blue-100" role="presentation" aria-hidden="true"></div>
                     </div>
 
                     <?php if (!empty($description)): ?>

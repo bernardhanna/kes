@@ -269,7 +269,7 @@ $map_id_prefix = $section_id . '-office-map-';
                             <div class="text-[#262262] font-primary text-[36px] font-bold leading-[44px] tracking-[-0.72px]">
                                 How can we help?
                             </div>
-                            <div class="flex mt-1 w-8 bg-cyan-500 min-h-1"></div>
+                            <div class="w-8 h-1 relative -top-[10px] bg-blue-100"></div>
                         </div>
 
                         <?php if ($description): ?>

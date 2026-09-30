@@ -90,7 +90,7 @@ if (is_array($button_link) && !empty($button_link['url'])) {
               <?php echo esc_html($heading_text); ?>
             </<?php echo esc_attr($heading_tag); ?>>
           <?php endif; ?>
-          <div class="w-8 h-1 <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
+          <div class="w-8 h-1 relative -top-[10px] <?php echo esc_attr($accent_color); ?>" aria-hidden="true" role="presentation"></div>
         </div>
 
         <?php if (!empty($subheading)): ?>

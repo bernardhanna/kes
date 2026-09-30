@@ -285,7 +285,7 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
               endif; ?>
 
               <?php if (!$is_map_slide): ?>
-              <div class="relative z-10 px-6 pb-8 mx-auto w-full max-w-container sm:px-8 sm:pb-0 lg:px-12">
+              <div class="relative z-10 px-6 pb-8 mx-auto w-full max-w-container sm:px-10 sm:pb-0 lg:px-16 xl:px-20 hero-slider-content">
                 <div class="flex flex-col justify-center items-start pt-[2.5]">
                   <?php if ($title_html): ?>
                     <?php
@@ -354,7 +354,9 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
       </div>
     </div>
 
-    <?php /* QC: design has no hero progress bars under the slider */ ?>
+    <?php if ($use_slider && $show_dots): ?>
+      <div class="flex relative z-10 justify-center pb-3 mt-2 mb-2 w-full bg-white slick-dots-container" aria-hidden="true"></div>
+    <?php endif; ?>
   </div>
 </section>
 
@@ -394,7 +396,7 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
 
       $el.slick({
         arrows: true,
-        dots: false,
+        dots: <?php echo $show_dots ? 'true' : 'false'; ?>,
         appendDots: $wrap.find('.slick-dots-container'),
         prevArrow: '<?php echo wp_kses_post($prev_arrow_markup); ?>',
         nextArrow: '<?php echo wp_kses_post($next_arrow_markup); ?>',
