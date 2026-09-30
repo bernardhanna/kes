@@ -36,7 +36,7 @@ $secondary_navigation = Navi::make()->build('secondary');
   x-init="window.addEventListener('resize', () => checkWindowSize())"
   class="py-4 bg-[#F9FAFB]"
   x-effect="isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''">
-  <nav class="relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center w-full mx-auto <?php echo esc_attr($nav_shell_class); ?> max-sm:pl-5 max-sm:pr-5 px-5 navbar:pl-0 navbar:pr-5">
+  <nav class="relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center w-full mx-auto <?php echo esc_attr($nav_shell_class); ?> px-5">
     <a style="z-index: 1000;" class="flex justify-self-start <?php echo esc_attr(trim($logo_inset_class . ' ' . $logo_position_class)); ?>" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr(sprintf(__('Home — %s', 'matrix'), get_bloginfo('name'))); ?>">
       <?php if ($logo_url) : ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>" />

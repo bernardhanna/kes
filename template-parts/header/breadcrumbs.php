@@ -115,7 +115,7 @@ $crumb_link_extra   = 'transition-colors duration-200 hover:opacity-90 focus:out
 ?>
 <section class="w-full bg-[#F9FAFB]">
 <nav aria-label="<?php echo esc_attr__('Breadcrumb', 'matrix-starter'); ?>"
-     class="flex justify-between items-center w-full mx-auto max-w-container max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0 py-3 <?php echo esc_attr($breadcrumbs_mt); ?>">
+     class="flex justify-between items-center w-full mx-auto max-w-container px-5 py-3 <?php echo esc_attr($breadcrumbs_mt); ?>">
   <ol class="flex overflow-hidden gap-2 justify-center items-center" role="list">
     <?php
     $last = count($items) - 1;
