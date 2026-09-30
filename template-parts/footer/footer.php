@@ -39,7 +39,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
   <div class="w-full border-t-[2px] border-[#CBE9E1]" aria-hidden="true"></div>
 
   <!-- Logo row (content at max width) -->
-  <div class="pt-5 mx-auto mb-4 w-full max-w-container max-xl:px-5">
+  <div class="pt-5 mx-auto mb-4 w-full max-w-container px-5">
     <?php if ($logo_url): ?>
       <img
         src="<?php echo esc_url($logo_url); ?>"
@@ -54,7 +54,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
   <div class="w-full border-t-[2px] border-[#CBE9E1]" aria-hidden="true"></div>
 
   <!-- Nav + Social (content at max width) -->
-  <div class="flex flex-wrap justify-between items-center py-4 mx-auto w-full max-w-container max-xl:px-5 max-md:flex-col max-md:items-start">
+  <div class="flex flex-wrap justify-between items-center py-4 mx-auto w-full max-w-container px-5 max-md:flex-col max-md:items-start">
       <nav class="flex flex-1 items-center my-auto w-full basis-0 min-w-60" aria-label="Footer navigation" role="navigation">
         <?php if (!empty($link_items)): ?>
 

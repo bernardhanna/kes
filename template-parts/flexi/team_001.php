@@ -31,7 +31,7 @@ $section_id = 'team-' . uniqid();
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">
+    <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container px-5">
         <div class="box-border flex flex-col gap-8 items-center px-24 pt-0 pb-20 mx-auto my-0 w-full max-w-container max-md:px-12 max-md:pt-0 max-md:pb-16 max-sm:px-6 max-sm:pt-0 max-sm:pb-10">
 
             <?php if ($team_members && is_array($team_members)): ?>

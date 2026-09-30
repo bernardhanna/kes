@@ -72,7 +72,7 @@ $prev_post = get_previous_post();
 $next_post = get_next_post();
 ?>
 
-<div class="mx-auto w-full max-w-container max-xl:px-5">
+<div class="mx-auto w-full max-w-container px-5">
 <!-- Author + Share -->
 <section
     class="flex flex-wrap gap-10 justify-between items-center py-4 w-full border-t-2 border-solid border-t-emerald-100 max-md:max-w-full"

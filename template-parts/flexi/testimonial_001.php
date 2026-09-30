@@ -38,7 +38,7 @@ if ($use_gradient && $background_gradient) {
     aria-label="Customer Testimonials"
     id="<?php echo esc_attr($slider_id); ?>-kudos"
 >
-    <div class="flex flex-col items-center mx-auto w-full max-w-container max-xl:px-5 relative">
+    <div class="flex flex-col items-center mx-auto w-full max-w-container px-5 relative">
 
         <?php if ($testimonials): ?>
             <div

@@ -51,7 +51,7 @@ $active_slug = 'all';
           'accent_color'          => $divider_color,
           'bg_image_url'          => $hero_bg ? $hero_bg['url'] : '',
           'section_class'         => implode(' ', $padding_classes),
-          'inner_wrapper_class'   => 'flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5',
+          'inner_wrapper_class'   => 'flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container px-5',
       ]);
   }
   ?>
@@ -68,7 +68,7 @@ $active_slug = 'all';
        }">
 
     <!-- Filter row -->
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container  px-8text-sm leading-none max-xl:px-5">
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container  px-8text-sm leading-none">
       <div class="flex flex-wrap items-center gap-6">
         <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php echo esc_html($filter_title); ?></div>
 

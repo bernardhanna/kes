@@ -39,7 +39,7 @@ $field_gap   = 'flex flex-col gap-1 w-full';
 
 <section
     id="apply"
-    class="pb-20 bg-white job-application scroll-mt-24 max-xl:px-5"
+    class="pb-20 bg-white job-application scroll-mt-24 px-5"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
     <div class="mx-auto w-full max-w-container px-4 sm:px-8 lg:px-16">

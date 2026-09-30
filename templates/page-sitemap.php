@@ -25,7 +25,7 @@ $enable_breadcrumbs   = ! empty($breadcrumbs_settings['enable_breadcrumbs']);
                     'intro'               => '',
                     'bg_color'            => '#FFFFFF',
                     'accent_color'        => '#00ACD8',
-                    'inner_wrapper_class' => 'flex flex-col items-center pt-8 pb-5 mx-auto w-full max-w-container max-xl:px-5',
+                    'inner_wrapper_class' => 'flex flex-col items-center pt-8 pb-5 mx-auto w-full max-w-container px-5',
                 ]);
             }
 

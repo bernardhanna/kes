@@ -42,7 +42,7 @@ get_header();
       role="article"
       aria-labelledby="article-heading"
     >
-      <div class="mx-auto w-full max-w-container max-xl:px-5">
+      <div class="mx-auto w-full max-w-container px-5">
       <div class="flex flex-col shrink justify-center mt-[2.5rem] w-full max-md:max-w-full">
         <div class="flex flex-col w-full text-primary max-md:max-w-full">
           <?php if ($cat_label) : ?>
@@ -84,7 +84,7 @@ get_header();
       // Main content
       if (trim(get_the_content()) !== '') :
     ?>
-      <div class="mx-auto w-full max-w-container max-xl:px-5">
+      <div class="mx-auto w-full max-w-container px-5">
         <div class="max-w-[745px]">
           <?php get_template_part('template-parts/content/content', 'page'); ?>
         </div>

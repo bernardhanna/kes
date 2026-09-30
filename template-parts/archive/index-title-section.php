@@ -31,7 +31,7 @@ $section_classes = trim('relative flex ' . $overflow_class . ' ' . ($section_cla
     <?php endif; ?>
 >
     <div class="<?php echo esc_attr($inner_wrapper_class ?? ''); ?>">
-        <div class="flex flex-col gap-6 justify-between items-stretch self-stretch py-8 w-full max-w-container mx-auto max-xl:px-5 sm:flex-row sm:items-end">
+        <div class="flex flex-col gap-6 justify-between items-stretch self-stretch py-8 w-full max-w-container mx-auto px-5 sm:flex-row sm:items-end">
             <div class="flex flex-col flex-1 justify-center min-w-0 max-w-[542px]">
                 <?php if ($heading !== '') : ?>
                     <div class="flex flex-col gap-3 w-full max-md:max-w-full">

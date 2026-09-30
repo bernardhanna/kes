@@ -46,7 +46,7 @@ function matrix_starter_render_archive_index_header(array $cfg): void
 
     $inner_wrapper_class = trim((string) $cfg['inner_wrapper_class']);
     if ($inner_wrapper_class === '') {
-        $inner_wrapper_class = 'flex flex-col items-center pt-8 pb-5 mx-auto w-full max-w-container max-xl:px-5';
+        $inner_wrapper_class = 'flex flex-col items-center pt-8 pb-5 mx-auto w-full max-w-container px-5';
     }
 
     $aria_labelledby = '';

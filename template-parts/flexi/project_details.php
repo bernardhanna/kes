@@ -36,7 +36,7 @@ if (have_rows('padding_settings')) {
     class="relative flex  <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     style="background-color: <?php echo esc_attr($background_color); ?>;"
 >
-    <div class="flex flex-col items-center py-10 mx-auto w-full md:py-14 max-w-container max-xl:px-5">
+    <div class="flex flex-col items-center py-6 mx-auto w-full md:py-8 max-w-container px-5">
         <div class="grid grid-cols-1 gap-8 md:gap-16 items-center w-full md:grid-cols-[45%_50%]">
 
             <!-- Project Information Column -->

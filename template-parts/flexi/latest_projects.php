@@ -69,7 +69,7 @@ $section_id = 'latest-projects-' . uniqid();
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative bg-[#FCFDFE]">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 px-5<?php echo $padding_classes_str; ?>">
 
     <?php
       if (!empty($cta_link) && is_array($cta_link)) {
@@ -98,7 +98,7 @@ $section_id = 'latest-projects-' . uniqid();
           <?php endif; ?>
         </div>
         <?php if (!empty($cta_link) && is_array($cta_link)): ?>
-          <a href="<?php echo $cta_url; ?>" target="<?php echo $cta_target; ?>" class="<?php echo esc_attr($cta_class); ?> relative right-5 xxl:right-[2rem] max-lg:hidden" aria-label="<?php echo esc_attr($cta_title . ' - opens project gallery'); ?>">
+          <a href="<?php echo $cta_url; ?>" target="<?php echo $cta_target; ?>" class="<?php echo esc_attr($cta_class); ?> max-lg:hidden" aria-label="<?php echo esc_attr($cta_title . ' - opens project gallery'); ?>">
             <span class="text-blue-dark"><?php echo $cta_title; ?></span>
             <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 w-4 h-4"><path d="M3.3335 8.00004H12.6668M12.6668 8.00004L8.00016 3.33337M12.6668 8.00004L8.00016 12.6667" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           </a>
