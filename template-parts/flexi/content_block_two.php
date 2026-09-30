@@ -52,14 +52,18 @@ if (!$show_section) {
 // Random section id
 $section_id = 'content-block-two-' . uniqid();
 
-// Image meta
+// Image meta. Photos sit beside a heading, so an empty media alt uses that heading
+// instead of a shared placeholder that fails the duplicate-alt check.
 $img_url   = '';
-$img_alt   = 'Section image';
-$img_title = 'Section image';
+$img_alt   = '';
+$img_title = '';
 if (!empty($image) && is_array($image)) {
     $img_url   = !empty($image['url'])   ? esc_url($image['url'])   : '';
-    $img_alt   = !empty($image['alt'])   ? esc_attr($image['alt'])  : $img_alt;
-    $img_title = !empty($image['title']) ? esc_attr($image['title']): $img_title;
+    $img_alt   = !empty($image['alt'])   ? esc_attr($image['alt'])  : '';
+    $img_title = !empty($image['title']) ? esc_attr($image['title']): '';
+}
+if ($img_alt === '' && $heading !== '') {
+    $img_alt = esc_attr(wp_strip_all_tags($heading));
 }
 
 // Allowed heading tags
@@ -97,6 +101,7 @@ if ($reverse_layout) {
               src="<?php echo $img_url; ?>"
               alt="<?php echo $img_alt; ?>"
               title="<?php echo $img_title; ?>"
+              loading="lazy"
               class="object-cover w-full h-auto rounded-[8px] max-h-[340px] lg:max-w-[502px]" />
           <?php endif; ?>
         </figure>

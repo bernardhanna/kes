@@ -49,7 +49,7 @@ $section_id = 'counters-' . uniqid();
                     $counter_suffix = $item['counter_suffix'] ?: '';
                     $description = $item['description'] ?: '';
                     $icon = $item['icon'];
-                    $icon_alt = get_post_meta($icon, '_wp_attachment_image_alt', true) ?: 'Counter icon';
+                    $icon_alt = $icon ? trim((string) get_post_meta($icon, '_wp_attachment_image_alt', true)) : '';
 
                     // Extract numeric value for animation
                     $numeric_value = preg_replace('/[^0-9]/', '', $counter_number);
@@ -59,16 +59,18 @@ $section_id = 'counters-' . uniqid();
                         class="flex flex-col justify-center items-center min-h-[82px] relative sm:flex-row sm:items-start xxl:top-2 xxl:left-[1.2rem]"
                         x-intersect.once="startCounter('<?php echo esc_attr($counter_id); ?>', <?php echo esc_attr($numeric_value); ?>)"
                     >
-                        <div
-                            class="flex flex-col justify-center items-center px-6 rounded"
-                            role="img"
-                            aria-label="<?php echo esc_attr($icon_alt); ?>"
-                        >
+                        <div class="flex flex-col justify-center items-center px-6 rounded">
                             <?php if ($icon): ?>
-                                <?php echo wp_get_attachment_image($icon, 'full', false, [
-                                    'alt' => esc_attr($icon_alt),
+                                <?php
+                                $icon_attrs = [
+                                    'alt'   => $icon_alt,
                                     'class' => 'object-contain w-[82px] h-[82px]',
-                                ]); ?>
+                                ];
+                                if ($icon_alt === '') {
+                                    $icon_attrs['aria-hidden'] = 'true';
+                                }
+                                echo wp_get_attachment_image($icon, 'full', false, $icon_attrs);
+                                ?>
                             <?php else: ?>
                                 <div class="w-8 h-8 rounded bg-neutral-300" aria-hidden="true"></div>
                             <?php endif; ?>

@@ -51,9 +51,9 @@ if (!empty($links) && is_array($links)) {
 
       <!-- Mobile select (< sm ~ below 640px, covering ≤575px) -->
       <div class="w-full sm:hidden">
-        <label for="footer-nav-select" class="sr-only"><?php esc_html_e('Footer navigation', 'matrix'); ?></label>
+        <label for="footer-legal-nav-select" class="sr-only"><?php esc_html_e('Footer navigation', 'matrix'); ?></label>
         <select
-          id="footer-nav-select"
+          id="footer-legal-nav-select"
           class="block px-3 py-2 w-full text-sm leading-5 bg-white rounded-md border border-gray-300 text-primary focus:outline-none focus:ring-2 focus:ring-text-primary-light"
           aria-label="<?php esc_attr_e('Footer navigation', 'matrix'); ?>"
         >
@@ -102,7 +102,7 @@ if (!empty($links) && is_array($links)) {
       });
 
       // Mobile select behavior
-      var sel = document.getElementById('footer-nav-select');
+      var sel = document.getElementById('footer-legal-nav-select');
       if (sel) {
         sel.addEventListener('change', function(){
           var url = this.value;

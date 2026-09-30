@@ -45,6 +45,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
         src="<?php echo esc_url($logo_url); ?>"
         alt="<?php echo esc_attr($logo_alt); ?>"
         title="<?php echo esc_attr($logo_title); ?>"
+        loading="lazy"
         class="object-contain max-w-full w-[162px]"
       />
     <?php endif; ?>
@@ -76,9 +77,9 @@ if (!empty($footer_links) && is_array($footer_links)) {
 
           <!-- Mobile select (< sm) -->
           <div class="w-full sm:hidden">
-            <label for="footer-nav-select" class="sr-only"><?php esc_html_e('Footer navigation', 'matrix'); ?></label>
+            <label for="footer-primary-nav-select" class="sr-only"><?php esc_html_e('Footer navigation', 'matrix'); ?></label>
             <select
-              id="footer-nav-select"
+              id="footer-primary-nav-select"
               class="block px-3 py-2 w-full text-sm leading-5 bg-white rounded-md border border-gray-300 text-primary focus:outline-none focus:ring-2 focus:ring-text-primary-light"
               aria-label="<?php esc_attr_e('Footer navigation', 'matrix'); ?>"
             >
@@ -131,7 +132,7 @@ if (!empty($footer_links) && is_array($footer_links)) {
   <script>
     // Mobile select navigation
     (function(){
-      var sel = document.getElementById('footer-nav-select');
+      var sel = document.getElementById('footer-primary-nav-select');
       if (!sel) return;
       sel.addEventListener('change', function(){
         var url = this.value;

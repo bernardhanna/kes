@@ -155,7 +155,7 @@ if ($use_gradient && $background_gradient) {
                                     [
                                         'alt' => esc_attr($image_alt),
                                         'class' => 'max-md:object-contain object-cover rounded-lg w-[362px] h-auto max-w-full max-sm:w-full max-sm:max-h-[328px]',
-                                        'loading' => $index === 0 ? 'eager' : 'lazy'
+                                        'loading' => 'lazy'
                                     ]
                                 ); ?>
                             </div>
