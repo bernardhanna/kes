@@ -71,8 +71,8 @@ if ($selected_projects && is_array($selected_projects)) {
         <?php endif; ?>
         <div class="w-8 h-1 shrink-0 bg-blue-100" role="presentation" aria-hidden="true"></div>
     </div>
-<div class="py-12 w-full" style="background-color: <?php echo esc_attr($background_color); ?>;">
-    <div class="flex  flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">
+<div class="py-6 w-full md:py-8" style="background-color: <?php echo esc_attr($background_color); ?>;">
+    <div class="flex flex-col items-center py-0 mx-auto w-full max-w-container max-xl:px-5">
 
 
         <?php if (!empty($projects_to_display)): ?>
