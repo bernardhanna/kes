@@ -129,7 +129,7 @@ $section_id = 'latest-projects-' . uniqid();
           <article class="flex flex-col gap-6">
             <a class="block overflow-hidden relative w-full rounded-[4px]" href="<?php echo $perma; ?>">
               <?php if ($img_url): ?>
-                <img class="object-cover max-md:w-full w-[358px] h-[246px] rounded-[4px]" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" title="<?php echo $img_title; ?>">
+                <img class="object-cover max-md:w-full w-[358px] h-[246px] rounded-[4px]" src="<?php echo $img_url; ?>" alt="<?php echo $img_alt; ?>" title="<?php echo $img_title; ?>" loading="lazy">
               <?php endif; ?>
             </a>
 

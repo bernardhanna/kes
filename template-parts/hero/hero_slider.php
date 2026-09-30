@@ -170,6 +170,10 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
             if (!in_array($title_tag, $allowed_tags, true)) {
                 $title_tag = 'h1';
             }
+            // One H1 on the page: the first slide. Later slides keep the same look as H2.
+            if ($title_tag === 'h1' && (int) $slide_index > 0) {
+                $title_tag = 'h2';
+            }
             ?>
 
             <!-- Each slide, fixed/max height; on mobile content in lower portion -->
@@ -322,7 +326,7 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
 
                   <?php if (!empty($buttons)): ?>
                     <div class="flex flex-col gap-4 w-full sm:flex-row sm:items-center sm:gap-6">
-                      <?php foreach ($buttons as $btn): ?>
+                      <?php foreach ($buttons as $btn_index => $btn): ?>
                         <?php
                         $link  = isset($btn['button_link']) ? $btn['button_link'] : null;
                         $style = !empty($btn['button_style']) ? $btn['button_style'] : 'primary';
@@ -330,8 +334,8 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
                             $url    = !empty($link['url']) ? esc_url($link['url']) : '#';
                             $title  = !empty($link['title']) ? esc_html($link['title']) : 'Learn more';
                             $target = !empty($link['target']) ? esc_attr($link['target']) : '_self';
-                            if ($style === 'secondary') {
-                                // Figma: white bg, text #2B3990
+                            // The second hero button is the Figma secondary: white background, #2B3990 text.
+                            if ($style === 'secondary' || (int) $btn_index > 0) {
                                 $cls = 'hero-slider-btn-secondary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] font-secondary text-[#2B3990] bg-white border-2 border-[#2B3990] rounded-full px-4 w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:py-[14px] sm:px-6 sm:text-lg sm:leading-[24px] sm:whitespace-nowrap transition-colors duration-200 hover:bg-teal-light hover:border-[#2B3990] active:bg-blue-100 active:border-[#2B3990] focus-visible:outline-none focus-visible:outline-[3px] focus-visible:outline-blue-100 focus-visible:outline-offset-2 focus-visible:bg-white';
                             } else {
                                 $cls = 'btn-primary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:text-lg sm:leading-6 sm:whitespace-nowrap';

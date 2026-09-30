@@ -8,6 +8,12 @@ const PAGES = [
   "/sitemap/",
 ];
 
+function pageUrl(path: string): string {
+  const base = process.env.BASE_URL || process.env.WP_HOME || "http://localhost:10054";
+  const root = base.endsWith("/") ? base : `${base}/`;
+  return new URL(path.replace(/^\//, ""), root).href;
+}
+
 function formatViolations(
   violations: { id: string; impact?: string; description: string; nodes: { html: string }[] }[]
 ): string {
@@ -24,7 +30,7 @@ function formatViolations(
 
 for (const path of PAGES) {
   test(`axe WCAG — ${path}`, async ({ page }) => {
-    await page.goto(path, { waitUntil: "networkidle" });
+    await page.goto(pageUrl(path), { waitUntil: "networkidle" });
 
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
@@ -43,7 +49,7 @@ for (const path of PAGES) {
   });
 
   test(`skip link — ${path}`, async ({ page }) => {
-    await page.goto(path);
+    await page.goto(pageUrl(path));
     const skip = page.locator('a.skip-link[href="#main-content"]');
     await expect(skip).toHaveCount(1);
     await skip.focus();

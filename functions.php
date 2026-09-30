@@ -33,6 +33,17 @@ function matrix_starter_setup()
 }
 add_action('after_setup_theme', 'matrix_starter_setup');
 
+// xmlrpc.php still answers system.listMethods unless the request is stopped.
+add_filter('xmlrpc_enabled', '__return_false');
+add_action('init', function () {
+    if (! defined('XMLRPC_REQUEST') || ! XMLRPC_REQUEST) {
+        return;
+    }
+    status_header(403);
+    nocache_headers();
+    exit;
+}, 0);
+
 // Temporary filter for footer menu
 add_filter('nav_menu_link_attributes', function ($atts, $item, $args) {
     if ($args->theme_location === 'Footer One') {
