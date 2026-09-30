@@ -25,7 +25,7 @@ $section_id = 'title-section-' . wp_rand(1000, 9999);
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
     <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5">
-        <header class="flex relative flex-col gap-1 items-start self-stretch pl-24 max-md:pl-12 max-sm:pl-6">
+        <header class="flex relative flex-col gap-3 items-start self-stretch pl-24 max-md:pl-12 max-sm:pl-6">
             <?php if (!empty($heading)): ?>
                 <<?php echo esc_attr($heading_tag); ?>
                     id="<?php echo esc_attr($section_id); ?>-heading"
@@ -36,7 +36,7 @@ $section_id = 'title-section-' . wp_rand(1000, 9999);
             <?php endif; ?>
 
             <div
-                class="w-8 h-1 relative -top-[10px] bg-blue-100 max-sm:w-7 max-sm:h-[3px]"
+                class="w-8 h-1 shrink-0 bg-blue-100 max-sm:w-7 max-sm:h-[3px]"
                 role="presentation"
                 aria-hidden="true"
             ></div>

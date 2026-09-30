@@ -34,7 +34,7 @@ $section_id = 'quote-section-' . uniqid();
             <div class="flex flex-col flex-1 gap-6 justify-center items-center pb-5 lg:pb-12">
 
                 <?php if (!empty($heading)): ?>
-                <header class="flex flex-col gap-4 items-start self-stretch">
+                <header class="flex flex-col gap-3 items-start self-stretch">
                     <<?php echo esc_attr($heading_tag); ?>
                         id="<?php echo esc_attr($section_id); ?>-heading"
                         class="self-stretch text-[30px] font-bold leading-[38px] tracking-[-0.02em] text-blue-500"
@@ -42,7 +42,7 @@ $section_id = 'quote-section-' . uniqid();
                         <?php echo esc_html($heading); ?>
                     </<?php echo esc_attr($heading_tag); ?>>
                     <div
-                        class="w-8 h-1 relative -top-[10px] bg-blue-100"
+                        class="w-8 h-1 shrink-0 bg-blue-100"
                         role="presentation"
                         aria-hidden="true"
                     ></div>

@@ -82,11 +82,11 @@ if ($privacy_url) {
 
           <div class="flex z-0 flex-col w-full max-md:max-w-full">
             <header class="flex flex-col justify-center w-full max-md:max-w-full pr-10">
-              <div class="w-full text-3xl sm:text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">
-                <h2 id="request-callback-form-title" class="text-primary max-md:max-w-full">
+              <div class="flex flex-col gap-3 w-full max-md:max-w-full">
+                <h2 id="request-callback-form-title" class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary text-blue-500 max-md:max-w-full">
                   <?php echo esc_html($title); ?>
                 </h2>
-                <div class="w-8 h-1 relative -top-[10px] bg-blue-100" aria-hidden="true"></div>
+                <div class="w-8 h-1 shrink-0 bg-blue-100" aria-hidden="true"></div>
               </div>
               <?php if ($intro !== '') : ?>
                 <p class="mt-6 text-lg leading-6 text-slate-800 max-md:max-w-full">

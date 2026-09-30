@@ -84,11 +84,11 @@ $section_id = 'latest-projects-' . uniqid();
       <!-- Header (button shown here on lg only) -->
       <div class="flex flex-col gap-8 mb-4 lg:flex-row lg:justify-between lg:items-start">
         <div class="flex-1">
-          <div class="mb-5">
-            <span class="mb-3 font-primary text-[30px] font-bold leading-[38px] text-primary">
+          <div class="mb-5 flex flex-col gap-3">
+            <span class="font-primary text-[30px] font-bold leading-[38px] text-primary">
               <?php echo esc_html($heading); ?>
             </span>
-            <div class="w-8 h-1 relative -top-[10px] bg-blue-100"></div>
+            <div class="w-8 h-1 shrink-0 bg-blue-100" aria-hidden="true"></div>
           </div>
 
           <?php if (!empty($intro)): ?>
