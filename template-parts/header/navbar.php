@@ -47,34 +47,26 @@ $secondary_navigation = Navi::make()->build('secondary');
 
     <?php if ($primary_navigation->isNotEmpty()) : ?>
       <?php
-        // Reindex to ensure 0-based numeric keys. Last item is the header CTA, kept on the right.
+        // All primary items stay in the menu. Request a callback lives in the hamburger on smaller screens.
         $items = array_values($primary_navigation->toArray());
-        $cta_item = $items !== [] ? array_pop($items) : null;
       ?>
       <ul id="primary-menu" class="hidden gap-6 items-center leading-loose text-black lg:flex justify-self-center">
         <?php foreach ($items as $i => $item) : ?>
           <?php
-            $is_last = false;
             $li_classes = trim((string) $item->classes);
             $is_request_call = str_contains($li_classes, 'request-call');
 
-            // Callback / custom CTA: menu classes on the link control color (avoid forced white on light bar).
+            // Skip the Request a callback item in the desktop bar — it is available in the hamburger menu.
             if ($is_request_call) {
-              $text_class        = '';
-              $underline_class   = '';
-            } elseif ($is_last) {
-              $text_class        = 'text-white';
-              $underline_class   = '';
-            } else {
-              $text_class        = 'text-blue-500';
-              $underline_class   = 'relative pb-3 after:content-[""] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full';
+              continue;
             }
-            // Last primary item: pill CTA (always on the <a>, even if the menu only added classes on <li>).
-            $last_primary_cta_class = $is_last ? 'btn-primary' : '';
+
+            $text_class      = 'text-blue-500';
+            $underline_class = 'relative pb-3 after:content-[""] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full';
           ?>
           <li class="relative group pt-3 <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
             <a href="<?php echo esc_url($item->url); ?>"
-               class="gap-1 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo esc_attr($li_classes); ?> <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?> <?php echo esc_attr($last_primary_cta_class); ?>">
+               class="gap-1 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo esc_attr($li_classes); ?> <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?>">
               <?php echo esc_html($item->label); ?>
               <?php if (!empty($item->children)) : ?>
                 <span class="inline-flex ml-0 transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">
@@ -101,17 +93,7 @@ $secondary_navigation = Navi::make()->build('secondary');
         <?php endforeach; ?>
       </ul>
       <div class="flex justify-self-end items-center gap-3 pr-1 sm:pr-2 navbar:pr-0">
-      <?php if ($cta_item) : ?>
-        <?php
-          $cta_classes = trim((string) $cta_item->classes);
-          $cta_is_request = str_contains($cta_classes, 'request-call');
-        ?>
-        <a id="primary-menu-cta" href="<?php echo esc_url($cta_item->url); ?>"
-           class="hidden lg:flex gap-1 items-center whitespace-nowrap font-secondary text-base font-medium leading-[22px] btn-primary mr-0 <?php echo esc_attr($cta_classes); ?> <?php echo $cta_item->active ? 'active-item' : ''; ?> <?php echo $cta_is_request ? '' : 'text-white'; ?>">
-          <?php echo esc_html($cta_item->label); ?>
-        </a>
-      <?php endif; ?>
-      <?php get_template_part('template-parts/header/navbar/mobile'); ?>
+        <?php get_template_part('template-parts/header/navbar/mobile'); ?>
       </div>
     <?php else : ?>
       <div class="flex justify-self-end items-center gap-3 pr-1 sm:pr-2 navbar:pr-0">
