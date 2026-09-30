@@ -60,7 +60,7 @@ if ($selected_projects && is_array($selected_projects)) {
     class="relative flex flex-col overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-<div class="flex flex-col items-start w-full max-w-[1084px] mx-auto mb-8 max-xl:px-5">
+<div class="flex flex-col items-start w-full max-w-container mx-auto mb-8 max-xl:px-5">
         <?php if (!empty($heading)): ?>
             <<?php echo esc_attr($heading_tag); ?>
                 id="<?php echo esc_attr($section_id); ?>-heading"
@@ -72,7 +72,7 @@ if ($selected_projects && is_array($selected_projects)) {
         <div class="w-8 h-1 bg-cyan-500" role="presentation" aria-hidden="true"></div>
     </div>
 <div class="py-12 w-full" style="background-color: <?php echo esc_attr($background_color); ?>;">
-    <div class="flex  flex-col items-center pt-5 pb-5 mx-auto w-full max-w-[1084px] max-xl:px-5">
+    <div class="flex  flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">
 
 
         <?php if (!empty($projects_to_display)): ?>
@@ -163,7 +163,7 @@ if ($selected_projects && is_array($selected_projects)) {
                 <!-- Navigation Arrow Right -->
                 <button
                     type="button"
-                    class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] bg-white rounded-full hover:shadow-lg flex items-center justify-center bg-transparent  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-next-custom"
+                    class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px]  rounded-full hover:shadow-lg flex items-center justify-center bg-transparent  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-next-custom"
                     aria-label="Next projects"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="31" viewBox="0 0 17 31" fill="none">

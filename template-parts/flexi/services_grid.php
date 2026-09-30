@@ -1,7 +1,9 @@
 <?php
 // ===== Pull fields (sub fields only) =====
-$services         = get_sub_field('services');
 $background_color = get_sub_field('background_color') ?: '#f9fafb';
+$services_items   = function_exists('matrix_starter_services_grid_resolve_items')
+    ? matrix_starter_services_grid_resolve_items()
+    : [];
 
 // Padding settings → classes
 $padding_classes = ['pt-5', 'pb-5'];
@@ -31,79 +33,80 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto py-12 lg:py-24 max-w-[1088px] <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-xl:px-5">
+    <div class="flex flex-col items-center w-full mx-auto py-12 lg:py-24 max-w-container <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-xl:px-5">
 
-        <?php if (!empty($services) && is_array($services)) : ?>
+        <?php if (! empty($services_items)) : ?>
             <div class="grid grid-cols-1 gap-8 w-full md:grid-cols-2">
-                <?php foreach ($services as $index => $service) :
-                    // --- Image (ACF return: id). Be robust if the field returns array/id.
-                    $image_raw = isset($service['image']) ? $service['image'] : 0;
-                    $image_id  = is_array($image_raw)
-                        ? (isset($image_raw['ID']) ? (int)$image_raw['ID'] : 0)
-                        : (int)$image_raw;
+                <?php foreach ($services_items as $index => $service) :
+                    $image_id    = (int) ($service['image_id'] ?? 0);
+                    $title       = $service['title'] ?? __('Service Title', 'matrix-starter');
+                    $title_tag   = $service['title_tag'] ?? 'h3';
+                    $description = $service['description'] ?? '';
+                    $link        = isset($service['link']) && is_array($service['link']) ? $service['link'] : null;
+                    $underline   = $service['underline'] ?? '#00ACD8';
+                    $width_choice = $service['width'] ?? 'half';
+                    $span_class  = ($width_choice === 'full') ? 'md:col-span-2' : '';
 
-                    $title         = !empty($service['title']) ? $service['title'] : 'Service Title';
-                    $title_tag     = !empty($service['title_tag']) ? $service['title_tag'] : 'h3';
-                    $description   = !empty($service['description']) ? $service['description'] : 'Service description goes here.';
-                    $link          = isset($service['link']) && is_array($service['link']) ? $service['link'] : null;
-                    $underline     = !empty($service['underline_color']) ? $service['underline_color'] : '#06b6d4';
-                    $width_choice  = isset($service['width']) ? $service['width'] : 'half';
-                    $span_class    = ($width_choice === 'full') ? 'md:col-span-2' : '';
-
-                    // Alt/title fallbacks
                     $image_alt   = $image_id ? (get_post_meta($image_id, '_wp_attachment_image_alt', true) ?: $title ?: 'Service image') : '';
                     $image_title = $image_id ? (get_the_title($image_id) ?: $title ?: 'Service') : '';
 
                     $service_id = $section_id . '-service-' . ($index + 1);
                 ?>
-                    <article class="overflow-hidden bg-gray-100 <?php echo esc_attr($span_class); ?>">
+                    <article class="overflow-hidden bg-[#F2F4F7] <?php echo esc_attr($span_class); ?>">
+                        <?php
+                        $card_classes = 'flex items-center w-full h-[300px] overflow-hidden bg-white rounded-lg max-md:h-auto max-md:flex-col max-md:py-6';
+                        if (! empty($link['url'])) {
+                            $card_classes .= ' transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 btn';
+                        }
+                        ?>
                         <?php if (!empty($link['url'])) : ?>
                             <a
                                 href="<?php echo esc_url($link['url']); ?>"
                                 target="<?php echo esc_attr(!empty($link['target']) ? $link['target'] : '_self'); ?>"
-                                class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg lg:min-h-[400px] transition-all duration-300 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 btn max-md:pb-6 md:px-11"
+                                class="<?php echo esc_attr($card_classes); ?>"
                                 aria-labelledby="<?php echo esc_attr($service_id); ?>-title"
                                 aria-describedby="<?php echo esc_attr($service_id); ?>-description"
                             >
                         <?php else : ?>
-                            <div class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg  lg:min-h-[300px]">
+                            <div class="<?php echo esc_attr($card_classes); ?>">
                         <?php endif; ?>
 
                                 <?php if ($image_id) : ?>
-                                    <div class="self-stretch flex  justify-center  w-full md:max-w-[244px] items-center">
+                                    <div class="flex shrink-0 justify-center items-center w-[244px] h-[244px] max-md:w-[135px] max-md:h-[135px]">
                                         <?php echo wp_get_attachment_image($image_id, 'medium', false, [
-                                            'alt'    => esc_attr($image_alt),
-                                            'title'  => esc_attr($image_title),
-                                            // no aspect-* utilities
-                                            'class'  => 'object-contain w-auto h-auto max-md:w-[135px] max-md:h-[135px]',
-                                            'loading'=> 'lazy',
+                                            'alt'     => esc_attr($image_alt),
+                                            'title'   => esc_attr($image_title),
+                                            'class'   => 'object-contain w-full h-full max-w-[244px] max-h-[244px] max-md:max-w-[135px] max-md:max-h-[135px]',
+                                            'loading' => 'lazy',
                                         ]); ?>
                                     </div>
                                 <?php endif; ?>
 
-                                <div class="flex-1 items-center self-sjustify-center max-md:px-5">
-                                    <header class="w-full">
+                                <div class="flex flex-col flex-1 gap-4 justify-center items-start min-w-0 px-11 max-md:px-5 max-md:w-full">
+                                    <header class="flex flex-col gap-1 items-start w-full">
                                         <<?php echo esc_attr($title_tag); ?>
                                             id="<?php echo esc_attr($service_id); ?>-title"
-                                            class="text-[#2B3990] font-bold text-xl leading-[26px] font-secondary"
+                                            class="text-[#2B3990] font-bold text-xl leading-[26px] font-secondary break-words"
                                         >
                                             <?php echo esc_html($title); ?>
                                         </<?php echo esc_attr($title_tag); ?>>
 
                                         <div
-                                            class="flex mt-1 w-8 min-h-1"
+                                            class="h-1 w-8 shrink-0"
                                             style="background-color: <?php echo esc_attr($underline); ?>;"
                                             role="presentation"
                                             aria-hidden="true"
                                         ></div>
                                     </header>
 
-                                    <div
-                                        id="<?php echo esc_attr($service_id); ?>-description"
-                                        class="mt-4 !text-sm !font-normal !leading-5"
-                                    >
-                                        <?php echo wp_kses_post($description); ?>
-                                    </div>
+                                    <?php if ($description !== '') : ?>
+                                        <div
+                                            id="<?php echo esc_attr($service_id); ?>-description"
+                                            class="w-full text-sm font-normal leading-5 text-[#344054] [&_p]:m-0 [&_p+p]:mt-3.5"
+                                        >
+                                            <?php echo wp_kses_post($description); ?>
+                                        </div>
+                                    <?php endif; ?>
                                 </div>
 
                         <?php if (!empty($link['url'])) : ?>
@@ -115,29 +118,7 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
                 <?php endforeach; ?>
             </div>
         <?php else : ?>
-            <!-- Empty state placeholders -->
-            <div class="grid grid-cols-1 gap-8 w-full md:grid-cols-2">
-                <?php for ($i = 1; $i <= 4; $i++) : ?>
-                    <article class="overflow-hidden bg-gray-100 xl:min-h-[400px]">
-                        <div class="flex overflow-hidden flex-wrap items-center w-full bg-white rounded-lg">
-                            <div class="self-stretch  justify-center  w-full md:max-w-[244px]">
-                                <div class="flex justify-center items-center bg-gray-200 rounded">
-                                    <span class="text-sm text-gray-400">Image</span>
-                                </div>
-                            </div>
-                            <div class="flex-1 items-center self-sjustify-center max-md:px-5">
-                                <header class="w-full">
-                                    <h3 class="text-xl font-bold leading-tight text-[#262262] font-medium text-lg leading-6 font-secondary">Service Title <?php echo (int)$i; ?></h3>
-                                    <div class="flex mt-1 w-8 bg-cyan-500 min-h-1" role="presentation" aria-hidden="true"></div>
-                                </header>
-                                <div class="mt-4 text-sm leading-5 text-slate-700">
-                                    <p>Service description goes here. This is placeholder content that demonstrates the layout and styling of the service card.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                <?php endfor; ?>
-            </div>
+            <p class="text-sm text-[#344054]"><?php esc_html_e('No services to display.', 'matrix-starter'); ?></p>
         <?php endif; ?>
 
     </div>

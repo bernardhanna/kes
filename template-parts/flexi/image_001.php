@@ -69,26 +69,26 @@ if ($image_id) {
           <a
             href="<?php echo esc_url($link['url']); ?>"
             target="<?php echo esc_attr($link['target'] ?: '_self'); ?>"
-            class="block w-full max-w-[1088px]"
+            class="block w-full"
             aria-label="<?php echo esc_attr($link['title'] ?: 'View image link'); ?>"
           >
             <?php echo $img_html; ?>
           </a>
         <?php else : ?>
-          <div class="w-full max-w-[1088px]">
+          <div class="w-full">
             <?php echo $img_html; ?>
           </div>
         <?php endif; ?>
 
         <?php if (!empty($caption)) : ?>
-          <figcaption class="mt-4 text-sm leading-6 text-slate-700 w-full max-w-[1088px] wp_editor">
+          <figcaption class="mt-4 text-sm leading-6 text-slate-700 w-full max-w-container wp_editor">
             <?php echo wp_kses_post($caption); ?>
           </figcaption>
         <?php endif; ?>
       </figure>
     <?php else : ?>
       <!-- Placeholder (when no image selected) -->
-      <div class="w-full max-w-[1088px] h-[720px] bg-gray-200 <?php echo esc_attr($radius_class); ?> flex items-center justify-center">
+      <div class="w-full max-w-container h-[720px] bg-gray-200 <?php echo esc_attr($radius_class); ?> flex items-center justify-center">
         <span class="text-gray-500 text-sm">Select an image (1088×720 target)</span>
       </div>
     <?php endif; ?>

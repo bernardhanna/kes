@@ -31,7 +31,7 @@ if ($archive_blocks_page_id > 0 && function_exists('load_flexible_content_templa
 
 $active_slug = 'all';
 ?>
-<main class="overflow-hidden w-full min-h-fit site-main">
+<main <?php echo matrix_starter_main_id_attr(); ?> class="overflow-hidden w-full min-h-fit site-main">
   
   <div class="w-full"
        x-data="{
@@ -74,7 +74,7 @@ $active_slug = 'all';
          }
        }">
 
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1085px] px-8 text-sm leading-none max-xl:px-5">
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container px-8 text-sm leading-none max-xl:px-5">
       <div class="flex flex-wrap gap-6 items-center w-full">
         <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php esc_html_e('Filter by', 'matrix-starter'); ?></div>
 
@@ -141,7 +141,7 @@ $active_slug = 'all';
     <!-- Results grid -->
     <section class="w-full bg-[#F9FAFB] py-8 lg:py-16 min-h-fit"
              aria-label="<?php esc_attr_e('Projects listing', 'matrix-starter'); ?>">
-      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-[1084px] mx-auto bg-[#F9FAFB]">
+      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-container mx-auto bg-[#F9FAFB]">
         <?php
         $args = [
           'post_type'      => 'projects',

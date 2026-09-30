@@ -120,8 +120,8 @@ if (!empty($arrow_next) && is_array($arrow_next)) {
 }
 
 // Build arrow buttons (fallback to simple chevrons if no upload)
-$prev_arrow_markup = '<button type="button" class="absolute left-4 top-1/2 z-20 -translate-y-1/2 slick-prev">'.($prev_img_html ?: '&#10094;').'</button>';
-$next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20 -translate-y-1/2 slick-next">'.($next_img_html ?: '&#10095;').'</button>';
+$prev_arrow_markup = '<button type="button" class="btn absolute left-4 top-1/2 z-20 -translate-y-1/2 slick-prev" aria-label="' . esc_attr__('Previous slide', 'matrix-starter') . '">' . ($prev_img_html ?: '&#10094;') . '</button>';
+$next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 z-20 -translate-y-1/2 slick-next" aria-label="' . esc_attr__('Next slide', 'matrix-starter') . '">' . ($next_img_html ?: '&#10095;') . '</button>';
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative hero-slider-section">
@@ -285,7 +285,7 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
               endif; ?>
 
               <?php if (!$is_map_slide): ?>
-              <div class="relative z-10 px-6 pb-8 mx-auto w-full max-w-[69rem] sm:px-8 sm:pb-0 lg:px-12">
+              <div class="relative z-10 px-6 pb-8 mx-auto w-full max-w-container sm:px-8 sm:pb-0 lg:px-12">
                 <div class="flex flex-col justify-center items-start pt-[2.5]">
                   <?php if ($title_html): ?>
                     <?php
@@ -331,9 +331,9 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
                             $title  = !empty($link['title']) ? esc_html($link['title']) : 'Learn more';
                             $target = !empty($link['target']) ? esc_attr($link['target']) : '_self';
                             if ($style === 'secondary') {
-                                $cls = 'hero-slider-btn-secondary flex items-center justify-center h-[38px] py-[9px] text-[14px] font-medium leading-[20px] font-secondary text-blue-dark bg-base-white border-2 border-blue-dark rounded-full px-6 w-full sm:w-auto sm:h-[52px] sm:py-3.5 sm:text-lg sm:leading-[24px] whitespace-nowrap transition-colors duration-200 hover:bg-teal-light hover:border-blue-dark active:bg-blue-100 active:border-blue-dark focus-visible:outline-none focus-visible:outline-[3px] focus-visible:outline-blue-100 focus-visible:outline-offset-2 focus-visible:bg-base-white';
+                                $cls = 'hero-slider-btn-secondary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] font-secondary text-blue-dark bg-base-white border-2 border-blue-dark rounded-full px-4 w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:py-3.5 sm:px-6 sm:text-lg sm:leading-[24px] sm:whitespace-nowrap transition-colors duration-200 hover:bg-teal-light hover:border-blue-dark active:bg-blue-100 active:border-blue-dark focus-visible:outline-none focus-visible:outline-[3px] focus-visible:outline-blue-100 focus-visible:outline-offset-2 focus-visible:bg-base-white';
                             } else {
-                                $cls = 'btn-primary flex items-center justify-center h-[38px] py-[9px] text-[14px] font-medium leading-[20px] w-full sm:w-auto sm:h-[52px] sm:py-4 sm:text-lg sm:leading-6 whitespace-nowrap';
+                                $cls = 'btn-primary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:py-4 sm:text-lg sm:leading-6 sm:whitespace-nowrap';
                             }
                             echo '<a class="'.esc_attr($cls).'" href="'.$url.'" target="'.$target.'">'. $title .'</a>';
                         }
@@ -379,6 +379,20 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
       if ($el.hasClass('is-initialized')) return;
       $el.addClass('is-initialized');
 
+      function updateHeroSlideA11y($slider) {
+        $slider.find('.slick-slide').each(function () {
+          if (this.getAttribute('aria-hidden') === 'true') {
+            this.setAttribute('inert', '');
+          } else {
+            this.removeAttribute('inert');
+          }
+        });
+      }
+
+      $el.on('init reInit afterChange setPosition', function () {
+        updateHeroSlideA11y($el);
+      });
+
       $el.slick({
         arrows: true,
         dots: <?php echo $show_dots ? 'true' : 'false'; ?>,
@@ -394,6 +408,8 @@ $next_arrow_markup = '<button type="button" class="absolute right-4 top-1/2 z-20
         slidesToScroll: 1,
         cssEase: "ease"
       });
+
+      updateHeroSlideA11y($el);
     }
 
     if (document.readyState === 'complete') {

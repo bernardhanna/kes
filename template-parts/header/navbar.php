@@ -1,9 +1,17 @@
 <?php
 $logo_id = get_field('logo', 'option') ?: get_theme_mod('custom_logo');
 $logo_url = $logo_id ? wp_get_attachment_image_url($logo_id, 'full') : '';
-$logo_alt = $logo_id ? get_post_meta($logo_id, '_wp_attachment_image_alt', true) : get_bloginfo('name');
+$logo_alt = '';
+if ($logo_id) {
+    $logo_alt = (string) get_post_meta($logo_id, '_wp_attachment_image_alt', true);
+}
+if ($logo_alt === '') {
+    $logo_alt = get_bloginfo('name');
+}
 $logo_position = get_field('logo_position', 'option');
 $logo_position_class = ($logo_position === 'center') ? 'justify-center' : 'justify-start';
+$nav_shell_class = 'max-w-container';
+$logo_inset_class = is_front_page() ? 'lg:px-5 xl:pl-10 xxl:pl-14' : '';
 
 use Log1x\Navi\Navi;
 
@@ -28,8 +36,8 @@ $secondary_navigation = Navi::make()->build('secondary');
   x-init="window.addEventListener('resize', () => checkWindowSize())"
   class="py-4 bg-[#F9FAFB]"
   x-effect="isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''">
-  <nav class="flex justify-between items-center w-full mx-auto max-w-[1280px] max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0">
-    <a style="z-index: 1000;" class="flex lg:px-5 xl:pl-10 xxl:pl-14 <?php echo esc_attr($logo_position_class); ?>" href="<?php echo esc_url(home_url('/')); ?>">
+  <nav class="relative flex justify-between items-center w-full mx-auto <?php echo esc_attr($nav_shell_class); ?> max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0">
+    <a style="z-index: 1000;" class="flex <?php echo esc_attr(trim($logo_inset_class . ' ' . $logo_position_class)); ?>" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr(sprintf(__('Home — %s', 'matrix'), get_bloginfo('name'))); ?>">
       <?php if ($logo_url) : ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>" />
       <?php else : ?>
@@ -39,14 +47,14 @@ $secondary_navigation = Navi::make()->build('secondary');
 
     <?php if ($primary_navigation->isNotEmpty()) : ?>
       <?php
-        // Reindex to ensure 0-based numeric keys
+        // Reindex to ensure 0-based numeric keys. Last item is the header CTA, kept on the right.
         $items = array_values($primary_navigation->toArray());
-        $total = count($items);
+        $cta_item = $items !== [] ? array_pop($items) : null;
       ?>
-      <ul id="primary-menu" class="hidden gap-9 items-center leading-loose text-black max-md:gap-6 lg:flex">
+      <ul id="primary-menu" class="hidden gap-6 items-center leading-loose text-black lg:flex">
         <?php foreach ($items as $i => $item) : ?>
           <?php
-            $is_last = ($i === $total - 1);
+            $is_last = false;
             $li_classes = trim((string) $item->classes);
             $is_request_call = str_contains($li_classes, 'request-call');
 
@@ -66,10 +74,10 @@ $secondary_navigation = Navi::make()->build('secondary');
           ?>
           <li class="relative group pt-3 <?php echo esc_attr($item->classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
             <a href="<?php echo esc_url($item->url); ?>"
-               class="gap-2.5 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo esc_attr($li_classes); ?> <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?> <?php echo esc_attr($last_primary_cta_class); ?>">
+               class="gap-1 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo esc_attr($li_classes); ?> <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?> <?php echo esc_attr($last_primary_cta_class); ?>">
               <?php echo esc_html($item->label); ?>
               <?php if (!empty($item->children)) : ?>
-                <span class="ml-[2px] inline-flex transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">
+                <span class="inline-flex transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
                     <path d="M4.25 6.375L8.5 10.625L12.75 6.375" />
                   </svg>
@@ -92,6 +100,16 @@ $secondary_navigation = Navi::make()->build('secondary');
           </li>
         <?php endforeach; ?>
       </ul>
+      <?php if ($cta_item) : ?>
+        <?php
+          $cta_classes = trim((string) $cta_item->classes);
+          $cta_is_request = str_contains($cta_classes, 'request-call');
+        ?>
+        <a id="primary-menu-cta" href="<?php echo esc_url($cta_item->url); ?>"
+           class="hidden lg:flex gap-1 items-center whitespace-nowrap font-secondary text-base font-medium leading-[22px] btn-primary <?php echo esc_attr($cta_classes); ?> <?php echo $cta_item->active ? 'active-item' : ''; ?> <?php echo $cta_is_request ? '' : 'text-white'; ?>">
+          <?php echo esc_html($cta_item->label); ?>
+        </a>
+      <?php endif; ?>
     <?php endif; ?>
 
     <?php get_template_part('template-parts/header/navbar/mobile'); ?>

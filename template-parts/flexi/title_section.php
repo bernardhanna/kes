@@ -19,13 +19,9 @@ if (have_rows('padding_settings')) {
 }
 
 $section_id = 'title-section-' . wp_rand(1000, 9999);
-$container_max_width_class = 'max-w-[1088px]';
+$container_max_width_class = 'max-w-container';
 $container_width_mode_normalized = strtolower(trim($container_width_mode));
-if (in_array($container_width_mode_normalized, ['1048', '1048px'], true)) {
-    $container_max_width_class = 'max-w-[1048px]';
-} elseif ($container_width_mode_normalized === 'theme') {
-    $container_max_width_class = 'max-w-container';
-} elseif ($container_width_mode_normalized === 'none') {
+if ($container_width_mode_normalized === 'none') {
     $container_max_width_class = 'max-w-none';
 }
 ?>
@@ -40,17 +36,17 @@ if (in_array($container_width_mode_normalized, ['1048', '1048px'], true)) {
 >
     <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full <?php echo esc_attr($container_max_width_class); ?> max-xl:px-5">
         <div class="flex overflow-hidden justify-between items-center self-stretch py-8 max-md:px-5">
-            <div class="flex flex-col flex-1 justify-center self-stretch my-auto w-full shrink basis-0 min-w-60 max-md:max-w-full">
+            <div class="flex flex-col flex-1 justify-center self-stretch my-auto w-full shrink basis-0 min-w-60 mx-auto max-md:max-w-full">
                 <?php if (!empty($heading)): ?>
                     <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">
                         <<?php echo esc_attr($heading_tag); ?>
                             id="<?php echo esc_attr($section_id); ?>-heading"
-                            class="text-primary max-md:max-w-full"
+                            class="mt-1 text-primary max-md:max-w-full"
                         >
                             <?php echo esc_html($heading); ?>
                         </<?php echo esc_attr($heading_tag); ?>>
                         <div
-                            class="flex mt-1 w-8 min-h-1"
+                            class="flex mt-1 mb-2 w-8 min-h-1"
                             style="background-color: <?php echo esc_attr($divider_color); ?>;"
                             role="presentation"
                             aria-hidden="true"
@@ -59,7 +55,7 @@ if (in_array($container_width_mode_normalized, ['1048', '1048px'], true)) {
                 <?php endif; ?>
 
                 <?php if (!empty($content)): ?>
-                    <div class="mt-6 text-lg leading-none text-slate-700 max-md:max-w-full wp_editor">
+                    <div class="mt-6 text-lg leading-none text-slate-700 max-md:max-w-full wp_editor max-w-[542px]">
                         <?php echo wp_kses_post($content); ?>
                     </div>
                 <?php endif; ?>

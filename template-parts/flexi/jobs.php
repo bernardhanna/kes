@@ -129,14 +129,10 @@ if (empty($ordered_jobs)) {
   return;
 }
 
-$careers_apply_email = '';
-if (function_exists('get_field')) {
-  $careers_apply_email = sanitize_email((string) get_field('careers_apply_email', 'option'));
-}
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="jobs-flexi relative flex overflow-hidden <?php echo esc_attr($bg_color); ?>">
-  <div class="flex flex-col items-center w-full mx-auto max-w-7xl pt-5 pb-20 px-24 max-lg:px-5<?php echo $padding_classes_str; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-20 max-lg:px-5<?php echo $padding_classes_str; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>">
     <div class="flex flex-col w-full">
       <header class="sr-only">
         <h1><?php echo esc_html($sr_heading); ?></h1>
@@ -155,17 +151,18 @@ if (function_exists('get_field')) {
           $chips    = matrix_jobs_terms($pid);
           $label_id = "{$section_id}-job-title-{$pid}";
           $detail_id = "{$section_id}-job-detail-{$pid}";
-          $expanded = apply_filters('the_content', get_post_field('post_content', $pid));
 
-          $apply_href = $perma;
-          if ($careers_apply_email && is_email($careers_apply_email)) {
-            $apply_subject = sprintf(
-              /* translators: %s: job title */
-              __('Application: %s', 'matrix-starter'),
-              $title
-            );
-            $apply_href = 'mailto:' . $careers_apply_email . '?subject=' . rawurlencode($apply_subject);
+          // Prefer structured ACF job details; fall back to post content so nothing is lost.
+          $structured = function_exists('matrix_render_job_details_html')
+            ? matrix_render_job_details_html($pid)
+            : '';
+          if ($structured !== '') {
+            $expanded = $structured;
+          } else {
+            $expanded = apply_filters('the_content', get_post_field('post_content', $pid));
           }
+
+          $apply_href = $perma . '#apply';
           ?>
 
           <article
@@ -205,7 +202,7 @@ if (function_exists('get_field')) {
 
               <div class="job-card-careers__panel pt-2">
                 <div class="mb-6 w-full">
-                  <h3 class="job-card-careers__section-label mb-6"><?php esc_html_e('Job description:', 'matrix-starter'); ?></h3>
+                  <h3 class="job-card-careers__block-heading"><?php esc_html_e('Job description', 'matrix-starter'); ?></h3>
                   <div class="job-card-careers__body-copy wp_editor job-card-accordion__content job-card-builder-content">
                     <?php echo wp_kses_post($expanded); ?>
                   </div>

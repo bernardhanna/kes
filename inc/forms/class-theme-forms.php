@@ -245,13 +245,55 @@ class Theme_Forms {
     }
 
     // 7) Message
+    $job_intro = function_exists('matrix_job_application_email_intro')
+      ? matrix_job_application_email_intro($fields)
+      : '';
+
+    $email_field_order = ['job_position', 'job_id', 'job_url', 'fullname', 'surname', 'company', 'email', 'phone', 'city', 'country', 'cover_letter', 'cv', 'privacy-policy'];
+    $ordered_fields    = [];
+    foreach ($email_field_order as $key) {
+      if (array_key_exists($key, $fields)) {
+        $ordered_fields[$key] = $fields[$key];
+      }
+    }
+    foreach ($fields as $key => $val) {
+      if (! array_key_exists($key, $ordered_fields)) {
+        $ordered_fields[$key] = $val;
+      }
+    }
+
+    $field_labels = [
+      'job_position'   => __('Position applied for', 'matrix-starter'),
+      'job_id'         => __('Job ID', 'matrix-starter'),
+      'job_url'        => __('Job posting', 'matrix-starter'),
+      'company'        => __('Company', 'matrix-starter'),
+      'privacy-policy' => __('Privacy policy accepted', 'matrix-starter'),
+    ];
+
     ob_start();
-    echo '<h2>New form entry</h2><table>';
-    foreach ($fields as $label => $val) {
+    if ($job_intro !== '') {
+      echo $job_intro; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+      echo '<h2 style="margin:24px 0 12px;color:#262262;">' . esc_html__('Applicant details', 'matrix-starter') . '</h2>';
+    } else {
+      echo '<h2>' . esc_html__('New form entry', 'matrix-starter') . '</h2>';
+    }
+    echo '<table cellpadding="6" cellspacing="0" border="0">';
+    foreach ($ordered_fields as $label => $val) {
+      $heading = $field_labels[$label] ?? ucwords(str_replace(['-', '_'], ' ', $label));
+      $cell    = is_array($val) ? implode(', ', $val) : (string) $val;
+      if ($label === 'job_url' && $cell !== '') {
+        $cell = '<a href="' . esc_url($cell) . '">' . esc_html($cell) . '</a>';
+        printf(
+          '<tr><th style="text-align:left;padding-right:10px;vertical-align:top;">%s</th><td>%s</td></tr>',
+          esc_html($heading),
+          $cell
+        );
+        continue;
+      }
       printf(
-        '<tr><th style="text-align:left;padding-right:10px;">%s</th><td>%s</td></tr>',
-        esc_html( ucwords( str_replace(['-', '_'], ' ', $label) ) ),
-        esc_html( is_array($val) ? implode(', ', $val) : $val )
+        '<tr><th style="text-align:left;padding-right:10px;vertical-align:top;">%s</th><td>%s</td></tr>',
+        esc_html($heading),
+        esc_html($cell)
       );
     }
     echo '</table>';

@@ -34,17 +34,77 @@ body {
   @apply font-primary;
 }
 
-/* Contact block office map — “blueprint” tint */
-[data-office-map].leaflet-container,
-[data-office-map] .leaflet-container {
-  background: #eaf3fb;
+/* Contact offices — equal-height rows aligned across columns (subgrid) */
+.office-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+.office-col {
+  display: grid;
+  grid-template-rows: auto auto auto auto auto;
+  gap: 0.75rem;
+  min-width: 0;
+  height: 100%;
+}
+.office-row--phone,
+.office-row--email {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+@media (min-width: 768px) {
+  .office-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: auto auto auto auto auto;
+    column-gap: 3rem;
+    row-gap: 0.75rem;
+    align-items: stretch;
+  }
+  .office-col {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 5;
+    gap: 0;
+  }
+}
+@supports not (grid-template-rows: subgrid) {
+  @media (min-width: 768px) {
+    .office-col {
+      display: flex;
+      flex-direction: column;
+      grid-row: auto;
+    }
+    .office-row--map {
+      margin-top: auto;
+    }
+  }
+}
+
+/* Contact block office map — brand blue tint (matches hero map look) */
+[data-office-map],
+[data-office-map].leaflet-container {
+  height: 240px;
+  position: relative;
+  background: #dce8f5;
 }
 [data-office-map] .leaflet-tile {
-  filter: saturate(1.15) hue-rotate(190deg) brightness(1.08) contrast(0.92);
+  filter: grayscale(1) contrast(1.08) brightness(1.02);
+}
+[data-office-map].office-map--brand::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 450;
+  mix-blend-mode: multiply;
+  background: rgba(38, 34, 98, 0.18);
+  border-radius: inherit;
 }
 [data-office-map] .leaflet-control-attribution {
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(4px);
+  font-size: 10px;
+  z-index: 500;
 }
 
 /* Global typography: titles = Red Hat Display, paragraphs = Red Hat Text */
@@ -113,6 +173,11 @@ p {
   color: #1e3a8a;
   margin-top: 0;
   margin-bottom: 1.5rem;
+}
+
+/* Job application — one chevron only (override @tailwindcss/forms select background) */
+.job-application select {
+  background-image: none !important;
 }
 
 /* Careers jobs flexi — card border (closed = Blue-50), open = cyan border + mint fill */
@@ -247,6 +312,65 @@ p {
   margin: 0 0 1rem;
 }
 
+/* Section block headings — Job description / Key Responsibilities / Requirements / What We Offer */
+.jobs-flexi article.job-card-careers .job-card-careers__panel h3.job-card-careers__block-heading,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content h3.job-card-careers__block-heading {
+  color: #2b3990;
+  font-family: "Red Hat Display", sans-serif;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 32px;
+  margin: 2rem 0 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #2b3990;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__panel > .mb-6 > h3.job-card-careers__block-heading:first-child,
+.jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content h3.job-card-careers__block-heading:first-child {
+  margin-top: 0.5rem;
+}
+
+/* Labeled items — label on its own line, body underneath */
+.jobs-flexi article.job-card-careers .job-card-careers__labeled-list,
+.jobs-flexi article.job-card-careers .job-card-careers__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__labeled-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__item-label,
+.jobs-flexi article.job-card-careers h4.job-card-careers__item-label {
+  color: #2b3990;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__item-body,
+.jobs-flexi article.job-card-careers .job-card-careers__item-body p {
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.jobs-flexi article.job-card-careers .job-card-careers__item-body p + p {
+  margin-top: 0.75rem;
+}
+
 /* Trailing paragraphs after lists in panel */
 .jobs-flexi article.job-card-careers .job-card-careers__panel .job-card-builder-content ul ~ p {
   color: #1d2939;
@@ -312,6 +436,114 @@ p {
   line-height: 20px;
 }
 
+/* WYSIWYG lists — flexi blocks (matches matrix-page-content markers & rhythm) */
+.wp_editor :where(ul, ol),
+.small_wp_editor :where(ul, ol) {
+  margin: 0.25rem 0 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.wp_editor ul,
+.small_wp_editor ul {
+  list-style-type: disc;
+}
+
+.wp_editor ol,
+.small_wp_editor ol {
+  list-style-type: decimal;
+}
+
+.wp_editor :where(ul, ol) > li,
+.small_wp_editor :where(ul, ol) > li {
+  display: list-item;
+  list-style: inherit;
+  margin: 0 0 0.5rem;
+  color: #1e293b;
+  font-family: "Red Hat Text", sans-serif;
+}
+
+.wp_editor :where(ul, ol) > li {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.small_wp_editor :where(ul, ol) > li {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.wp_editor :where(ul, ol) > li::marker,
+.small_wp_editor :where(ul, ol) > li::marker {
+  color: #2b3990;
+}
+
+.wp_editor :where(ul, ol) > li:last-child,
+.small_wp_editor :where(ul, ol) > li:last-child {
+  margin-bottom: 0;
+}
+
+.wp_editor :where(ul, ol) :where(ul, ol),
+.small_wp_editor :where(ul, ol) :where(ul, ol) {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Icon arrow lists — Content Block One benefits / Content Block Three columns */
+.wp_editor-icon-list ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.wp_editor-icon-list ul > li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+  list-style: none;
+  margin: 0;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  color: #1d2939;
+}
+
+/* Same 20×20 arrow as Content Block One benefits */
+.wp_editor-icon-list ul > li::before {
+  content: "";
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-top: 0.125rem;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M4.16675 10H15.8334' stroke='%232B3990' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 4.16663L15.8333 9.99996L10 15.8333' stroke='%232B3990' stroke-width='1.66667' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+.wp_editor-icon-list ul > li strong,
+.wp_editor-icon-list ul > li b {
+  font-weight: 700;
+}
+
+/* Skip link (WCAG 2.4.1) — visible on keyboard focus */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.5rem;
+  z-index: 10000;
+  padding: 0.75rem 1rem;
+  background: #fff;
+  color: #262262;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  left: 0.5rem;
+}
+
 @layer components {
   /* ACCESSIBILITY: style every element using .btn */
   .btn {
@@ -320,6 +552,31 @@ p {
     border-bottom-right-radius: 10px;
     border-top-right-radius: 4px;
     border-bottom-left-radius: 4px;
+  }
+}
+
+/* Desktop header: logo left, menu links centered, callback button right. */
+@media (min-width: 1100px) {
+  #site-nav > nav {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+  }
+
+  #site-nav > nav > a:not(#primary-menu-cta) {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  #primary-menu {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  #site-nav > nav > #primary-menu-cta {
+    grid-column: 3;
+    justify-self: end;
+    padding: 14px 24px;
   }
 }
 
@@ -1391,15 +1648,7 @@ p {
 @apply font-bold text-primary-light;
 }
 
-.slick-dots ul, .is-not-woo .wp_editor ul {
-  @apply list-disc list-inside;
-}
-
-.slick-dots ol, .is-not-woo .wp_editor ol {
-  @apply list-decimal list-inside;
-}
-
-.slick-dots li, .is-not-woo .wp_editor li {
+.slick-dots li {
   @apply mb-2;
   list-style: none;
 }
@@ -1649,6 +1898,193 @@ p {
 }
 
 
+/* Default WordPress page editor only (template-parts/content/content-page.php — not flexi WYSIWYG) */
+.matrix-page-content .matrix-page-content__body {
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.matrix-page-content .matrix-page-content__body > :first-child {
+  margin-top: 0;
+}
+
+.matrix-page-content .matrix-page-content__body :where(h1, h2, h3, h4, h5, h6, .wp-block-heading) {
+  color: #262262;
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 700;
+  padding: 0; /* override .entry-content h* { py-4 } */
+}
+
+.matrix-page-content .matrix-page-content__body h1,
+.matrix-page-content .matrix-page-content__body :where(h1.wp-block-heading) {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+  letter-spacing: -0.025em;
+  margin: 0 0 0.75rem;
+}
+
+.matrix-page-content .matrix-page-content__body h2,
+.matrix-page-content .matrix-page-content__body :where(h2.wp-block-heading) {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  margin: 1.25rem 0 0.375rem;
+}
+
+.matrix-page-content .matrix-page-content__body h3,
+.matrix-page-content .matrix-page-content__body :where(h3.wp-block-heading) {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  margin: 1rem 0 0.25rem;
+}
+
+.matrix-page-content .matrix-page-content__body h4,
+.matrix-page-content .matrix-page-content__body :where(h4.wp-block-heading) {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  margin: 0.875rem 0 0.25rem;
+}
+
+.matrix-page-content .matrix-page-content__body h5,
+.matrix-page-content .matrix-page-content__body :where(h5.wp-block-heading) {
+  font-size: 1.125rem;
+  line-height: 1.375rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.matrix-page-content .matrix-page-content__body h6,
+.matrix-page-content .matrix-page-content__body :where(h6.wp-block-heading) {
+  font-size: 1rem;
+  line-height: 1.25rem;
+  margin: 0.75rem 0 0.25rem;
+}
+
+.matrix-page-content .matrix-page-content__body p {
+  margin: 0 0 0.625rem;
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+}
+
+.matrix-page-content .matrix-page-content__body a {
+  color: #262262;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.matrix-page-content .matrix-page-content__body a:hover {
+  color: #2b3990;
+  text-decoration: none;
+}
+
+.matrix-page-content .matrix-page-content__body a:focus-visible {
+  border-radius: 2px;
+  outline: 2px solid #00acd8;
+  outline-offset: 2px;
+}
+
+.matrix-page-content .matrix-page-content__body :where(ul, ol, .wp-block-list) {
+  margin: 0.25rem 0 0.75rem;
+  padding-left: 1.5rem;
+}
+
+.matrix-page-content .matrix-page-content__body ul,
+.matrix-page-content .matrix-page-content__body :where(ul.wp-block-list) {
+  list-style-type: disc;
+}
+
+.matrix-page-content .matrix-page-content__body ol {
+  list-style-type: decimal;
+}
+
+.matrix-page-content .matrix-page-content__body :where(ul, ol, .wp-block-list) > li {
+  display: list-item;
+  list-style: inherit;
+  margin: 0 0 0.375rem;
+  color: #1d2939;
+  font-family: "Red Hat Text", sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+.matrix-page-content .matrix-page-content__body :where(ul, ol, .wp-block-list) > li::marker {
+  color: #2b3990;
+}
+
+.matrix-page-content .matrix-page-content__body :where(ul, ol) :where(ul, ol) {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.matrix-page-content .matrix-page-content__body :where(strong, b) {
+  color: #1d2939;
+  font-weight: 700;
+}
+
+.matrix-page-content .matrix-page-content__body :where(em, i) {
+  font-style: italic;
+}
+
+.matrix-page-content .matrix-page-content__body blockquote {
+  border-left: 4px solid #cbe9e1;
+  color: #344054;
+  font-style: italic;
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+}
+
+.matrix-page-content .matrix-page-content__body :where(code, kbd) {
+  background: #f2f4f7;
+  border-radius: 4px;
+  font-size: 0.875em;
+  padding: 0.125rem 0.375rem;
+}
+
+.matrix-page-content .matrix-page-content__body pre {
+  background: #f2f4f7;
+  border-radius: 8px;
+  margin: 0 0 1.25rem;
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.matrix-page-content .matrix-page-content__body table {
+  border-collapse: collapse;
+  margin: 0 0 1.5rem;
+  width: 100%;
+}
+
+.matrix-page-content .matrix-page-content__body :where(th, td) {
+  border: 1px solid #d0d5dd;
+  padding: 0.625rem 0.75rem;
+  text-align: left;
+}
+
+.matrix-page-content .matrix-page-content__body th {
+  background: #f9fafb;
+  color: #262262;
+  font-family: "Red Hat Display", sans-serif;
+  font-weight: 700;
+}
+
+.matrix-page-content .matrix-page-content__body hr {
+  border: 0;
+  border-top: 2px solid #cbe9e1;
+  margin: 2rem 0;
+}
+
+.matrix-page-content .matrix-page-content__body img {
+  border-radius: 4px;
+  height: auto;
+  margin: 0 0 1.5rem;
+  max-width: 100%;
+}
+
 /* WP Editor Styling */
 .is-not-woo .wp-singular .wp_editor a {
  @apply underline text-primary;
@@ -1796,13 +2232,31 @@ blockquote.right {
 }
 
 /* Hero slider: bar indicators 32×4px – active #2B3990, inactive #CBE9E1 */
-/* Buttons: 38px height, full width, 14px/500/20px text below 640px (sm) */
+/* Long CTA labels wrap inside the pill from 772px down instead of overflowing. */
+@media (max-width: 772px) {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    max-width: 100%;
+    height: auto;
+    min-height: 44px;
+    padding: 0.625rem 1.25rem;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.3;
+  }
+}
+
+/* Buttons: full width, 14px/500/20px text below 640px (sm). Height grows if the label wraps. */
 @media (max-width: 639px) {
   .btn-primary {
-    height: 38px;
     width: 100%;
     max-width: 100%;
     min-height: 38px;
+    height: auto;
+    padding: 0.5rem 1rem;
     position: relative;
     display: flex;
     align-items: center;
@@ -1811,6 +2265,8 @@ blockquote.right {
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
+    white-space: normal;
+    text-align: center;
   }
   /* Other CTA-style buttons and links */
   nav[aria-label="Section actions"] a,
@@ -1819,6 +2275,28 @@ blockquote.right {
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
+  }
+}
+
+/* Hero: below 576px long slide titles and CTA labels wrap instead of overlapping. */
+@media (max-width: 575px) {
+  .hero-slider-section .hero-slider-container,
+  .hero-slider-section .slick-list,
+  .hero-slider-section .slick-track,
+  .hero-slider-section .slick-slide,
+  .hero-slider-section .slick-slide > div,
+  .hero-slider-section .h-\[533px\] {
+    height: 640px !important;
+  }
+
+  .hero-slider-section .btn-primary,
+  .hero-slider-section .hero-slider-btn-secondary {
+    white-space: normal !important;
+    height: auto !important;
+    min-height: 38px;
+    max-width: 100%;
+    line-height: 1.25;
+    text-align: center;
   }
 }
 
@@ -1962,4 +2440,45 @@ blockquote.right {
     --tw-gradient-to: rgb(43 57 144 / 0) var(--tw-gradient-to-position);
     --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
     --tw-gradient-to: #006EC8 var(--tw-gradient-to-position);
+}
+
+/* Footer social icons: solid fill with hover color (not opacity). */
+.footer-social-link {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  background-color: #262262;
+  -webkit-mask-image: var(--footer-social-icon);
+  mask-image: var(--footer-social-icon);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  transition: background-color 0.2s ease;
+}
+
+.footer-social-link:hover {
+  background-color: #00acd8;
+}
+
+.footer-social-link:focus-visible {
+  outline: 2px solid #00acd8;
+  outline-offset: 2px;
+}
+
+/* Hide scrollbars while keeping overflow scroll (e.g. projects category filter). */
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
 }

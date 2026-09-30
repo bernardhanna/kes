@@ -49,6 +49,15 @@ require_once get_template_directory() . '/inc/enqueue-scripts.php';
 require_once get_template_directory() . '/inc/hero-functions.php';
 require_once get_template_directory() . '/inc/flexible-content-functions.php';
 require_once get_template_directory() . '/inc/archive-index-header.php';
+require_once get_template_directory() . '/inc/services-helpers.php';
+require_once get_template_directory() . '/inc/team-helpers.php';
+require_once get_template_directory() . '/inc/team-content.php';
+require_once get_template_directory() . '/inc/blog-helpers.php';
+require_once get_template_directory() . '/inc/sitemap-helpers.php';
+require_once get_template_directory() . '/inc/social-icons.php';
+require_once get_template_directory() . '/inc/accessibility.php';
+require_once get_template_directory() . '/inc/legal-pages.php';
+require_once get_template_directory() . '/inc/service-content.php';
 
 // Function to handle Tailwind config updates and trigger rebuilds
 function handle_tailwind_config_update()
@@ -106,10 +115,15 @@ require_once get_template_directory() . '/inc/seed-project-map-coordinates.php';
 
 // Include the ACF theme options setup
 require_once get_template_directory() . '/inc/theme-options.php';
+require_once get_template_directory() . '/inc/jobs-application.php';
+require_once get_template_directory() . '/inc/job-details.php';
+require_once get_template_directory() . '/acf-fields/partials/team-member.php';
 require_once get_template_directory() . '/inc/request-callback.php';
 
 // Include login customizations
 require_once get_template_directory() . '/inc/login-customizations.php';
+require_once get_template_directory() . '/inc/disable-comments.php';
+require_once get_template_directory() . '/inc/acf-admin.php';
 
 // Include the pagination functions
 require_once get_template_directory() . '/inc/pagination.php';

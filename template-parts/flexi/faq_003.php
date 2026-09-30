@@ -49,7 +49,7 @@ $content_max_width_key = (string) ( $content_max_width_raw ?? '' );
 if (! in_array($content_max_width_key, ['1018', '1200'], true)) {
   $content_max_width_key = '1018';
 }
-$faq_content_max_w_class = ( '1200' === $content_max_width_key ) ? 'max-w-[1200px]' : 'max-w-[1018px]';
+$faq_content_max_w_class = 'max-w-container';
 
 $section_id = 'faq-003-' . uniqid();
 

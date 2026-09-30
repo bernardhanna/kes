@@ -11,6 +11,11 @@ $text = $not_found_settings['hero_text'] ?? 'Here are some helpful links to get 
 $links = $not_found_settings['links'] ?? []; // The repeater array
 $bg_color = $not_found_settings['background_color'] ?? '#f8f9fa';
 $text_color = $not_found_settings['text_color'] ?? '#333';
+$image_raw = $not_found_settings['hero_image'] ?? 0;
+$image_id  = is_array($image_raw)
+    ? (int) ($image_raw['ID'] ?? 0)
+    : (int) $image_raw;
+$fallback_image_url = content_url('uploads/2025/07/cryo-room-16th-June-2023-2.png');
 $padding_top = $not_found_settings['padding_top'] ?? 'py-10';
 $padding_bottom = $not_found_settings['padding_bottom'] ?? 'pb-10';
 ?>
@@ -28,12 +33,25 @@ $padding_bottom = $not_found_settings['padding_bottom'] ?? 'pb-10';
             <div
               class="flex relative flex-col w-full min-h-[700px] max-md:max-w-full max-sm:min-h-[246px] rounded-tr-3xl rounded-br-3xl"
             >
-              <img
-                src="wp-content/uploads/2025/07/cryo-room-16th-June-2023-2.png"
-                alt="404 error background image"
-                class="object-cover absolute inset-0 rounded-tr-3xl rounded-br-3xl size-full"
-                aria-hidden="true"
-              />
+              <?php if ($image_id) : ?>
+                <?php
+                $image_alt = get_post_meta($image_id, '_wp_attachment_image_alt', true) ?: __('404 page image', 'matrix-starter');
+                echo wp_get_attachment_image($image_id, 'full', false, [
+                    'class'         => 'object-cover absolute inset-0 rounded-tr-3xl rounded-br-3xl size-full',
+                    'alt'           => esc_attr($image_alt),
+                    'aria-hidden'   => 'true',
+                    'loading'       => 'eager',
+                    'fetchpriority' => 'high',
+                ]);
+                ?>
+              <?php else : ?>
+                <img
+                  src="<?php echo esc_url($fallback_image_url); ?>"
+                  alt="<?php echo esc_attr__('404 page image', 'matrix-starter'); ?>"
+                  class="object-cover absolute inset-0 rounded-tr-3xl rounded-br-3xl size-full"
+                  aria-hidden="true"
+                />
+              <?php endif; ?>
             </div>
           </figure>
           <article

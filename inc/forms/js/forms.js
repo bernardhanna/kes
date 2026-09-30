@@ -118,15 +118,23 @@
         }
 
         // Cloudflare Turnstile (visible or invisible)
-        if (provider === 'turnstile' && window.turnstile && tsSiteKey) {
+        if (provider === 'turnstile' && window.turnstile) {
+          const placeholder = form.querySelector('.cf-turnstile');
+          const keyFromDom = placeholder && placeholder.getAttribute('data-sitekey')
+            ? placeholder.getAttribute('data-sitekey').trim()
+            : '';
+          const activeTsKey = tsSiteKey || keyFromDom;
+          if (!activeTsKey) {
+            showBanner(form, 'Captcha is not configured. Please try again later.', false);
+            return;
+          }
+
           const existingToken = form.querySelector('input[name="cf-turnstile-response"]');
           if (existingToken && existingToken.value) { send(); return; }
 
-          const placeholder = form.querySelector('.cf-turnstile');
-
           if (!form._tsWidgetId) {
             form._tsWidgetId = window.turnstile.render(placeholder || form, {
-              sitekey: tsSiteKey,
+              sitekey: activeTsKey,
               size: placeholder ? (placeholder.getAttribute('data-size') || 'normal') : 'invisible',
               theme: placeholder ? (placeholder.getAttribute('data-theme') || 'auto') : 'auto',
               callback: (token) => {

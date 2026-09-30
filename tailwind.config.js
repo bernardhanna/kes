@@ -21,6 +21,7 @@ module.exports = {
       },
       fontSize: {
         '5xl': ['30px', '20px'], // [font-size, line-height]
+        'md-bold': ['16px', { lineHeight: '22px', fontWeight: '700' }], // Text md/Bold
         xs: '14px',
         base: '16px',
         wp_editor_p: '20px',
@@ -107,7 +108,7 @@ module.exports = {
       },
 
       maxWidth: {
-        container: '1208px',
+        container: '1440px',
         xxs: '320px',
         xs: '480px',
         mob: '575px',
@@ -191,6 +192,14 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/typography'),
     require('tailwindcss-pseudo')({ empty: true, before: true, after: true }),
+    plugin(function ({ addUtilities, theme }) {
+      addUtilities({
+        '.font-red-hat-text': {
+          fontFamily: theme('fontFamily.secondary'),
+          fontStyle: 'normal',
+        },
+      });
+    }),
   ],
 
   // Keep a wide safelist to avoid purging dynamic classes used in templates
@@ -208,6 +217,9 @@ module.exports = {
     'group-hover:bg-[#041227]',
     'group-focus-within:bg-[#041227]',
     'focus-visible:bg-[#041227]',
+    'no-scrollbar',
+    'font-red-hat-text',
+    'text-md-bold',
     'md:col-span-1',
     'md:col-span-2',
     'md:col-span-3',

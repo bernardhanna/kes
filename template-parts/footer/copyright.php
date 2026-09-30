@@ -8,7 +8,7 @@ $links        = get_field('footer_links', 'option');
 $credits_text = get_field('credits_text', 'option');
 
 // Base classes (no design options)
-$container_classes = 'box-border flex relative justify-between items-center px-10 py-4 mx-auto w-full max-w-screen-xl  max-md:px-4 max-md:py-3 max-sm:flex-col max-sm:gap-4 max-sm:items-start max-md:flex-col max-md:items-start';
+$container_classes = 'box-border flex relative justify-between items-center px-10 py-4 mx-auto w-full max-w-container  max-md:px-4 max-md:py-3 max-sm:flex-col max-sm:gap-4 max-sm:items-start max-md:flex-col max-md:items-start';
 $link_text_classes = 'text-sm leading-5 text-primary';
 
 // Build a simple array for the select
@@ -40,7 +40,7 @@ if (!empty($links) && is_array($links)) {
             <a
               href="<?php echo $opt['url']; ?>"
               target="<?php echo $opt['target']; ?>"
-              class="nav-link flex gap-1 items-center <?php echo esc_attr($link_text_classes); ?>  underline hover:no-underline transition-colors duration-200 hover:text-primary-light focus:text-primary-light focus:outline focus:outline-2 focus:outline-text-primary-light"
+              class="nav-link flex gap-1 items-center <?php echo esc_attr($link_text_classes); ?>  underline hover:no-underline transition-colors duration-200  focus:text-primary-light focus:outline focus:outline-2 focus:outline-text-primary-light"
             >
               <span class="text-sm"><?php echo $opt['label']; ?></span>
             </a>
@@ -67,7 +67,7 @@ if (!empty($links) && is_array($links)) {
       </div>
     <?php endif; ?>
 
-    <div class="font-secondary text-sm font-normal leading-[20px] text-primary underline decoration-primary hover:no-underline transition-[text-decoration] duration-200 max-md:mt-5" role="contentinfo" aria-label="Site credits">
+    <div class="font-secondary cursor-pointer text-sm font-normal leading-[20px] text-primary  decoration-primary hover:underline transition-[text-decoration] duration-200 max-md:mt-5" role="contentinfo" aria-label="Site credits">
       <p class="m-0">
         <?php echo $credits_text ? esc_html($credits_text) : esc_html__('Designed & Developed by Matrix Internet', 'matrix'); ?>
       </p>

@@ -52,8 +52,8 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="mx-auto w-full max-w-[1280px] px-5 py-[2.5rem] lg:py-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_502px] gap-8 lg:gap-12 items-start max-w-[1250px] mx-auto pl-0 xl:pl-[5rem] xxl:pl-[11.5rem]">
+    <div class="mx-auto w-full max-w-container px-5 py-[2.5rem] lg:py-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_502px] gap-8 lg:gap-12 items-start mx-auto w-full max-w-container">
 
             <!-- Content Column -->
             <div class="<?php echo esc_attr($content_order_class); ?> min-w-0">

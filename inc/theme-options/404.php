@@ -35,6 +35,12 @@ $not_found
   ])
   ->endRepeater()
   ->addTab('Design')
+  ->addImage('hero_image', [
+    'label'         => 'Hero image',
+    'instructions'  => 'Large image shown beside the 404 message. Recommended: wide landscape, at least 1200px wide.',
+    'return_format' => 'id',
+    'preview_size'  => 'medium',
+  ])
   ->addColorPicker('background_color', ['label' => 'Background Color', 'default_value' => '#f8f9fa'])
   ->addColorPicker('text_color', ['label' => 'Text Color', 'default_value' => '#333'])
   ->addTab('Options', ['placement' => 'left'])

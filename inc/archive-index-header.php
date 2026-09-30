@@ -9,6 +9,7 @@
  *   @type string $bg_color     Section background (hex).
  *   @type string $accent_color         Underline bar color (hex).
  *   @type string $inner_wrapper_class Optional. Full class string for the inner title container; default pt-8 wrapper.
+ *   @type string $toolbar_html      Optional. Markup rendered on the right (e.g. blog sort dropdown).
  * }
  */
 function matrix_starter_render_archive_index_header(array $cfg): void
@@ -22,6 +23,7 @@ function matrix_starter_render_archive_index_header(array $cfg): void
         'bg_image_url'          => '',
         'section_class'         => '',
         'inner_wrapper_class'   => '',
+        'toolbar_html'          => '',
     ]);
 
     $heading = trim((string) $cfg['heading']);
@@ -51,6 +53,8 @@ function matrix_starter_render_archive_index_header(array $cfg): void
     if ($heading !== '') {
         $aria_labelledby = $section_id . '-heading';
     }
+
+    $toolbar_html = (string) $cfg['toolbar_html'];
 
     include locate_template('template-parts/archive/index-title-section.php');
 }

@@ -11,7 +11,7 @@
 <body <?php body_class(); ?>>
 
     <?php wp_body_open(); ?>
-    <header class="relative">
+    <header class="relative" role="banner">
 
         <?php get_template_part('template-parts/header/navbar'); ?>
     </header>

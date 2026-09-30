@@ -245,7 +245,7 @@ add_filter('body_class', function ($classes) {
 // Wrap the whole checkout area (outside the <form>)
 add_action('woocommerce_before_checkout_form', function () {
   if (!is_checkout()) return;
-  echo '<div class="px-6 mx-auto max-w-[1140px]">';
+  echo '<div class="px-6 mx-auto max-w-container">';
   echo '  <h1 class="text-3xl font-semibold text-slate-900">Checkout</h1>';
   echo '  <div class="mt-6">'; // keep structure simple; do columns in CSS
 }, 0);

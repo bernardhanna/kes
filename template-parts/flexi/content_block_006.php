@@ -81,7 +81,7 @@ $section_id = 'content-block-006-' . uniqid();
   class="flex overflow-hidden relative w-full content-section-five"
   style="background-image: linear-gradient(to right, <?php echo esc_attr($gradient_from); ?>, <?php echo esc_attr($gradient_to); ?>);"
 >
-  <div class="flex flex-col items-center w-full mx-auto max-w-[1184px] <?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container <?php echo $padding_classes_str; ?>">
 
     <div class="flex flex-col gap-8 items-center w-full md:flex-row lg:gap-0 lg:px-0">
 
@@ -93,14 +93,14 @@ $section_id = 'content-block-006-' . uniqid();
             alt="<?php echo $img_alt; ?>"
             title="<?php echo $img_title; ?>"
             loading="lazy"
-            class="w-full max-sm:h-[311px] h-full object-cover rounded-none"
+            class="w-full h-[311px] object-cover md:h-full rounded-none"
             style="border-radius: 0 !important;"
           />
         <?php endif; ?>
       </div>
 
       <!-- Right content -->
-      <div class="flex items-center px-6 py-8 w-full lg:w-1/2 lg:px-12 lg:py-16">
+      <div class="flex items-center px-5 py-8 w-full lg:w-1/2 lg:px-12 lg:py-16">
         <main id="main-content" class="flex flex-col gap-8 max-w-md">
 
           <!-- Heading + accent (same as content-section-five) -->

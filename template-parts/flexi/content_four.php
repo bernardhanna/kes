@@ -63,12 +63,12 @@ $section_id = 'content-four-' . uniqid();
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="content-four about-section relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>" role="region" aria-label="<?php echo esc_attr__('About section', 'matrix-starter'); ?>">
-  <div class="flex flex-col items-center w-full mx-auto max-w-[1250px] pt-5 pb-5 <?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 <?php echo $padding_classes_str; ?>">
     <div class="w-full">
-      <div class="grid grid-cols-1 gap-2 items-center w-full md:grid-cols-2 lg:grid-cols-[50%_50%] lg:gap-12">
+      <div class="grid grid-cols-1 gap-2 items-center w-full mx-auto max-w-container md:grid-cols-2 lg:grid-cols-[50%_50%] lg:gap-12">
 
         <!-- Left: Text -->
-        <article class="flex flex-col order-2 gap-6 md:order-1 px-5 xl:pl-[7rem]">
+        <article class="flex flex-col order-2 gap-6 md:order-1 max-xl:px-5">
           <div class="flex flex-col gap-4">
             <?php if (!empty($heading)): ?>
               <<?php echo esc_attr($heading_tag); ?> class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary <?php echo esc_attr($heading_color); ?>">
@@ -104,7 +104,7 @@ $section_id = 'content-four-' . uniqid();
               alt="<?php echo $img_alt; ?>"
               title="<?php echo $img_title; ?>"
               loading="lazy"
-              class="w-full h-full object-cover max-w-[582px] max-h-[333px] rounded-[8px] relative xl:-left-[1rem]"
+              class="w-full h-full object-cover max-w-[582px] max-h-[333px] rounded-[8px]"
             />
           <?php endif; ?>
         </figure>

@@ -1,5 +1,7 @@
 <?php
-$team_members = get_sub_field('team_members');
+$team_members = function_exists('matrix_starter_team_001_resolve_members')
+    ? matrix_starter_team_001_resolve_members()
+    : [];
 $button = get_sub_field('button');
 $background_color = get_sub_field('background_color') ?: '#ffffff';
 
@@ -30,7 +32,7 @@ $section_id = 'team-' . uniqid();
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
     <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5">
-        <div class="box-border flex flex-col gap-8 items-center px-24 pt-0 pb-20 mx-auto my-0 w-full max-w-screen-xl max-md:px-12 max-md:pt-0 max-md:pb-16 max-sm:px-6 max-sm:pt-0 max-sm:pb-10">
+        <div class="box-border flex flex-col gap-8 items-center px-24 pt-0 pb-20 mx-auto my-0 w-full max-w-container max-md:px-12 max-md:pt-0 max-md:pb-16 max-sm:px-6 max-sm:pt-0 max-sm:pb-10">
 
             <?php if ($team_members && is_array($team_members)): ?>
                 <!-- 3-column responsive grid -->

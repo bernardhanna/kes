@@ -38,7 +38,7 @@ if ($use_gradient && $background_gradient) {
     aria-label="Customer Testimonials"
     id="<?php echo esc_attr($slider_id); ?>-kudos"
 >
-    <div class="flex flex-col items-center mx-auto w-full max-w-container max-xl:px-5 xxl:left-[5rem] relative">
+    <div class="flex flex-col items-center mx-auto w-full max-w-container max-xl:px-5 relative">
 
         <?php if ($testimonials): ?>
             <div
@@ -60,7 +60,10 @@ if ($use_gradient && $background_gradient) {
                         }
                     }
                 ?>
-                    <article class="flex relative gap-10 items-center py-20 max-w-[1036px] mx-auto w-full text-white max-md:px-5 max-md:flex-col max-md:p-6 slick-item">
+                    <?php
+                    // Match content_block_two column grid so paragraph left edges align across adjacent sections.
+                    ?>
+                    <article class="grid relative gap-x-8 gap-y-8 items-center py-20 w-full mx-auto max-w-container text-white grid-cols-1 sm:grid-cols-[minmax(0,1fr)_362px] max-md:py-6 slick-item">
 
                         <?php if ($show_quote_icon): ?>
                             <div class="absolute top-[6rem] -left-[7rem] z-0 max-[1277px]:hidden" aria-hidden="true">
@@ -77,7 +80,7 @@ if ($use_gradient && $background_gradient) {
                             </div>
                         <?php endif; ?>
 
-                        <div class="flex flex-col flex-1 justify-between pt-6 my-auto max-md:max-w-full max-sm:pb-8 max-w-[550px] px-2">
+                        <div class="flex flex-col justify-between order-1 w-full max-md:max-w-full max-sm:pb-8 text-left">
                             <div class="relative mb-8 z-0 min-[1277px]:hidden flex aria-hidden="true">
                                 <svg
                                     width="107"
@@ -109,10 +112,10 @@ if ($use_gradient && $background_gradient) {
 
                                     if ($i === 0) {
                                     // First paragraph (Display sm / Bold)
-                                    $add = "!text-white !text-[30px] !leading-[38px] !font-bold !font-primary !pb-[2rem]";
+                                    $add = "!text-white !text-[30px] !leading-[38px] !font-bold !font-primary !pb-[2rem] !text-left";
                                     } else {
                                     // Second and subsequent paragraphs (Text lg / Regular)
-                                    $add = "!text-white !text-[18px] !leading-[24px] !font-normal !font-secondary";
+                                    $add = "!text-white !text-[18px] !leading-[24px] !font-normal !font-secondary !text-left";
                                     }
 
                                     $p->setAttribute('class', trim($existing . ' ' . $add));
@@ -131,12 +134,12 @@ if ($use_gradient && $background_gradient) {
 
                             $styled_quote = cbt_style_quote_paragraphs($quote);
                             ?>
-                            <blockquote class="text-white max-md:max-w-full wp_editor">
+                            <blockquote class="text-white text-left max-md:max-w-full wp_editor">
                                 <?php echo wp_kses_post($styled_quote); ?>
                             </blockquote>
                             <?php endif; ?>
                             <?php if ($author): ?>
-                                <cite class="mt-6 not-italic text-[20px] font-normal leading-[26px] font-secondary text-white max-md:max-w-full">
+                                <cite class="mt-6 not-italic text-[20px] font-normal leading-[26px] font-secondary text-white text-left max-md:max-w-full">
                                     <?php echo esc_html($author); ?>
                                 </cite>
                             <?php endif; ?>
@@ -144,14 +147,14 @@ if ($use_gradient && $background_gradient) {
                         </div>
 
                         <?php if ($profile_image): ?>
-                            <div class="flex-shrink-0 my-auto max-sm:w-full">
+                            <div class="order-2 w-full max-sm:w-full">
                                 <?php echo wp_get_attachment_image(
                                     $profile_image,
                                     'full',
                                     false,
                                     [
                                         'alt' => esc_attr($image_alt),
-                                        'class' => 'max-md:object-contain object-cover rounded-lg w-[362px] h-auto max-sm:w-full max-sm:max-h-[328px]',
+                                        'class' => 'max-md:object-contain object-cover rounded-lg w-[362px] h-auto max-w-full max-sm:w-full max-sm:max-h-[328px]',
                                         'loading' => $index === 0 ? 'eager' : 'lazy'
                                     ]
                                 ); ?>

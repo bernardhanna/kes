@@ -32,6 +32,8 @@ if ($blog_page_id) {
 ?>
 
 <?php
+$blog_sort = function_exists('matrix_starter_get_blog_sort') ? matrix_starter_get_blog_sort() : 'date-desc';
+
 if (function_exists('matrix_starter_render_archive_index_header')) {
     $blog_opts = get_field('blog_settings', 'option') ?: [];
     $show_band = ! array_key_exists('show_blog_index_header', $blog_opts) || ! empty($blog_opts['show_blog_index_header']);
@@ -41,13 +43,21 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
         if ($idx_heading === '') {
             $idx_heading = $blog_page_id ? get_the_title($blog_page_id) : __('Blog', 'matrix-starter');
         }
+
+        $toolbar_html = '';
+        if (is_home()) {
+            ob_start();
+            get_template_part('template-parts/blog/sort-dropdown', null, ['current_sort' => $blog_sort]);
+            $toolbar_html = ob_get_clean();
+        }
+
         matrix_starter_render_archive_index_header([
-            'heading'      => $idx_heading,
-            'heading_tag'  => $blog_opts['blog_index_heading_tag'] ?? 'h2',
-            'intro'        => $blog_opts['blog_index_intro'] ?? '',
-            'bg_color'     => $blog_opts['blog_index_bg'] ?? '#ffffff',
-            'accent_color' => $blog_opts['blog_index_underline'] ?? '#00ACD8',
-            // Main posts index only (not category/date views that also use index.php).
+            'heading'             => $idx_heading,
+            'heading_tag'         => $blog_opts['blog_index_heading_tag'] ?? 'h2',
+            'intro'               => $blog_opts['blog_index_intro'] ?? '',
+            'bg_color'            => $blog_opts['blog_index_bg'] ?? '#ffffff',
+            'accent_color'        => $blog_opts['blog_index_underline'] ?? '#00ACD8',
+            'toolbar_html'        => $toolbar_html,
             'inner_wrapper_class' => is_home()
                 ? 'flex flex-col items-center pt-[5rem] pb-5 mx-auto w-full max-w-container max-xl:px-5'
                 : '',
@@ -56,14 +66,14 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
 }
 ?>
 
-<main class="overflow-hidden w-full min-h-fit site-main">
+<main <?php echo matrix_starter_main_id_attr(); ?> class="overflow-hidden w-full min-h-fit site-main">
   <div class="w-full"
        x-data="blogFilter({
          initialCategory: '<?php echo esc_js($category_slug ?: 'all'); ?>',
        })">
 
     <!-- Filters -->
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1085px] px-8 text-sm leading-none max-xl:px-5">
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container px-8 text-sm leading-none max-xl:px-5">
       <div class="flex flex-wrap gap-6 items-center max-md:max-w-full">
 
         <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php esc_html_e('Filter by', 'matrix-starter'); ?></div>
@@ -131,13 +141,17 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
 
     <!-- Cards grid -->
     <section class="w-full bg-[#F9FAFB] py-8 lg:py-16 min-h-fit" aria-label="<?php esc_attr_e('Blog posts listing', 'matrix-starter'); ?>">
-      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-[1084px] mx-auto bg-[#F9FAFB]">
+      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-container mx-auto bg-[#F9FAFB]">
         <?php
         $args = [
           'post_type'      => 'post',
           'posts_per_page' => 9,
           'paged'          => get_query_var('paged') ?: 1,
         ];
+
+        if (is_home() && function_exists('matrix_starter_apply_blog_sort_to_query_args')) {
+            $args = matrix_starter_apply_blog_sort_to_query_args($args, $blog_sort);
+        }
 
         // Keep server-side scoping if you're on a category/tag/archive landing
         if (is_category()) {
@@ -157,17 +171,10 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
             $post_categories  = get_the_category();
             $post_classes     = array_map(fn($cat) => $cat->slug, $post_categories);
             $post_classes_str = implode(' ', $post_classes);
-
-            // Simple badge label: "Event" if any category matches, else "News"
-            $badge_label = 'News';
-            if (!empty($post_categories)) {
-              foreach ($post_categories as $cat) {
-                if (stripos($cat->slug, 'event') !== false || stripos($cat->name, 'event') !== false) {
-                  $badge_label = 'Event';
-                  break;
-                }
-              }
-            }
+            $badge_categories = function_exists('matrix_starter_get_post_badge_categories')
+                ? matrix_starter_get_post_badge_categories(get_the_ID(), 2)
+                : [];
+            $badge_pill_class = 'flex h-7 min-h-7 max-w-full shrink-0 items-center justify-center rounded-full border border-solid border-[#2B3990] bg-white px-3 font-secondary text-sm font-medium leading-5 text-[#262262] transition-[background-color,border-color,color] duration-300 ease-out group-hover:border-[#00ACD8] group-hover:bg-[#00ACD8] group-hover:text-[#262262]';
 
             $title_attr = get_the_title();
         ?>
@@ -196,12 +203,18 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
                   aria-hidden="true"
                 ></div>
 
-                <div
-                  class="pointer-events-none absolute left-4 top-4 z-10 flex h-7 min-h-7 items-center justify-center rounded-full border border-solid border-[#2B3990] bg-white px-3 font-secondary text-sm font-medium leading-5 text-[#262262] transition-[background-color,border-color,color] duration-300 ease-out group-hover:border-[#00ACD8] group-hover:bg-[#00ACD8] group-hover:text-[#262262]"
-                  aria-hidden="true"
-                >
-                  <span><?php echo esc_html($badge_label); ?></span>
-                </div>
+                <?php if ($badge_categories !== []) : ?>
+                  <div
+                    class="pointer-events-none absolute left-4 top-4 z-10 flex flex-wrap gap-2 max-w-[calc(100%-2rem)]"
+                    aria-hidden="true"
+                  >
+                    <?php foreach ($badge_categories as $badge_cat) : ?>
+                      <div class="<?php echo esc_attr($badge_pill_class); ?>">
+                        <span class="truncate"><?php echo esc_html($badge_cat->name); ?></span>
+                      </div>
+                    <?php endforeach; ?>
+                  </div>
+                <?php endif; ?>
               </div>
 
               <!-- Content -->
@@ -220,7 +233,19 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
       <nav class="flex justify-center items-center py-12 w-full pagination"
            aria-label="Pagination"
            x-show="showPagination">
-        <?php my_custom_pagination(); ?>
+        <?php
+        global $wp_query;
+        $blog_index_query_backup = $wp_query;
+        $wp_query                = $query;
+        if (is_home()) {
+            add_filter('get_pagenum_link', 'matrix_starter_blog_pagenum_link_with_sort', 10, 1);
+        }
+        my_custom_pagination();
+        if (is_home()) {
+            remove_filter('get_pagenum_link', 'matrix_starter_blog_pagenum_link_with_sort', 10);
+        }
+        $wp_query = $blog_index_query_backup;
+        ?>
       </nav>
     </section>
   </div>

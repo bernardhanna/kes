@@ -1,6 +1,8 @@
 <?php
 $content_left = get_sub_field('content_left');
+$content_left = str_ireplace('<p>', '<p style="font-size:16px;">', $content_left);
 $content_right = get_sub_field('content_right');
+$content_right = str_ireplace('<p>', '<p style="font-size:16px;">', $content_right);
 
 $padding_classes = [];
 if (have_rows('padding_settings')) {
@@ -25,10 +27,10 @@ $section_id = 'two-col-wysiwyg-' . uniqid();
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5 <?php echo esc_attr(implode(' ', $padding_classes)); ?>">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container py-10 max-xl:px-5 <?php echo esc_attr(implode(' ', $padding_classes)); ?>">
 
         <!-- Switched this to a 2-column grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 text-lg leading-6 text-slate-800 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 text-lg leading-6 text-slate-800 w-full mx-auto max-w-container">
 
             <?php if (!empty($content_left)): ?>
                 <article class="my-auto text-slate-800 w-full wp_editor">

@@ -25,6 +25,9 @@ if (function_exists('acf_add_local_field_group')) {
         ->setLocation( 'post_type', '!=', 'acf-field-group' ) // show on every real post-type
         ->and(        'post_type', '!=', 'attachment' )      // optional: hide on media edit screen
         ->and(        'post_type', '!=', 'jobs' )            // careers: no hero flexible block
+        ->and(        'post_type', '!=', 'team' )           // team: profile fields only
+        ->and(        'post_type', '!=', 'faqs' )           // faqs: question/answer only
+        ->and(        'post_type', '!=', 'form_entry' )   // form entries: submission metabox only
         ->addFlexibleContent('hero_content_blocks', [
             'label' => 'Hero Blocks',
             'button_label' => 'Add Block',

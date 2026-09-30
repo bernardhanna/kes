@@ -1,7 +1,7 @@
 <?php
 get_header();
 ?>
-<main class="overflow-hidden w-full min-h-screen site-main">
+<main <?php echo matrix_starter_main_id_attr(); ?> class="overflow-hidden w-full min-h-screen site-main">
   <?php
   // Optional hero partial (yours)
   get_template_part('template-parts/single/hero');
@@ -42,12 +42,12 @@ get_header();
       role="article"
       aria-labelledby="article-heading"
     >
-      <div class="mx-auto w-full max-w-[1088px] max-xl:px-5">
+      <div class="mx-auto w-full max-w-container max-xl:px-5">
       <div class="flex flex-col shrink justify-center mt-[2.5rem] w-full max-md:max-w-full">
         <div class="flex flex-col w-full text-primary max-md:max-w-full">
           <?php if ($cat_label) : ?>
             <div
-              class="flex gap-2 items-center self-start px-3 py-1 text-sm font-medium leading-none whitespace-nowrap bg-emerald-100 min-h-7 rounded-[100px]"
+              class="flex gap-2 items-center self-start px-3 py-1 text-sm font-medium leading-none whitespace-nowrap border border-solid border-[#2B3990] min-h-7 rounded-[100px]"
               aria-label="<?php echo esc_attr($cat_label); ?> category"
             >
               <span class="my-auto text-primary"><?php echo esc_html($cat_label); ?></span>
@@ -55,10 +55,10 @@ get_header();
           <?php endif; ?>
 
           <div class="mt-2 w-full text-4xl font-bold tracking-tighter leading-none max-md:max-w-full">
-            <h1 id="article-heading" class="text-primary max-md:max-w-full">
+            <h1 id="article-heading" class="text-primary mt-1 max-md:max-w-full">
               <?php echo esc_html($title); ?>
             </h1>
-            <div class="flex mt-1 w-8 bg-cyan-500 min-h-1" aria-hidden="true"></div>
+            <div class="flex mt-1 mb-2 w-8 bg-cyan-500 min-h-1" aria-hidden="true"></div>
           </div>
 
           <time
@@ -84,13 +84,15 @@ get_header();
       // Main content
       if (trim(get_the_content()) !== '') :
     ?>
-      <div class="mx-auto w-full max-w-[1088px] max-xl:px-5">
-        <?php get_template_part('template-parts/content/content', 'page'); ?>
+      <div class="mx-auto w-full max-w-container max-xl:px-5">
+        <div class="max-w-[745px]">
+          <?php get_template_part('template-parts/content/content', 'page'); ?>
+        </div>
       </div>
     <?php endif; ?>
 
   <?php endwhile; else : ?>
-    <div class="py-12 mx-auto w-full max-w-[1088px] px-5">
+    <div class="py-12 mx-auto w-full max-w-container px-5">
       <p>No content found</p>
     </div>
   <?php endif; ?>

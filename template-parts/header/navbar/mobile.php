@@ -75,10 +75,10 @@ if (!in_array($hamburger_style, $valid_styles)) {
 <?php if ($enable_hamburger): ?>
   <button
     :class="{ 'is-active z-50 bg-transparent hover:bg-transparent flex items-center justify-center ': isOpen }"
-    class="hamburger <?php echo esc_attr($hamburger_style); ?>"
+    class="btn hamburger <?php echo esc_attr($hamburger_style); ?>"
     type="button"
-    aria-label="Menu"
-    aria-expanded="false"
+    aria-label="<?php esc_attr_e('Open menu', 'matrix'); ?>"
+    :aria-expanded="isOpen ? 'true' : 'false'"
     @click="isOpen = !isOpen">
     <span class="hamburger-box">
       <span class="hamburger-inner"></span>
@@ -108,7 +108,7 @@ if (!in_array($hamburger_style, $valid_styles)) {
           $mobile_last_cta   = $mobile_is_last ? 'btn-primary' : '';
           ?>
           <li class="relative mb-4 border-b border-[#CCDEE2] pb-6 <?php echo esc_attr($mobile_li_classes); ?> <?php echo $item->active ? 'current-item' : ''; ?>">
-            <div class="flex justify-between items-center max-lg:justify-center">
+            <div class="flex">
               <!-- Top-Level Link (menu classes + last item CTA pill on <a>) -->
               <a
                 href="<?php echo esc_url($item->url); ?>"
@@ -136,7 +136,7 @@ if (!in_array($hamburger_style, $valid_styles)) {
                 x-show="activeDropdown === <?php echo $index; ?>"
                 x-transition
                 style="display: none;"
-                class="flex flex-col items-start self-stretch gap-8 p-6 px-8  text-lg transition-all duration-300 rounded-lg text-gray-70 bg-[#F9FAFB]">
+                class="flex flex-col gap-8 items-start self-stretch p-6 px-8 pl-0 text-lg rounded-lg transition-all duration-300 text-gray-70">
                 <?php foreach ($item->children as $child) : ?>
                   <li class="text-left">
                     <a href="<?php echo esc_url($child->url); ?>" class="block py-2">

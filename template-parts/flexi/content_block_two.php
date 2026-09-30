@@ -68,19 +68,19 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
     $heading_tag = 'h2';
 }
 
-// At 640px and below: title → image → rest. From sm up: two columns (content left | image right, or reversed).
-$heading_order = 'order-1 sm:order-1 sm:col-start-1 sm:row-start-1';
-$img_order     = 'order-2 sm:order-2 sm:col-start-2 sm:row-start-1 sm:row-span-2';
-$rest_order    = 'order-3 sm:col-start-1 sm:row-start-2';
+// Below lg (1100px): title → image → rest, full width. The 502px image column does not fit beside the copy from 640px.
+$heading_order = 'order-1 lg:order-1 lg:col-start-1 lg:row-start-1';
+$img_order     = 'order-2 lg:order-2 lg:col-start-2 lg:row-start-1 lg:row-span-2';
+$rest_order    = 'order-3 lg:col-start-1 lg:row-start-2';
 if ($reverse_layout) {
-    $heading_order = 'order-1 sm:order-2 sm:col-start-2 sm:row-start-1';
-    $img_order     = 'order-2 sm:order-1 sm:col-start-1 sm:row-start-1 sm:row-span-2';
-    $rest_order    = 'order-3 sm:col-start-2 sm:row-start-2';
+    $heading_order = 'order-1 lg:order-2 lg:col-start-2 lg:row-start-1';
+    $img_order     = 'order-2 lg:order-1 lg:col-start-1 lg:row-start-1 lg:row-span-2';
+    $rest_order    = 'order-3 lg:col-start-2 lg:row-start-2';
 }
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative bg-white">
-  <div class="flex flex-col items-center w-full mx-auto max-w-container xl:py-[5rem] pt-5 pb-5 max-xl:px-5 <?php echo $padding_classes_str; ?> xxl:left-[5rem] relative">
-    <div class="grid grid-cols-1 gap-x-8 items-start w-full sm:grid-cols-[42%_58%]">
+  <div class="flex flex-col items-center w-full mx-auto max-w-container xl:py-[5rem] pt-5 pb-5 max-xl:px-5 <?php echo $padding_classes_str; ?> relative">
+    <div class="grid grid-cols-1 gap-x-8 items-start w-full mx-auto max-w-container lg:grid-cols-[minmax(0,1fr)_502px]">
 
         <!-- Heading (first on mobile, column 1 row 1 on desktop; column 2 row 1 when reversed) -->
         <header class="flex flex-col gap-1 <?php echo esc_attr($heading_order); ?>">
@@ -97,7 +97,7 @@ if ($reverse_layout) {
               src="<?php echo $img_url; ?>"
               alt="<?php echo $img_alt; ?>"
               title="<?php echo $img_title; ?>"
-              class="object-cover w-full h-auto rounded-none max-w-[502px] max-h-[340px] max-sm:w-full sm:max-w-[502px] sm:max-h-[340px]" />
+              class="object-cover w-full h-auto rounded-none max-h-[340px] lg:max-w-[502px]" />
           <?php endif; ?>
         </figure>
 

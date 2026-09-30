@@ -1,7 +1,7 @@
 <?php
 get_header();
 ?>
-<main class="overflow-hidden w-full site-main">
+<main <?php echo matrix_starter_main_id_attr(); ?> class="overflow-hidden w-full site-main">
     <?php load_hero_templates(); ?>
 
     <?php

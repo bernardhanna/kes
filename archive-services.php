@@ -2,6 +2,12 @@
 /** Archive template for Services */
 get_header();
 
+$breadcrumbs_settings = get_field('breadcrumbs_settings', 'option');
+$enable_breadcrumbs   = ! empty($breadcrumbs_settings['enable_breadcrumbs']);
+if ($enable_breadcrumbs) {
+    get_template_part('template-parts/header/breadcrumbs');
+}
+
 // THEME OPTIONS
 $settings = get_field('services_settings', 'option') ?: [];
 
@@ -33,18 +39,19 @@ if (!empty($settings['padding_settings']) && is_array($settings['padding_setting
 
 $active_slug = 'all';
 ?>
-<main class="w-full overflow-hidden min-h-fit site-main">
+<main <?php echo matrix_starter_main_id_attr(); ?> class="w-full overflow-hidden min-h-fit site-main">
 
   <?php
   if (function_exists('matrix_starter_render_archive_index_header')) {
       matrix_starter_render_archive_index_header([
-          'heading'        => $heading,
-          'heading_tag'    => $heading_tag,
-          'intro'          => $content,
-          'bg_color'       => $background_color,
-          'accent_color'   => $divider_color,
-          'bg_image_url'   => $hero_bg ? $hero_bg['url'] : '',
-          'section_class'  => implode(' ', $padding_classes),
+          'heading'               => $heading,
+          'heading_tag'           => $heading_tag,
+          'intro'                 => $content,
+          'bg_color'              => $background_color,
+          'accent_color'          => $divider_color,
+          'bg_image_url'          => $hero_bg ? $hero_bg['url'] : '',
+          'section_class'         => implode(' ', $padding_classes),
+          'inner_wrapper_class'   => 'flex flex-col items-center pt-5 pb-5 mx-auto w-full max-w-container max-xl:px-5',
       ]);
   }
   ?>
@@ -61,7 +68,7 @@ $active_slug = 'all';
        }">
 
     <!-- Filter row -->
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-[1085px]  px-8text-sm leading-none max-xl:px-5">
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container  px-8text-sm leading-none max-xl:px-5">
       <div class="flex flex-wrap items-center gap-6">
         <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php echo esc_html($filter_title); ?></div>
 
@@ -109,7 +116,7 @@ $active_slug = 'all';
              :id="'panel-' + activeCategory"
              role="tabpanel"
              :aria-labelledby="'tab-' + activeCategory">
-      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-[1084px] mx-auto bg-[#F9FAFB]">
+      <div class="grid gap-x-16 gap-y-8 lg:gap-y-12 xl:gap-y-20 px-8 max-sm:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full max-w-container mx-auto bg-[#F9FAFB]">
         <?php
         $args = [
           'post_type'      => 'services',

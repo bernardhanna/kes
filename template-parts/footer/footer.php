@@ -107,23 +107,19 @@ if (!empty($footer_links) && is_array($footer_links)) {
                 $icon  = $row['icon_image'] ?? null;
                 if (!$url || !$icon) continue;
 
-                $icon_url   = $icon['url']   ?? '';
+                $icon_url   = matrix_starter_resolve_social_icon_url($label, $icon['url'] ?? '');
                 $icon_alt   = $icon['alt']   ?? $label;
                 $icon_title = $icon['title'] ?? $label;
             ?>
               <li>
                 <a href="<?php echo esc_url($url); ?>"
-                   class="block w-9 h-9 underline cursor-pointer focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-text-primary-light hover:non-underline hover:opacity-50"
+                   class="footer-social-link"
+                   style="--footer-social-icon: url('<?php echo esc_url($icon_url); ?>');"
                    aria-label="<?php echo esc_attr(sprintf(__('Follow us on %s', 'matrix'), $label)); ?>"
-                   target="_blank" rel="noopener noreferrer">
-                  <?php if ($icon_url): ?>
-                    <img
-                      src="<?php echo esc_url($icon_url); ?>"
-                      alt="<?php echo esc_attr($icon_alt); ?>"
-                      title="<?php echo esc_attr($icon_title); ?>"
-                      class="object-contain w-9 h-9"
-                    />
-                  <?php endif; ?>
+                   title="<?php echo esc_attr($icon_title); ?>"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                  <span class="sr-only"><?php echo esc_html($label); ?></span>
                 </a>
               </li>
             <?php endforeach; ?>

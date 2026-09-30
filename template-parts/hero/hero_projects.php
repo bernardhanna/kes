@@ -66,7 +66,7 @@ $mobile_overlay_style = 'linear-gradient(1deg, rgba(38, 34, 98, 0.90) 20.85%, rg
         aria-hidden="true"
     ></div>
 
-    <div class="w-full max-w-[1084px] mx-auto h-full flex flex-col justify-center max-md:px-5 max-sm:justify-end max-sm:pb-5">
+    <div class="w-full max-w-container mx-auto h-full flex flex-col justify-center max-md:px-5 max-sm:justify-end max-sm:pb-5">
 
             <?php if (!empty($heading)): ?>
                 <div class="relative self-stretch">

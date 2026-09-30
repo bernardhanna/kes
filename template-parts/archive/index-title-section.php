@@ -1,7 +1,7 @@
 <?php
 /**
  * Index/archive title band markup.
- * Variables: $section_id, $tag, $heading, $intro, $bg_color, $accent, $aria_labelledby, $inner_wrapper_class
+ * Variables: $section_id, $tag, $heading, $intro, $bg_color, $accent, $aria_labelledby, $inner_wrapper_class, $toolbar_html
  *
  * @package matrix-starter
  */
@@ -15,7 +15,9 @@ if (! empty($bg_image_url)) {
     $style .= 'background-image:url(' . esc_url($bg_image_url) . ');background-size:cover;background-position:center;';
 }
 
-$section_classes = trim('relative flex overflow-hidden ' . ($section_class ?? ''));
+$toolbar_html    = $toolbar_html ?? '';
+$overflow_class  = $toolbar_html !== '' ? 'overflow-visible' : 'overflow-hidden';
+$section_classes = trim('relative flex ' . $overflow_class . ' ' . ($section_class ?? ''));
 ?>
 <section
     id="<?php echo esc_attr($section_id); ?>"
@@ -29,8 +31,8 @@ $section_classes = trim('relative flex overflow-hidden ' . ($section_class ?? ''
     <?php endif; ?>
 >
     <div class="<?php echo esc_attr($inner_wrapper_class ?? ''); ?>">
-        <div class="flex overflow-hidden justify-between items-center self-stretch px-24 pb-5 max-md:px-5">
-            <div class="flex flex-col flex-1 justify-center self-stretch my-auto w-full shrink basis-0 min-w-60 max-md:max-w-full">
+        <div class="flex flex-col gap-6 justify-between items-stretch self-stretch py-8 w-full max-w-container mx-auto max-xl:px-5 sm:flex-row sm:items-end">
+            <div class="flex flex-col flex-1 justify-center min-w-0 max-w-[542px]">
                 <?php if ($heading !== '') : ?>
                     <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">
                         <<?php echo esc_attr($tag); ?> id="<?php echo esc_attr($section_id); ?>-heading" class="text-primary max-md:max-w-full">
@@ -41,11 +43,17 @@ $section_classes = trim('relative flex overflow-hidden ' . ($section_class ?? ''
                 <?php endif; ?>
 
                 <?php if ($intro !== '') : ?>
-                    <div class="<?php echo esc_attr($heading !== '' ? 'mt-6 ' : ''); ?>text-lg leading-none text-slate-700 max-md:max-w-full wp_editor">
+                    <div class="<?php echo esc_attr($heading !== '' ? 'mt-6 ' : ''); ?>text-lg leading-6 text-[#1D2939] max-md:max-w-full wp_editor">
                         <?php echo wp_kses_post($intro); ?>
                     </div>
                 <?php endif; ?>
             </div>
+
+            <?php if (! empty($toolbar_html)) : ?>
+                <div class="relative z-30 shrink-0 w-full overflow-visible sm:w-auto">
+                    <?php echo $toolbar_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </section>

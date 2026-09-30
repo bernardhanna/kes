@@ -46,18 +46,19 @@ if (!$show_section) {
 
 $section_id = 'cta-' . uniqid();
 
-// Button class builder
-$btn_classes = 'btn w-full lg:w-fit text-white px-6 py-3 lg:py-4 font-red-hat-text font-medium text-lg whitespace-nowrap transition-opacity ' . esc_attr($btn_radius);
+// Button class builder (gradient matches theme primary CTAs: contact form, btn-primary).
+$btn_base = 'btn inline-flex justify-center items-center gap-2 px-6 py-3.5 min-h-[52px] w-full lg:w-fit whitespace-nowrap font-red-hat-text text-[18px] font-medium leading-[24px] transition-[background,background-image,color] duration-300 focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-[#00ACD8] focus-visible:outline-offset-2 ' . esc_attr($btn_radius);
+
 switch ($btn_style) {
   case 'solid-primary':
-    $btn_classes .= ' bg-primary hover:opacity-90';
+    $btn_classes = $btn_base . ' bg-[#262262] text-white hover:bg-[#006EC8] active:bg-[#262262]';
     break;
   case 'outline':
-    $btn_classes .= ' border border-current text-blue-600 hover:opacity-90';
+    $btn_classes = $btn_base . ' border border-solid border-[#2B3990] bg-white text-[#262262] hover:bg-[#CBE9E1] active:bg-[#00ACD8] active:text-white';
     break;
   case 'gradient-blue':
   default:
-    $btn_classes .= ' bg-gradient-to-r from-blue-600 to-blue-400 hover:opacity-90';
+    $btn_classes = $btn_base . ' text-white bg-gradient-to-r from-[#2B3990] to-[#006EC8] hover:from-[#006EC8] hover:to-[#2B3990] active:bg-[#262262] active:from-transparent active:to-transparent';
     break;
 }
 
@@ -79,10 +80,10 @@ if (is_array($button_link) && !empty($button_link['url'])) {
   class="relative flex overflow-hidden w-full <?php echo esc_attr($bg_color); ?>"
 >
   <div class="flex flex-col items-center w-full mx-auto max-w-container py-24 max-xl:px-5<?php echo $padding_classes_str; ?>">
-    <div id="div-content" class="w-full flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12 px-0 lg:px-12">
+    <div id="div-content" class="flex flex-col gap-8 justify-between items-center px-0 w-full lg:flex-row lg:gap-12">
 
       <!-- Left: Text -->
-      <article class="flex flex-col gap-6 flex-1 w-full">
+      <article class="flex flex-col flex-1 gap-6 w-full">
         <div class="flex flex-col gap-4">
           <?php if (!empty($heading_text)): ?>
             <<?php echo esc_attr($heading_tag); ?> class="font-red-hat-display text-3xl lg:text-4xl font-bold leading-tight <?php echo esc_attr($heading_color); ?>">

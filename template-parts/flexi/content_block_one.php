@@ -78,23 +78,15 @@ $section_bg_class   = 'bg-white';
 $heading_color      = 'text-primary';
 $body_text_color    = 'text-gray-800';
 $accent_bar_class   = 'bg-blue-bright';
-$container_max_width_class = 'max-w-[1088px]';
+$container_max_width_class = 'max-w-container';
 $container_width_mode_normalized = strtolower(trim($container_width_mode));
 
-if (in_array($container_width_mode_normalized, ['1088', '1088px', 'default'], true)) {
-    $container_max_width_class = 'max-w-[1088px]';
-} elseif (in_array($container_width_mode_normalized, ['1048', '1048px', '148xpx'], true)) {
-    $container_max_width_class = 'max-w-[1048px]';
-} elseif (in_array($container_width_mode_normalized, ['1180', '1180px'], true)) {
-    $container_max_width_class = 'max-w-[1180px]';
-} elseif ($container_width_mode_normalized === 'theme') {
-    $container_max_width_class = is_singular('projects') ? 'max-w-[1100px]' : 'max-w-[1200px]';
-} elseif ($container_width_mode_normalized === 'none') {
+if ($container_width_mode_normalized === 'none') {
     $container_max_width_class = 'max-w-none';
 }
 $description_width_class = $description_full_width ? 'max-w-full' : 'max-w-[400px]';
 $content_alignment_class = $center_text_vertically ? 'items-center' : 'items-start';
-$rest_top_padding_class = $center_text_vertically ? 'pt-0 sm:pt-3' : 'pt-5';
+$rest_top_padding_class = $center_text_vertically ? 'pt-0 sm:pt-3' : 'pt-10 sm:pt-5';
 $heading_max_width_style = '';
 if ($limit_heading_width) {
     $heading_max_width_px = $heading_max_width_px > 0 ? $heading_max_width_px : 554;
@@ -117,24 +109,24 @@ if ($center_text_vertically) {
 }
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="relative flex overflow-hidden <?php echo esc_attr($section_bg_class); ?>">
-  <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($container_max_width_class); ?> pt-5 pb-5 max-xl:px-5<?php echo $padding_classes_str; ?> relative<?php echo $enable_left_offset ? ' xl:left-[2.5rem]' : ''; ?>">
+  <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($container_max_width_class); ?> pt-3 pb-3 sm:pt-5 sm:pb-5 max-xl:px-5<?php echo $padding_classes_str; ?> relative">
 
-      <div class="w-full xl:pt-[3.8rem] xl:pb-[4rem] relative<?php echo $enable_left_offset ? ' xxl:left-[5.2rem]' : ''; ?> py-[2.5rem] grid grid-cols-1 sm:grid-cols-2 gap-8 lg:gap-12 <?php echo esc_attr($content_alignment_class); ?> <?php echo esc_attr($body_text_color); ?>">
+      <div class="w-full mx-auto max-w-container xl:pt-[3.8rem] xl:pb-[4rem] relative py-6 sm:py-[2.5rem] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 sm:gap-8 lg:gap-12 <?php echo esc_attr($content_alignment_class); ?>">
 
         <!-- Heading + Accent (first on mobile, then column 2 row 1 on desktop) -->
-        <div class="w-full <?php echo esc_attr($heading_order); ?>">
+        <div class="flex flex-col w-full <?php echo esc_attr($heading_order); ?>">
           <?php if (!empty($heading)): ?>
-            <<?php echo esc_attr($heading_tag); ?> class="text-primary font-primary text-[30px] font-bold leading-[38px]"<?php echo $heading_max_width_style !== '' ? ' style="' . esc_attr($heading_max_width_style) . '"' : ''; ?>>
+            <<?php echo esc_attr($heading_tag); ?> class="font-primary text-[30px] font-bold leading-[38px] text-[#262262]"<?php echo $heading_max_width_style !== '' ? ' style="' . esc_attr($heading_max_width_style) . '"' : ''; ?>>
               <?php echo esc_html($heading); ?>
             </<?php echo esc_attr($heading_tag); ?>>
           <?php endif; ?>
-          <div class="w-8 h-1 bg-[#00ACD8] rounded"></div>
+          <div class="w-8 h-1 bg-[#00ACD8] rounded mb-4 sm:mb-0"></div>
 
           <?php if ($center_text_vertically): ?>
             <!-- Desktop-centered text stack -->
             <div class="hidden sm:flex flex-col gap-6 w-full <?php echo esc_attr($rest_top_padding_class); ?>">
               <?php if (!empty($description)): ?>
-                <div class="wp_editor font-secondary text-[#1D2939] text-base font-normal leading-5 <?php echo esc_attr($description_width_class); ?> [&>p]:mb-4 [&>p:last-child]:mb-0">
+                <div class="wp_editor font-secondary text-[18px] font-normal leading-6 text-[#1D2939] <?php echo esc_attr($description_width_class); ?> [&>p]:mb-4 [&>p:last-child]:mb-0">
                   <?php echo wp_kses_post($description); ?>
                 </div>
               <?php endif; ?>
@@ -145,11 +137,11 @@ if ($center_text_vertically) {
                     <?php $btxt = isset($item['text']) ? trim($item['text']) : ''; ?>
                     <?php if ($btxt !== ''): ?>
                       <div class="flex gap-4 items-start">
-                        <svg class="w-5 h-5 flex-shrink-0 mt-1 <?php echo esc_attr($body_text_color); ?>" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                        <svg class="w-5 h-5 flex-shrink-0 mt-1 text-[#1D2939]" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                           <path d="M4.16675 10H15.8334" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M10 4.16663L15.8333 9.99996L10 15.8333" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
-                        <p class="font-secondary font-normal text-base leading-relaxed <?php echo esc_attr($body_text_color); ?>">
+                        <p class="font-secondary text-[18px] font-normal leading-6 text-[#1D2939]">
                           <?php echo esc_html($btxt); ?>
                         </p>
                       </div>
@@ -173,13 +165,16 @@ if ($center_text_vertically) {
 
         <!-- Description + Benefits + CTA (third on mobile, column 2 row 2 on desktop) -->
         <div class="flex flex-col gap-6 w-full <?php echo esc_attr($rest_top_padding_class); ?> <?php echo esc_attr($rest_order); ?><?php echo $center_text_vertically ? ' sm:hidden' : ''; ?>">
+              <?php if ($img_url): ?>
               <img
                 src="<?php echo $img_url; ?>"
                 alt="<?php echo $img_alt; ?>"
                 title="<?php echo $img_title; ?>"
-                class="object-contain w-full h-full rounded-lg max-sm:flex sm:hidden" />
+                loading="lazy"
+                class="object-cover w-full max-sm:block sm:hidden rounded-[10px]" />
+              <?php endif; ?>
           <?php if (!empty($description)): ?>
-            <div class="wp_editor font-secondary text-[#1D2939] text-base font-normal leading-5 <?php echo esc_attr($description_width_class); ?> [&>p]:mb-4 [&>p:last-child]:mb-0">
+            <div class="wp_editor font-secondary text-[18px] font-normal leading-6 text-[#1D2939] <?php echo esc_attr($description_width_class); ?> [&>p]:mb-4 [&>p:last-child]:mb-0">
               <?php echo wp_kses_post($description); ?>
             </div>
           <?php endif; ?>
@@ -190,11 +185,11 @@ if ($center_text_vertically) {
                 <?php $btxt = isset($item['text']) ? trim($item['text']) : ''; ?>
                 <?php if ($btxt !== ''): ?>
                   <div class="flex gap-4 items-start">
-                    <svg class="w-5 h-5 flex-shrink-0 mt-1 <?php echo esc_attr($body_text_color); ?>" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                    <svg class="w-5 h-5 flex-shrink-0 mt-1 text-[#1D2939]" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
                       <path d="M4.16675 10H15.8334" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                       <path d="M10 4.16663L15.8333 9.99996L10 15.8333" stroke="currentColor" stroke-width="1.66667" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
-                    <p class="font-secondary font-normal text-base leading-relaxed <?php echo esc_attr($body_text_color); ?>">
+                    <p class="font-secondary text-[18px] font-normal leading-6 text-[#1D2939]">
                       <?php echo esc_html($btxt); ?>
                     </p>
                   </div>
@@ -217,8 +212,8 @@ if ($center_text_vertically) {
         </div>
         </div>
 
-        <!-- Image (second on mobile, column 1 full height on desktop) -->
-        <div class="w-full <?php echo esc_attr($img_order); ?>">
+        <!-- Image (desktop only — mobile image is in the rest column) -->
+        <div class="hidden w-full sm:block <?php echo esc_attr($img_order); ?>">
           <div class="relative w-full overflow-hidden <?php echo esc_attr($image_radius_class); ?>">
             <?php if ($img_url): ?>
               <img

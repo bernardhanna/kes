@@ -11,12 +11,67 @@ $services_grid = new FieldsBuilder('services_grid', [
 $services_grid
     ->addTab('Content', ['label' => 'Content'])
 
+        ->addSelect('services_source', [
+            'label'         => 'How services are chosen',
+            'instructions'  => 'All services pulls every published service post; the card description uses each post excerpt. Manual uses only the items you add below.',
+            'choices'       => [
+                'all'    => 'All services — from CPT',
+                'manual' => 'Manual — repeater below',
+            ],
+            'default_value' => 'all',
+        ])
+        ->addSelect('all_orderby', [
+            'label'         => 'Order by',
+            'choices'       => [
+                'menu_order' => 'Menu order',
+                'title'      => 'Title',
+                'date'       => 'Date published',
+            ],
+            'default_value' => 'menu_order',
+            'conditional_logic' => [[[
+                'field'    => 'services_source',
+                'operator' => '==',
+                'value'    => 'all',
+            ]]],
+        ])
+        ->addSelect('all_order', [
+            'label'         => 'Sort direction',
+            'choices'       => [
+                'ASC'  => 'Ascending',
+                'DESC' => 'Descending',
+            ],
+            'default_value' => 'ASC',
+            'conditional_logic' => [[[
+                'field'    => 'services_source',
+                'operator' => '==',
+                'value'    => 'all',
+            ]]],
+        ])
+        ->addSelect('all_card_width', [
+            'label'         => 'Card width (all services)',
+            'instructions'  => 'On md+ screens: half-width (two columns) or full-width (one per row).',
+            'choices'       => [
+                'full' => 'Full (span both columns)',
+                'half' => 'Half (1/2 column)',
+            ],
+            'default_value' => 'full',
+            'conditional_logic' => [[[
+                'field'    => 'services_source',
+                'operator' => '==',
+                'value'    => 'all',
+            ]]],
+        ])
         ->addRepeater('services', [
             'label'         => 'Services',
             'instructions'  => 'Add service items. Each item renders as a card. You can make an item span both columns.',
             'button_label'  => 'Add Service',
             'layout'        => 'block',
             'min'           => 0,
+            'conditional_logic' => [[[
+                'field'    => 'services_source',
+                'operator' => '==',
+                'value'    => 'manual',
+            ]]],
         ])
             ->addImage('image', [
                 'label'         => 'Service Image',
@@ -62,7 +117,7 @@ $services_grid
             ->addColorPicker('underline_color', [
                 'label'         => 'Title Underline Color',
                 'instructions'  => 'Color for the small underline beneath the title.',
-                'default_value' => '#06b6d4',
+                'default_value' => '#00ACD8',
             ])
             ->addSelect('width', [
                 'label'         => 'Item Width',

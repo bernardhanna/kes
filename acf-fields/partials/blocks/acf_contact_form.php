@@ -54,13 +54,18 @@ $contact_form
                 'label' => 'Email Address',
                 'default_value' => 'info@Kes.ie'
             ])
-            ->addWysiwyg('business_hours', [
-                'label' => 'Business Hours',
-                'wrapper' => ['class' => 'wp_editor'],
-                'media_upload' => 0,
-                'tabs' => 'visual',
-                'default_value' => '<p>Mon - Fri: 09:00 - 20:00<br>Sat - Sun: 10:00 - 17:00<br>Bank Holidays: 10:00 – 16:00</p>'
+            ->addRepeater('business_hours_lines', [
+                'label' => 'Opening hours',
+                'instructions' => 'One row per line (e.g. Mon – Fri: 09:00 – 20:00).',
+                'button_label' => 'Add hours line',
+                'layout' => 'table',
+                'min' => 0,
             ])
+                ->addText('line', [
+                    'label' => 'Hours line',
+                    'placeholder' => 'Mon – Fri: 09:00 – 20:00',
+                ])
+            ->endRepeater()
             ->addTrueFalse('show_map', [
                 'label' => 'Show Map?',
                 'ui' => 1,
