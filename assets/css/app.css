@@ -2373,31 +2373,65 @@ blockquote.right {
 }
 
 .hero-slider-section .slick-dots-container {
-  @apply flex relative z-10 gap-2 justify-center items-center;
+  display: flex;
+  position: relative;
+  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0; /* Figma py-[16px] */
+  background-color: #ffffff;
 }
 
 .hero-slider-section .slick-dots-container .slick-dots {
-  @apply flex gap-2 justify-center items-center mt-0;
+  display: flex !important;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 9px; /* Figma gap-[9px] */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: static;
+  bottom: auto;
+  width: auto;
+  height: auto;
 }
 
 .hero-slider-section .slick-dots-container .slick-dots li {
-  @apply m-0;
+  margin: 0;
+  padding: 0;
+  width: 32px;
+  height: 4px;
+  list-style: none;
 }
 
 .hero-slider-section .slick-dots-container .slick-dots li button {
-  width: 32px;
-  height: 4px;
-  padding: 0;
+  display: block;
+  width: 32px !important;
+  height: 4px !important;
+  min-width: 32px;
+  min-height: 4px;
+  padding: 0 !important;
   border: none;
-  border-radius: 0;
-  background-color: theme("colors.teal-light");
+  border-radius: 0 !important;
+  background-color: #CBE9E1 !important; /* inactive */
   text-indent: -9999px;
+  font-size: 0;
+  line-height: 0;
   overflow: hidden;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+.hero-slider-section .slick-dots-container .slick-dots li button:before,
+.hero-slider-section .slick-dots-container .slick-dots li button:after {
+  display: none !important;
+  content: none !important;
+}
+
 .hero-slider-section .slick-dots-container .slick-dots li.slick-active button {
-  background-color: theme("colors.blue-dark");
+  background-color: #2B3990 !important; /* active */
 }
 
 /* Hero map slide: blue style (blue land/water tint) */

@@ -5103,6 +5103,10 @@ select {
   padding-left: 9rem;
   padding-right: 9rem;
 }
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 .py-0\.5 {
   padding-top: 0.125rem;
   padding-bottom: 0.125rem;
@@ -8855,12 +8859,6 @@ select {
     padding-right: 1.25rem;
   }
 }
-@media not all and (min-width: 1280px) {
-  .max-xl\:px-5 {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
-  }
-}
 @media (max-width: 1277px) {
   .max-\[1277px\]\:hidden {
     display: none;
@@ -8876,10 +8874,6 @@ select {
   .max-lg\:px-2 {
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-  }
-  .max-lg\:px-5 {
-    padding-left: 1.25rem;
-    padding-right: 1.25rem;
   }
 }
 @media not all and (min-width: 768px) {
@@ -9195,17 +9189,8 @@ select {
   .max-sm\:pb-8 {
     padding-bottom: 2rem;
   }
-  .max-sm\:pl-5 {
-    padding-left: 1.25rem;
-  }
   .max-sm\:pl-6 {
     padding-left: 1.5rem;
-  }
-  .max-sm\:pr-0 {
-    padding-right: 0px;
-  }
-  .max-sm\:pr-5 {
-    padding-right: 1.25rem;
   }
   .max-sm\:pt-0 {
     padding-top: 0px;
@@ -19919,13 +19904,13 @@ select {
     padding-left: 9rem;
     padding-right: 9rem;
   }
-  .md\:py-14 {
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
-  }
   .md\:py-4 {
     padding-top: 1rem;
     padding-bottom: 1rem;
+  }
+  .md\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
   .md\:py-\[100rem\] {
     padding-top: 100rem;
@@ -20330,6 +20315,9 @@ select {
   .md\:py-\[9rem\] {
     padding-top: 9rem;
     padding-bottom: 9rem;
+  }
+  .md\:pb-8 {
+    padding-bottom: 2rem;
   }
   .md\:pb-\[100rem\] {
     padding-bottom: 100rem;
@@ -21239,6 +21227,9 @@ select {
   }
   .md\:pr-\[9rem\] {
     padding-right: 9rem;
+  }
+  .md\:pt-16 {
+    padding-top: 4rem;
   }
   .md\:pt-\[100rem\] {
     padding-top: 100rem;
@@ -25921,18 +25912,8 @@ select {
   }
 }
 @media (min-width: 1152px) {
-  .navbar\:px-0 {
-    padding-left: 0px;
-    padding-right: 0px;
-  }
-  .navbar\:pl-0 {
-    padding-left: 0px;
-  }
   .navbar\:pr-0 {
     padding-right: 0px;
-  }
-  .navbar\:pr-5 {
-    padding-right: 1.25rem;
   }
 }
 @media (min-width: 1277px) {
@@ -29206,9 +29187,6 @@ select {
   }
   .xxl\:left-\[1\.2rem\] {
     left: 1.2rem;
-  }
-  .xxl\:right-\[2rem\] {
-    right: 2rem;
   }
   .xxl\:top-2 {
     top: 0.5rem;
@@ -37592,40 +37570,65 @@ blockquote.right {
 }
 
 .hero-slider-section .slick-dots-container {
+  display: flex;
   position: relative;
   z-index: 10;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  align-items: center;
+  width: 100%;
+  padding: 16px 0; /* Figma py-[16px] */
+  background-color: #ffffff;
 }
 
 .hero-slider-section .slick-dots-container .slick-dots {
-  margin-top: 0px;
-  display: flex;
+  display: flex !important;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 9px; /* Figma gap-[9px] */
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: static;
+  bottom: auto;
+  width: auto;
+  height: auto;
 }
 
 .hero-slider-section .slick-dots-container .slick-dots li {
-  margin: 0px;
+  margin: 0;
+  padding: 0;
+  width: 32px;
+  height: 4px;
+  list-style: none;
 }
 
 .hero-slider-section .slick-dots-container .slick-dots li button {
-  width: 32px;
-  height: 4px;
-  padding: 0;
+  display: block;
+  width: 32px !important;
+  height: 4px !important;
+  min-width: 32px;
+  min-height: 4px;
+  padding: 0 !important;
   border: none;
-  border-radius: 0;
-  background-color: #CBE9E1;
+  border-radius: 0 !important;
+  background-color: #CBE9E1 !important; /* inactive */
   text-indent: -9999px;
+  font-size: 0;
+  line-height: 0;
   overflow: hidden;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
+.hero-slider-section .slick-dots-container .slick-dots li button:before,
+.hero-slider-section .slick-dots-container .slick-dots li button:after {
+  display: none !important;
+  content: none !important;
+}
+
 .hero-slider-section .slick-dots-container .slick-dots li.slick-active button {
-  background-color: #2B3990;
+  background-color: #2B3990 !important; /* active */
 }
 
 /* Hero map slide: blue style (blue land/water tint) */

@@ -13,7 +13,6 @@
 // Collect fields
 $slides         = get_sub_field('slides');
 $text_color     = get_sub_field('text_color') ?: 'text-white';
-$show_dots      = (bool) get_sub_field('show_dots');
 $show_gradient  = null; // per slide
 $overlay_from   = get_sub_field('overlay_from') ?: 'from-blue-dark/90';
 $overlay_via    = get_sub_field('overlay_via') ?: 'via-blue-dark/50';
@@ -98,8 +97,9 @@ foreach ($slides as $s) {
     }
 }
 
-// Determine if we need slick
+// Determine if we need slick — Figma bar indicators always show for multi-slide heroes
 $use_slider = count($slides) > 1;
+$show_dots  = $use_slider;
 
 // Arrow HTML (Slick prev/next)
 $prev_img_html = '';
@@ -124,7 +124,7 @@ $prev_arrow_markup = '<button type="button" class="btn absolute left-4 top-1/2 z
 $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 z-20 -translate-y-1/2 slick-next" aria-label="' . esc_attr__('Next slide', 'matrix-starter') . '">' . ($next_img_html ?: '&#10095;') . '</button>';
 ?>
 
-<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative hero-slider-section">
+<section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex relative hero-slider-section">
   <div class="flex flex-col mt-[6rem] items-center w-full <?php echo $padding_classes_str ? esc_attr(' '.$padding_classes_str) : ''; ?>">
 
     <!-- Fixed height container (533px so slider height stays consistent) -->
@@ -355,7 +355,7 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
     </div>
 
     <?php if ($use_slider && $show_dots): ?>
-      <div class="flex relative z-10 justify-center pb-3 mt-2 mb-2 w-full bg-white slick-dots-container" aria-hidden="true"></div>
+      <div class="flex relative z-10 justify-center items-center w-full bg-white slick-dots-container" role="tablist" aria-label="<?php echo esc_attr__('Slide indicators', 'matrix-starter'); ?>"></div>
     <?php endif; ?>
   </div>
 </section>
@@ -394,10 +394,15 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
         updateHeroSlideA11y($el);
       });
 
+      var $dotsHost = $wrap.find('.slick-dots-container');
+
       $el.slick({
         arrows: true,
-        dots: <?php echo $show_dots ? 'true' : 'false'; ?>,
-        appendDots: $wrap.find('.slick-dots-container'),
+        dots: $dotsHost.length > 0,
+        appendDots: $dotsHost,
+        customPaging: function () {
+          return '<button type="button"><span class="sr-only"><?php echo esc_js(__('Go to slide', 'matrix-starter')); ?></span></button>';
+        },
         prevArrow: '<?php echo wp_kses_post($prev_arrow_markup); ?>',
         nextArrow: '<?php echo wp_kses_post($next_arrow_markup); ?>',
         adaptiveHeight: false,
