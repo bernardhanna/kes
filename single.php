@@ -81,8 +81,8 @@ get_header();
     <?php endif; ?>
 
     <?php
-      // Main content
-      if (trim(get_the_content()) !== '') :
+      // Projects use ACF flexi only — skip empty Gutenberg leftovers (&nbsp; paragraphs).
+      if (! is_singular('projects') && trim(get_the_content()) !== '') :
     ?>
       <div class="mx-auto w-full max-w-container px-5">
         <div class="max-w-[745px]">
