@@ -33,7 +33,7 @@ $section_id = 'services-grid-' . wp_generate_uuid4();
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="flex flex-col items-center w-full mx-auto py-12 lg:py-24 max-w-container <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-xl:px-5">
+    <div class="flex flex-col items-center w-full mx-auto py-10 lg:py-20 max-w-container <?php echo esc_attr(implode(' ', $padding_classes)); ?> max-xl:px-5">
 
         <?php if (! empty($services_items)) : ?>
             <div class="grid grid-cols-1 gap-8 w-full md:grid-cols-2">

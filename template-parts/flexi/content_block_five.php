@@ -52,8 +52,8 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
     role="region"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-    <div class="mx-auto w-full max-w-container px-5 py-[2.5rem] lg:py-20">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_502px] gap-8 lg:gap-12 items-start mx-auto w-full max-w-container">
+    <div class="mx-auto w-full max-w-container px-5 py-10 lg:py-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,560px)] gap-8 lg:gap-12 items-center mx-auto w-full max-w-container">
 
             <!-- Content Column -->
             <div class="<?php echo esc_attr($content_order_class); ?> min-w-0">
@@ -88,12 +88,12 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
                     <div class="mt-6">
                         <a
                             href="<?php echo esc_url($button['url']); ?>"
-                            class="inline-flex gap-2 justify-center items-center w-full sm:w-fit self-start px-6 py-3.5 text-[18px] font-normal font-medium leading-[24px] text-[#262262] font-medium text-lg leading-6 font-secondary bg-white rounded-full transition-all duration-300 content-section-five-btn btn"
+                            class="btn-outline-cyan inline-flex gap-2 justify-center items-center w-full sm:w-fit self-start content-section-five-btn btn"
                             target="<?php echo esc_attr($button['target'] ?? '_self'); ?>"
                             <?php if (($button['target'] ?? '') === '_blank') : ?>rel="noopener noreferrer"<?php endif; ?>
                             aria-label="<?php echo esc_attr($button['title']); ?>"
                         >
-                            <span class="text-[#262262] font-medium text-lg leading-6 font-secondary">
+                            <span class="font-medium text-lg leading-6 font-secondary">
                                 <?php echo esc_html($button['title']); ?>
                             </span>
                         </a>
@@ -103,10 +103,10 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
 
             <!-- Image Column -->
             <?php if ($image): ?>
-                <div class="<?php echo esc_attr($image_order_class); ?> w-full max-w-[502px] lg:justify-self-end relative xl:-right-[1rem]">
+                <div class="<?php echo esc_attr($image_order_class); ?> w-full max-w-[560px] lg:justify-self-end relative xl:-right-[1rem]">
                     <?php echo wp_get_attachment_image($image, 'full', false, [
                         'alt' => esc_attr($image_alt),
-                        'class' => 'block w-full rounded-lg object-contain aspect-[1.28]',
+                        'class' => 'block w-full rounded-[8px] object-contain aspect-[1.28]',
                         'id' => esc_attr($section_id) . '-image',
                     ]); ?>
                 </div>

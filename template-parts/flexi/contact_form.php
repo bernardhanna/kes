@@ -477,11 +477,11 @@ $map_id_prefix = $section_id . '-office-map-';
                           ></div>
                         <?php endif; ?>
 
-                        <div class="flex gap-2 items-center mt-4 w-full">
-                          <div class="flex overflow-hidden flex-col justify-center items-center self-stretch my-auto w-6 rounded min-h-6 shrink-0">
+                        <div class="flex gap-2 items-start mt-4 w-full">
+                          <div class="flex overflow-hidden flex-col justify-center items-center self-stretch mt-0.5 w-5 rounded min-h-5 shrink-0">
                             <input
                               id="<?php echo esc_attr($form_id_prefix . 'privacy-policy'); ?>"
-                              class="w-6 h-6 rounded border border-[#667085] border-solid min-h-6 focus:ring-2 focus:ring-blue-500"
+                              class="w-5 h-5 rounded border-2 border-[#2B3990] border-solid appearance-none checked:bg-[#2B3990] checked:border-[#2B3990] focus:ring-2 focus:ring-[#00ACD8] focus:ring-offset-1 cursor-pointer"
                               name="privacy-policy"
                               required
                               type="checkbox"
@@ -490,7 +490,7 @@ $map_id_prefix = $section_id . '-office-map-';
                               value="1"
                             />
                           </div>
-                          <label class="my-auto cursor-pointer text-[#475467] font-secondary text-[14px] font-normal leading-[20px] whitespace-nowrap" for="<?php echo esc_attr($form_id_prefix . 'privacy-policy'); ?>">
+                          <label class="my-auto cursor-pointer text-[#475467] font-secondary text-[14px] font-normal leading-[20px] whitespace-normal" for="<?php echo esc_attr($form_id_prefix . 'privacy-policy'); ?>">
                             <?php esc_html_e('By submitting, you agree with the', 'matrix-starter'); ?>
                             <a
                               class="underline rounded hover:text-blue-600 focus:text-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"

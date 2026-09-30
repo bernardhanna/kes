@@ -85,7 +85,7 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
           <button
             type="button"
             role="radio"
-            class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-[7.5px] my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             :class="activeCategory === 'all' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
             :aria-checked="activeCategory === 'all' ? 'true' : 'false'"
             @click="setCategory('all')"
@@ -112,7 +112,7 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
             <button
               type="button"
               role="radio"
-              class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+              class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-[7.5px] my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
               :class="activeCategory === '<?php echo $slug; ?>' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
               :aria-checked="activeCategory === '<?php echo $slug; ?>' ? 'true' : 'false'"
               @click="setCategory('<?php echo $slug; ?>')"

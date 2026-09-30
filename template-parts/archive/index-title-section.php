@@ -34,8 +34,8 @@ $section_classes = trim('relative flex ' . $overflow_class . ' ' . ($section_cla
         <div class="flex flex-col gap-6 justify-between items-stretch self-stretch py-8 w-full max-w-container mx-auto max-xl:px-5 sm:flex-row sm:items-end">
             <div class="flex flex-col flex-1 justify-center min-w-0 max-w-[542px]">
                 <?php if ($heading !== '') : ?>
-                    <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">
-                        <<?php echo esc_attr($tag); ?> id="<?php echo esc_attr($section_id); ?>-heading" class="text-primary max-md:max-w-full">
+                    <div class="w-full text-4xl font-bold tracking-[-0.02em] leading-none text-primary max-md:max-w-full">
+                        <<?php echo esc_attr($tag); ?> id="<?php echo esc_attr($section_id); ?>-heading" class="text-primary max-md:max-w-full tracking-[-0.02em] text-[36px] leading-[44px]">
                             <?php echo esc_html($heading); ?>
                         </<?php echo esc_attr($tag); ?>>
                         <div class="flex mt-1 w-8 min-h-1" style="background-color: <?php echo esc_attr($accent); ?>;" role="presentation" aria-hidden="true"></div>

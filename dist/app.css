@@ -1532,6 +1532,9 @@ select {
 .top-4 {
   top: 1rem;
 }
+.top-\[45\%\] {
+  top: 45%;
+}
 .top-\[6rem\] {
   top: 6rem;
 }
@@ -1615,6 +1618,9 @@ select {
   margin-top: auto;
   margin-bottom: auto;
 }
+.-mt-2\.5 {
+  margin-top: -0.625rem;
+}
 .mb-2 {
   margin-bottom: 0.5rem;
 }
@@ -1638,6 +1644,9 @@ select {
 }
 .mb-8 {
   margin-bottom: 2rem;
+}
+.ml-0 {
+  margin-left: 0px;
 }
 .ml-3 {
   margin-left: 0.75rem;
@@ -1838,14 +1847,14 @@ select {
 .max-h-\[244px\] {
   max-height: 244px;
 }
-.max-h-\[310px\] {
-  max-height: 310px;
-}
 .max-h-\[333px\] {
   max-height: 333px;
 }
 .max-h-\[340px\] {
   max-height: 340px;
+}
+.max-h-\[380px\] {
+  max-height: 380px;
 }
 .max-h-\[90vh\] {
   max-height: 90vh;
@@ -1859,8 +1868,8 @@ select {
 .min-h-14 {
   min-height: 3.5rem;
 }
-.min-h-6 {
-  min-height: 1.5rem;
+.min-h-5 {
+  min-height: 1.25rem;
 }
 .min-h-7 {
   min-height: 1.75rem;
@@ -1873,6 +1882,9 @@ select {
 }
 .min-h-\[21px\] {
   min-height: 21px;
+}
+.min-h-\[280px\] {
+  min-height: 280px;
 }
 .min-h-\[32px\] {
   min-height: 32px;
@@ -2110,14 +2122,14 @@ select {
 .max-w-\[400px\] {
   max-width: 400px;
 }
-.max-w-\[502px\] {
-  max-width: 502px;
-}
 .max-w-\[542px\] {
   max-width: 542px;
 }
 .max-w-\[556px\] {
   max-width: 556px;
+}
+.max-w-\[560px\] {
+  max-width: 560px;
 }
 .max-w-\[582px\] {
   max-width: 582px;
@@ -2130,6 +2142,9 @@ select {
 }
 .max-w-\[745px\] {
   max-width: 745px;
+}
+.max-w-\[960px\] {
+  max-width: 960px;
 }
 .max-w-\[calc\(100\%-2rem\)\] {
   max-width: calc(100% - 2rem);
@@ -2310,6 +2325,9 @@ select {
 .grid-cols-9 {
   grid-template-columns: repeat(9, minmax(0, 1fr));
 }
+.grid-cols-\[1fr_auto\] {
+  grid-template-columns: 1fr auto;
+}
 .flex-col {
   flex-direction: column;
 }
@@ -2389,6 +2407,9 @@ select {
 .gap-y-10 {
   row-gap: 2.5rem;
 }
+.gap-y-6 {
+  row-gap: 1.5rem;
+}
 .gap-y-8 {
   row-gap: 2rem;
 }
@@ -2415,6 +2436,15 @@ select {
 }
 .self-stretch {
   align-self: stretch;
+}
+.justify-self-start {
+  justify-self: start;
+}
+.justify-self-end {
+  justify-self: end;
+}
+.justify-self-center {
+  justify-self: center;
 }
 .overflow-hidden {
   overflow: hidden;
@@ -2453,9 +2483,6 @@ select {
 }
 .rounded-\[100px\] {
   border-radius: 100px;
-}
-.rounded-\[10px\] {
-  border-radius: 10px;
 }
 .rounded-\[16px\] {
   border-radius: 16px;
@@ -5201,10 +5228,6 @@ select {
   padding-top: 1rem;
   padding-bottom: 1rem;
 }
-.py-\[2\.5rem\] {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
-}
 .py-\[20rem\] {
   padding-top: 20rem;
   padding-bottom: 20rem;
@@ -5429,6 +5452,10 @@ select {
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
+.py-\[7\.5px\] {
+  padding-top: 7.5px;
+  padding-bottom: 7.5px;
+}
 .py-\[70rem\] {
   padding-top: 70rem;
   padding-bottom: 70rem;
@@ -5584,9 +5611,6 @@ select {
 }
 .pb-2 {
   padding-bottom: 0.5rem;
-}
-.pb-2\.5 {
-  padding-bottom: 0.625rem;
 }
 .pb-20 {
   padding-bottom: 5rem;
@@ -8023,6 +8047,9 @@ select {
 .leading-tight {
   line-height: 1.25;
 }
+.tracking-\[-0\.02em\] {
+  letter-spacing: -0.02em;
+}
 .tracking-\[-0\.72px\] {
   letter-spacing: -0.72px;
 }
@@ -8335,9 +8362,6 @@ select {
 .duration-700 {
   transition-duration: 700ms;
 }
-.ease-\[ease-in-out\] {
-  transition-timing-function: ease-in-out;
-}
 .ease-in {
   transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
 }
@@ -8415,6 +8439,14 @@ select {
   font-family: Red Hat Text, sans-serif;
   font-style: normal;
 }
+.checked\:border-\[\#2B3990\]:checked {
+  --tw-border-opacity: 1;
+  border-color: rgb(43 57 144 / var(--tw-border-opacity, 1));
+}
+.checked\:bg-\[\#2B3990\]:checked {
+  --tw-bg-opacity: 1;
+  background-color: rgb(43 57 144 / var(--tw-bg-opacity, 1));
+}
 .hover\:scale-105:hover {
   --tw-scale-x: 1.05;
   --tw-scale-y: 1.05;
@@ -8435,10 +8467,6 @@ select {
 .hover\:border-primary:hover {
   --tw-border-opacity: 1;
   border-color: rgb(38 34 98 / var(--tw-border-opacity, 1));
-}
-.hover\:border-teal-light:hover {
-  --tw-border-opacity: 1;
-  border-color: rgb(203 233 225 / var(--tw-border-opacity, 1));
 }
 .hover\:bg-\[\#006EC8\]:hover {
   --tw-bg-opacity: 1;
@@ -8669,18 +8697,15 @@ select {
 .focus\:ring-offset-2:focus {
   --tw-ring-offset-width: 2px;
 }
-.focus-visible\:border-\[3px\]:focus-visible {
-  border-width: 3px;
-}
-.focus-visible\:border-blue-100:focus-visible {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 172 216 / var(--tw-border-opacity, 1));
-}
 .focus-visible\:bg-\[\#041227\]:focus-visible {
   --tw-bg-opacity: 1;
   background-color: rgb(4 18 39 / var(--tw-bg-opacity, 1));
 }
 .focus-visible\:bg-base-white:focus-visible {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.focus-visible\:bg-white:focus-visible {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
 }
@@ -8715,6 +8740,10 @@ select {
 .focus-visible\:ring-\[color\:var\(--Blue-100\2c \#00ACD8\)\]:focus-visible {
   --tw-ring-color: var(--Blue-100,#00ACD8);
 }
+.focus-visible\:ring-blue-100:focus-visible {
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(0 172 216 / var(--tw-ring-opacity, 1));
+}
 .focus-visible\:ring-blue-900:focus-visible {
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(30 58 138 / var(--tw-ring-opacity, 1));
@@ -8725,9 +8754,9 @@ select {
 .focus-visible\:ring-offset-white:focus-visible {
   --tw-ring-offset-color: #fff;
 }
-.active\:border-blue-100:active {
+.active\:border-\[\#2B3990\]:active {
   --tw-border-opacity: 1;
-  border-color: rgb(0 172 216 / var(--tw-border-opacity, 1));
+  border-color: rgb(43 57 144 / var(--tw-border-opacity, 1));
 }
 .active\:border-blue-dark:active {
   --tw-border-opacity: 1;
@@ -9056,6 +9085,12 @@ select {
     margin-left: 0px;
     margin-right: 0px;
   }
+  .max-sm\:mb-4 {
+    margin-bottom: 1rem;
+  }
+  .max-sm\:mt-1 {
+    margin-top: 0.25rem;
+  }
   .max-sm\:mt-4 {
     margin-top: 1rem;
   }
@@ -9143,6 +9178,9 @@ select {
   .max-sm\:gap-6 {
     gap: 1.5rem;
   }
+  .max-sm\:gap-y-12 {
+    row-gap: 3rem;
+  }
   .max-sm\:p-4 {
     padding: 1rem;
   }
@@ -9157,10 +9195,6 @@ select {
   .max-sm\:py-10 {
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
-  }
-  .max-sm\:py-2\.5 {
-    padding-top: 0.625rem;
-    padding-bottom: 0.625rem;
   }
   .max-sm\:py-3 {
     padding-top: 0.75rem;
@@ -9183,6 +9217,12 @@ select {
   }
   .max-sm\:pr-0 {
     padding-right: 0px;
+  }
+  .max-sm\:pr-1 {
+    padding-right: 0.25rem;
+  }
+  .max-sm\:pr-5 {
+    padding-right: 1.25rem;
   }
   .max-sm\:pt-0 {
     padding-top: 0px;
@@ -15739,8 +15779,8 @@ select {
   .sm\:hidden {
     display: none;
   }
-  .sm\:h-80 {
-    height: 20rem;
+  .sm\:h-96 {
+    height: 24rem;
   }
   .sm\:h-\[52px\] {
     height: 52px;
@@ -16528,17 +16568,13 @@ select {
     padding-top: 0px;
     padding-bottom: 0px;
   }
+  .sm\:py-10 {
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
   .sm\:py-12 {
     padding-top: 3rem;
     padding-bottom: 3rem;
-  }
-  .sm\:py-3\.5 {
-    padding-top: 0.875rem;
-    padding-bottom: 0.875rem;
-  }
-  .sm\:py-4 {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
   }
   .sm\:py-\[100rem\] {
     padding-top: 100rem;
@@ -16563,6 +16599,10 @@ select {
   .sm\:py-\[13rem\] {
     padding-top: 13rem;
     padding-bottom: 13rem;
+  }
+  .sm\:py-\[14px\] {
+    padding-top: 14px;
+    padding-bottom: 14px;
   }
   .sm\:py-\[14rem\] {
     padding-top: 14rem;
@@ -16591,10 +16631,6 @@ select {
   .sm\:py-\[1rem\] {
     padding-top: 1rem;
     padding-bottom: 1rem;
-  }
-  .sm\:py-\[2\.5rem\] {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
   }
   .sm\:py-\[20rem\] {
     padding-top: 20rem;
@@ -16951,8 +16987,8 @@ select {
   .sm\:pb-0 {
     padding-bottom: 0px;
   }
-  .sm\:pb-5 {
-    padding-bottom: 1.25rem;
+  .sm\:pb-20 {
+    padding-bottom: 5rem;
   }
   .sm\:pb-\[100rem\] {
     padding-bottom: 100rem;
@@ -19101,6 +19137,9 @@ select {
   }
   .sm\:leading-\[24px\] {
     line-height: 24px;
+  }
+  .sm\:leading-\[38px\] {
+    line-height: 38px;
   }
   .sm\:leading-tight {
     line-height: 1.25;
@@ -22531,17 +22570,26 @@ select {
   .lg\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+  .lg\:grid-cols-\[1fr_auto_1fr\] {
+    grid-template-columns: 1fr auto 1fr;
+  }
   .lg\:grid-cols-\[50\%_50\%\] {
     grid-template-columns: 50% 50%;
   }
   .lg\:grid-cols-\[minmax\(0\2c 1fr\)_502px\] {
     grid-template-columns: minmax(0,1fr) 502px;
   }
+  .lg\:grid-cols-\[minmax\(0\2c 1fr\)_minmax\(0\2c 560px\)\] {
+    grid-template-columns: minmax(0,1fr) minmax(0,560px);
+  }
   .lg\:flex-row {
     flex-direction: row;
   }
   .lg\:items-start {
     align-items: flex-start;
+  }
+  .lg\:items-center {
+    align-items: center;
   }
   .lg\:justify-between {
     justify-content: space-between;
@@ -23324,10 +23372,6 @@ select {
   .lg\:py-20 {
     padding-top: 5rem;
     padding-bottom: 5rem;
-  }
-  .lg\:py-24 {
-    padding-top: 6rem;
-    padding-bottom: 6rem;
   }
   .lg\:py-\[100rem\] {
     padding-top: 100rem;
@@ -25882,6 +25926,9 @@ select {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+  .lg\:leading-\[38px\] {
+    line-height: 38px;
+  }
   .lg\:leading-tight {
     line-height: 1.25;
   }
@@ -28011,9 +28058,6 @@ select {
   }
   .xl\:pt-\[2rem\] {
     padding-top: 2rem;
-  }
-  .xl\:pt-\[3\.8rem\] {
-    padding-top: 3.8rem;
   }
   .xl\:pt-\[30rem\] {
     padding-top: 30rem;
@@ -36554,10 +36598,8 @@ p {
   --tw-gradient-to: rgb(43 57 144 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   --tw-gradient-to: #006EC8 var(--tw-gradient-to-position);
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  /* Figma: 14px 24px */
+  padding: 14px 24px;
   font-family: Red Hat Text, system-ui, sans-serif;
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -36567,6 +36609,46 @@ p {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
+}
+
+/* Outline pill with brand gradient border (Projects / FAQ / Read more) */
+.btn-gradient-border {
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, #2B3990 0%, #006EC8 100%) border-box;
+  color: #2B3990;
+  padding: 14px 24px;
+  font-family: Red Hat Text, system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-gradient-border:hover {
+  background:
+    linear-gradient(#CBE9E1, #CBE9E1) padding-box,
+    linear-gradient(90deg, #2B3990 0%, #006EC8 100%) border-box;
+}
+.btn-gradient-border:active {
+  background:
+    linear-gradient(#00ACD8, #00ACD8) padding-box,
+    linear-gradient(#00ACD8, #00ACD8) border-box;
+  color: #fff;
+}
+
+/* Solid cyan outline (About Quality CTA — Figma 3px #00ACD8) */
+.btn-outline-cyan {
+  border: 3px solid #00ACD8;
+  border-radius: 9999px;
+  background: #fff;
+  color: #2B3990;
+  padding: 14px 24px;
+  font-family: Red Hat Text, system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
 }
 
 .btn-primary:hover {

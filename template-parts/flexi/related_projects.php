@@ -80,7 +80,7 @@ if ($selected_projects && is_array($selected_projects)) {
                 <!-- Navigation Arrow Left -->
                 <button
                     type="button"
-                    class="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px] rounded-full bg-transparent hover:shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-prev-custom"
+                    class="absolute left-0 top-[45%] -translate-y-1/2 z-10 w-[58px] h-[58px] rounded-full bg-transparent hover:shadow-lg flex items-center justify-center hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-prev-custom"
                     aria-label="Previous projects"
                     >
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="31" viewBox="0 0 17 31" fill="none">
@@ -163,7 +163,7 @@ if ($selected_projects && is_array($selected_projects)) {
                 <!-- Navigation Arrow Right -->
                 <button
                     type="button"
-                    class="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-[58px] h-[58px]  rounded-full hover:shadow-lg flex items-center justify-center bg-transparent  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-next-custom"
+                    class="absolute right-0 top-[45%] -translate-y-1/2 z-10 w-[58px] h-[58px]  rounded-full hover:shadow-lg flex items-center justify-center bg-transparent  hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-text-primary focus:ring-offset-2 btn slick-next-custom"
                     aria-label="Next projects"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="17" height="31" viewBox="0 0 17 31" fill="none">

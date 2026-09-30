@@ -1676,10 +1676,8 @@ p {
   --tw-gradient-to: rgb(43 57 144 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
   --tw-gradient-to: #006EC8 var(--tw-gradient-to-position);
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  /* Figma: 14px 24px */
+  padding: 14px 24px;
   font-family: Red Hat Text, system-ui, sans-serif;
   font-size: 1.125rem;
   line-height: 1.75rem;
@@ -1689,6 +1687,46 @@ p {
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 300ms;
+}
+
+/* Outline pill with brand gradient border (Projects / FAQ / Read more) */
+.btn-gradient-border {
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(90deg, #2B3990 0%, #006EC8 100%) border-box;
+  color: #2B3990;
+  padding: 14px 24px;
+  font-family: Red Hat Text, system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+.btn-gradient-border:hover {
+  background:
+    linear-gradient(#CBE9E1, #CBE9E1) padding-box,
+    linear-gradient(90deg, #2B3990 0%, #006EC8 100%) border-box;
+}
+.btn-gradient-border:active {
+  background:
+    linear-gradient(#00ACD8, #00ACD8) padding-box,
+    linear-gradient(#00ACD8, #00ACD8) border-box;
+  color: #fff;
+}
+
+/* Solid cyan outline (About Quality CTA — Figma 3px #00ACD8) */
+.btn-outline-cyan {
+  border: 3px solid #00ACD8;
+  border-radius: 9999px;
+  background: #fff;
+  color: #2B3990;
+  padding: 14px 24px;
+  font-family: Red Hat Text, system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
 }
 
 .btn-primary:hover {

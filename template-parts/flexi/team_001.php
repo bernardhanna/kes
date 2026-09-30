@@ -54,7 +54,7 @@ $section_id = 'team-' . uniqid();
                                 <div class="w-full">
                                     <?php echo wp_get_attachment_image($image, 'large', false, [
                                         'alt'   => esc_attr($image_alt),
-                                        'class' => 'object-contain md:object-cover w-full sm:h-80 rounded-lg',
+                                        'class' => 'object-contain md:object-cover w-full sm:h-96 rounded-lg',
                                     ]); ?>
                                 </div>
                             <?php endif; ?>

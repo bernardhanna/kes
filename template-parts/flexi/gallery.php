@@ -19,7 +19,7 @@ if (have_rows('padding_settings')) {
     <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5 <?php echo esc_attr(implode(' ', $padding_classes)); ?>">
 
         <?php if ($gallery_images && is_array($gallery_images)): ?>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full mx-auto max-w-container justify-center" role="region" aria-label="Image gallery">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full mx-auto max-w-[960px] justify-center" role="region" aria-label="Image gallery">
 
                 <!-- Left Column - Two stacked images -->
                 <div class="flex flex-col gap-6 min-w-0">
