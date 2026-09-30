@@ -103,10 +103,10 @@ $image_order_class   = 'order-2 ' . ($reverse_layout ? 'lg:order-1' : 'lg:order-
 
             <!-- Image Column -->
             <?php if ($image): ?>
-                <div class="<?php echo esc_attr($image_order_class); ?> w-full max-w-[560px] lg:justify-self-end relative xl:-right-[1rem]">
+                <div class="<?php echo esc_attr($image_order_class); ?> w-full max-w-[560px] lg:justify-self-end relative xl:-right-[1rem] overflow-hidden rounded-[8px]">
                     <?php echo wp_get_attachment_image($image, 'full', false, [
                         'alt' => esc_attr($image_alt),
-                        'class' => 'block w-full rounded-[8px] object-contain aspect-[1.28]',
+                        'class' => 'block w-full h-auto object-cover aspect-[1.28] rounded-[8px]',
                         'id' => esc_attr($section_id) . '-image',
                     ]); ?>
                 </div>
