@@ -68,7 +68,7 @@ if ($privacy_url) {
     x-ref="panel"
   >
     <section class="relative flex overflow-hidden">
-      <div class="flex w-full flex-col items-center mx-auto max-w-container pt-5 pb-5 max-lg:px-5">
+      <div class="flex w-full flex-col items-center mx-auto max-w-container pt-5 pb-5 px-5">
         <form
           class="relative flex w-full flex-col justify-center px-6 py-10 sm:px-14 sm:py-12 max-w-screen-md bg-white rounded-2xl max-md:px-5"
           method="post"
