@@ -18,7 +18,7 @@ if ($sections === []) {
 }
 ?>
 <section class="w-full bg-white" aria-label="<?php esc_attr_e('Sitemap', 'matrix-starter'); ?>">
-    <div class="mx-auto w-full max-w-container px-5 pb-12 pt-4 max-xl:px-5 lg:pb-16">
+    <div class="mx-auto w-full max-w-container px-5 pb-12 pt-4 lg:pb-16">
         <div class="grid gap-x-12 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">
             <?php foreach ($sections as $section) : ?>
                 <div>

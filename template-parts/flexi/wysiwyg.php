@@ -16,7 +16,7 @@ if (have_rows('padding_settings')) {
 ?>
 
 <section data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="flex overflow-hidden relative wp_editor">
-  <div class="w-full mx-auto max-w-container flex flex-col justify-between max-xl:px-5  max-xxl:px-5 py-10">
+  <div class="w-full mx-auto max-w-container flex flex-col justify-between  max-xxl:px-5 py-10">
    
       <div class="relative text-[16px] max-w-[745px]">
         <?php if ($text_content): ?>

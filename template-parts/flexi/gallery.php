@@ -16,7 +16,7 @@ if (have_rows('padding_settings')) {
 ?>
 
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="relative flex overflow-hidden">
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 max-xl:px-5 <?php echo esc_attr(implode(' ', $padding_classes)); ?>">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 px-5 <?php echo esc_attr(implode(' ', $padding_classes)); ?>">
 
         <?php if ($gallery_images && is_array($gallery_images)): ?>
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full mx-auto max-w-[960px] justify-center" role="region" aria-label="Image gallery">

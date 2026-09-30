@@ -74,7 +74,7 @@ $active_slug = 'all';
          }
        }">
 
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container px-8 text-sm leading-none max-xl:px-5">
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container px-8 text-sm leading-none">
       <div class="flex flex-wrap gap-6 items-center w-full">
         <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php esc_html_e('Filter by', 'matrix-starter'); ?></div>
 

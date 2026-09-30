@@ -59,7 +59,7 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
             'accent_color'        => $blog_opts['blog_index_underline'] ?? '#00ACD8',
             'toolbar_html'        => $toolbar_html,
             'inner_wrapper_class' => is_home()
-                ? 'flex flex-col items-center pt-[5rem] pb-5 mx-auto w-full max-w-container max-xl:px-5'
+                ? 'flex flex-col items-center pt-[5rem] pb-5 mx-auto w-full max-w-container px-5'
                 : '',
         ]);
     }
@@ -73,7 +73,7 @@ if (function_exists('matrix_starter_render_archive_index_header')) {
        })">
 
     <!-- Filters -->
-    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container px-8 text-sm leading-none max-xl:px-5">
+    <div class="flex flex-col justify-center items-start mx-auto py-6 w-full max-w-container px-8 text-sm leading-none">
       <div class="flex flex-wrap gap-6 items-center max-md:max-w-full">
 
         <div class="self-stretch my-auto font-red-hat-text text-[14px] font-medium leading-5 text-[#262262]" id="filterLabel"><?php esc_html_e('Filter by', 'matrix-starter'); ?></div>

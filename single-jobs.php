@@ -18,7 +18,7 @@ $enable_breadcrumbs = function_exists('get_field') ? get_field('enable_breadcrum
       $config = matrix_job_application_config($job_id);
       ?>
 
-      <header class="mx-auto w-full max-w-container px-6 py-12 sm:px-12 lg:px-24 lg:py-16 max-xl:px-5">
+      <header class="mx-auto w-full max-w-container px-6 py-12 sm:px-12 lg:px-24 lg:py-16">
         <div class="flex w-full max-w-3xl flex-col gap-3">
           <h1
             id="job-application-heading"

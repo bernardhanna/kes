@@ -109,7 +109,7 @@ if ($center_text_vertically) {
 }
 ?>
 <section id="<?php echo esc_attr($section_id); ?>" data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>" class="relative flex overflow-hidden <?php echo esc_attr($section_bg_class); ?>">
-  <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($container_max_width_class); ?> pt-5 pb-20 sm:pt-5 sm:pb-20 max-xl:px-5<?php echo $padding_classes_str; ?> relative">
+  <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($container_max_width_class); ?> pt-5 pb-20 sm:pt-5 sm:pb-20 px-5<?php echo $padding_classes_str; ?> relative">
 
       <div class="w-full mx-auto max-w-container xl:pt-[5rem] xl:pb-[5rem] relative py-6 sm:py-10 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-8 sm:gap-8 lg:gap-12 <?php echo esc_attr($content_alignment_class); ?>">
 

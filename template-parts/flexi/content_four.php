@@ -68,7 +68,7 @@ $section_id = 'content-four-' . uniqid();
       <div class="grid grid-cols-1 gap-2 items-center w-full mx-auto max-w-container md:grid-cols-2 lg:grid-cols-[50%_50%] lg:gap-12">
 
         <!-- Left: Text -->
-        <article class="flex flex-col order-2 gap-6 md:order-1 max-xl:px-5">
+        <article class="flex flex-col order-2 gap-6 md:order-1 px-5">
           <div class="flex flex-col gap-3">
             <?php if (!empty($heading)): ?>
               <<?php echo esc_attr($heading_tag); ?> class="text-[36px] font-bold leading-[44px] tracking-[-0.72px] font-primary <?php echo esc_attr($heading_color); ?>">

@@ -60,7 +60,7 @@ if ($selected_projects && is_array($selected_projects)) {
     class="relative flex flex-col overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
-<div class="flex flex-col gap-3 items-start w-full max-w-container mx-auto mb-8 max-xl:px-5">
+<div class="flex flex-col gap-3 items-start w-full max-w-container mx-auto mb-8 px-5">
         <?php if (!empty($heading)): ?>
             <<?php echo esc_attr($heading_tag); ?>
                 id="<?php echo esc_attr($section_id); ?>-heading"
@@ -72,7 +72,7 @@ if ($selected_projects && is_array($selected_projects)) {
         <div class="w-8 h-1 shrink-0 bg-blue-100" role="presentation" aria-hidden="true"></div>
     </div>
 <div class="py-6 w-full md:py-8" style="background-color: <?php echo esc_attr($background_color); ?>;">
-    <div class="flex flex-col items-center py-0 mx-auto w-full max-w-container max-xl:px-5">
+    <div class="flex flex-col items-center py-0 mx-auto w-full max-w-container px-5">
 
 
         <?php if (!empty($projects_to_display)): ?>

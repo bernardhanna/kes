@@ -28,7 +28,7 @@ $section_id = 'counters-' . uniqid();
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     id="<?php echo esc_attr($section_id); ?>"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 pl-8 max-xl:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 pl-8 px-5">
 
         <?php if (!empty($heading)): ?>
             <header class="hidden mb-8 w-full">

@@ -113,7 +113,7 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
   class="flex overflow-hidden relative w-full"
   style="background-color: <?php echo esc_attr($section_background); ?>;"
 >
-  <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($faq_content_max_w_class); ?> py-[56px] max-xl:px-5<?php echo $padding_classes_str; ?>">
+  <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($faq_content_max_w_class); ?> py-[56px] px-5<?php echo $padding_classes_str; ?>">
     <!-- Heading -->
     <div class="flex flex-col gap-3 mb-8 w-full">
       <?php if (!empty($heading_text)): ?>
