@@ -81,7 +81,7 @@ $active_slug = 'all';
             role="tab"
             :aria-selected="activeCategory === 'all' ? 'true' : 'false'"
             :aria-controls="'panel-all'"
-            class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-[7.5px] my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
             :class="activeCategory === 'all' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
             @click="setCategory('all')">
             <?php esc_html_e('All', 'matrix-starter'); ?>
@@ -100,7 +100,7 @@ $active_slug = 'all';
                 role="tab"
                 :aria-selected="activeCategory === '<?php echo esc_attr($term->slug); ?>' ? 'true' : 'false'"
                 :aria-controls="'panel-<?php echo esc_attr($term->slug); ?>'"
-                class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-3 my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+                class="inline-flex gap-2 items-center justify-center self-stretch px-6 py-[7.5px] my-auto min-h-[44px] min-w-[44px] rounded-[100px] max-md:px-5 whitespace-nowrap font-red-hat-text text-[14px] font-medium leading-5 border border-solid border-[#262262] hover:border-[#00ACD8] transition-[color,background-color,border-color] duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00ACD8] focus-visible:ring-offset-2 focus-visible:ring-offset-white"
                 :class="activeCategory === '<?php echo esc_attr($term->slug); ?>' ? 'bg-[#262262] text-white' : 'bg-white text-[#262262] hover:bg-[#00ACD8]'"
                 @click="setCategory('<?php echo esc_attr($term->slug); ?>')">
                 <?php echo esc_html($term->name); ?>

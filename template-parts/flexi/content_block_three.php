@@ -37,12 +37,12 @@ $section_id = 'quote-section-' . uniqid();
                 <header class="flex flex-col gap-1 items-start self-stretch">
                     <<?php echo esc_attr($heading_tag); ?>
                         id="<?php echo esc_attr($section_id); ?>-heading"
-                        class="self-stretch text-3xl font-bold leading-10 text-primary max-md:text-2xl max-md:leading-9 max-sm:text-2xl max-sm:leading-8"
+                        class="self-stretch text-[30px] font-bold leading-[38px] tracking-[-0.02em] text-primary"
                     >
                         <?php echo esc_html($heading); ?>
                     </<?php echo esc_attr($heading_tag); ?>>
                     <div
-                        class="w-8 h-1 bg-cyan-500"
+                        class="-mt-2.5 w-8 h-1 bg-cyan-500"
                         role="presentation"
                         aria-hidden="true"
                     ></div>

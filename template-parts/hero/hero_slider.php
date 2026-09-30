@@ -331,9 +331,10 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
                             $title  = !empty($link['title']) ? esc_html($link['title']) : 'Learn more';
                             $target = !empty($link['target']) ? esc_attr($link['target']) : '_self';
                             if ($style === 'secondary') {
-                                $cls = 'hero-slider-btn-secondary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] font-secondary text-blue-dark bg-base-white border-2 border-blue-dark rounded-full px-4 w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:py-3.5 sm:px-6 sm:text-lg sm:leading-[24px] sm:whitespace-nowrap transition-colors duration-200 hover:bg-teal-light hover:border-blue-dark active:bg-blue-100 active:border-blue-dark focus-visible:outline-none focus-visible:outline-[3px] focus-visible:outline-blue-100 focus-visible:outline-offset-2 focus-visible:bg-base-white';
+                                // Figma: white bg, text #2B3990
+                                $cls = 'hero-slider-btn-secondary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] font-secondary text-[#2B3990] bg-white border-2 border-[#2B3990] rounded-full px-4 w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:py-[14px] sm:px-6 sm:text-lg sm:leading-[24px] sm:whitespace-nowrap transition-colors duration-200 hover:bg-teal-light hover:border-[#2B3990] active:bg-blue-100 active:border-[#2B3990] focus-visible:outline-none focus-visible:outline-[3px] focus-visible:outline-blue-100 focus-visible:outline-offset-2 focus-visible:bg-white';
                             } else {
-                                $cls = 'btn-primary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:py-4 sm:text-lg sm:leading-6 sm:whitespace-nowrap';
+                                $cls = 'btn-primary flex items-center justify-center min-h-[38px] h-auto py-2 text-[14px] font-medium leading-[20px] w-full whitespace-normal text-center sm:w-auto sm:h-[52px] sm:text-lg sm:leading-6 sm:whitespace-nowrap';
                             }
                             echo '<a class="'.esc_attr($cls).'" href="'.$url.'" target="'.$target.'">'. $title .'</a>';
                         }
@@ -353,9 +354,7 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
       </div>
     </div>
 
-    <?php if ($use_slider && $show_dots): ?>
-      <div class="flex relative z-10 justify-center pb-3 mt-2 mb-2 w-full bg-white slick-dots-container" aria-hidden="true"></div>
-    <?php endif; ?>
+    <?php /* QC: design has no hero progress bars under the slider */ ?>
   </div>
 </section>
 
@@ -395,7 +394,7 @@ $next_arrow_markup = '<button type="button" class="btn absolute right-4 top-1/2 
 
       $el.slick({
         arrows: true,
-        dots: <?php echo $show_dots ? 'true' : 'false'; ?>,
+        dots: false,
         appendDots: $wrap.find('.slick-dots-container'),
         prevArrow: '<?php echo wp_kses_post($prev_arrow_markup); ?>',
         nextArrow: '<?php echo wp_kses_post($next_arrow_markup); ?>',

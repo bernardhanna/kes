@@ -36,8 +36,8 @@ $secondary_navigation = Navi::make()->build('secondary');
   x-init="window.addEventListener('resize', () => checkWindowSize())"
   class="py-4 bg-[#F9FAFB]"
   x-effect="isOpen ? document.body.style.overflow = 'hidden' : document.body.style.overflow = ''">
-  <nav class="relative flex justify-between items-center w-full mx-auto <?php echo esc_attr($nav_shell_class); ?> max-sm:pl-5 max-sm:pr-0 px-5 navbar:px-0">
-    <a style="z-index: 1000;" class="flex <?php echo esc_attr(trim($logo_inset_class . ' ' . $logo_position_class)); ?>" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr(sprintf(__('Home — %s', 'matrix'), get_bloginfo('name'))); ?>">
+  <nav class="relative grid grid-cols-[1fr_auto] lg:grid-cols-[1fr_auto_1fr] items-center w-full mx-auto <?php echo esc_attr($nav_shell_class); ?> max-sm:pl-5 max-sm:pr-5 px-5 navbar:px-0">
+    <a style="z-index: 1000;" class="flex justify-self-start <?php echo esc_attr(trim($logo_inset_class . ' ' . $logo_position_class)); ?>" href="<?php echo esc_url(home_url('/')); ?>" aria-label="<?php echo esc_attr(sprintf(__('Home — %s', 'matrix'), get_bloginfo('name'))); ?>">
       <?php if ($logo_url) : ?>
         <img src="<?php echo esc_url($logo_url); ?>" alt="<?php echo esc_attr($logo_alt); ?>" />
       <?php else : ?>
@@ -51,7 +51,7 @@ $secondary_navigation = Navi::make()->build('secondary');
         $items = array_values($primary_navigation->toArray());
         $cta_item = $items !== [] ? array_pop($items) : null;
       ?>
-      <ul id="primary-menu" class="hidden gap-6 items-center leading-loose text-black lg:flex">
+      <ul id="primary-menu" class="hidden gap-6 items-center leading-loose text-black lg:flex justify-self-center">
         <?php foreach ($items as $i => $item) : ?>
           <?php
             $is_last = false;
@@ -77,7 +77,7 @@ $secondary_navigation = Navi::make()->build('secondary');
                class="gap-1 self-stretch my-auto whitespace-nowrap font-secondary text-base font-medium leading-[22px] flex items-center <?php echo esc_attr($li_classes); ?> <?php echo $item->active ? 'active-item' : ''; ?> <?php echo esc_attr($text_class); ?> <?php echo esc_attr($underline_class); ?> <?php echo esc_attr($last_primary_cta_class); ?>">
               <?php echo esc_html($item->label); ?>
               <?php if (!empty($item->children)) : ?>
-                <span class="inline-flex transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">
+                <span class="inline-flex ml-0 transition-transform duration-200 group-hover:rotate-180" aria-hidden="true">
                   <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" focusable="false">
                     <path d="M4.25 6.375L8.5 10.625L12.75 6.375" />
                   </svg>
@@ -100,6 +100,7 @@ $secondary_navigation = Navi::make()->build('secondary');
           </li>
         <?php endforeach; ?>
       </ul>
+      <div class="flex justify-self-end items-center gap-3 max-sm:pr-1">
       <?php if ($cta_item) : ?>
         <?php
           $cta_classes = trim((string) $cta_item->classes);
@@ -110,12 +111,16 @@ $secondary_navigation = Navi::make()->build('secondary');
           <?php echo esc_html($cta_item->label); ?>
         </a>
       <?php endif; ?>
+      <?php get_template_part('template-parts/header/navbar/mobile'); ?>
+      </div>
+    <?php else : ?>
+      <div class="flex justify-self-end items-center gap-3 max-sm:pr-1">
+        <?php get_template_part('template-parts/header/navbar/mobile'); ?>
+      </div>
     <?php endif; ?>
 
-    <?php get_template_part('template-parts/header/navbar/mobile'); ?>
-
     <?php if ($secondary_navigation->isNotEmpty()) : ?>
-      <ul class="flex gap-4 px-4 text-black xl:gap-6">
+      <ul class="flex gap-4 px-4 text-black xl:gap-6 justify-self-end">
         <?php foreach ($secondary_navigation->toArray() as $item) : ?>
           <li class="relative group <?php echo esc_attr($item->classes); ?>">
             <a href="<?php echo esc_url($item->url); ?>" class="flex items-center text-base font-normal text-primary hover:text-primary-light">

@@ -35,13 +35,13 @@ if ($container_width_mode_normalized === 'none') {
     aria-labelledby="<?php echo esc_attr($section_id); ?>-heading"
 >
     <div class="flex flex-col items-center pt-5 pb-5 mx-auto w-full <?php echo esc_attr($container_max_width_class); ?> max-xl:px-5">
-        <div class="flex overflow-hidden justify-between items-center self-stretch py-8 max-md:px-5">
+        <div class="flex overflow-hidden justify-between items-center self-stretch py-10 lg:py-20 max-md:px-5">
             <div class="flex flex-col flex-1 justify-center self-stretch my-auto w-full shrink basis-0 min-w-60 mx-auto max-md:max-w-full">
                 <?php if (!empty($heading)): ?>
-                    <div class="w-full text-4xl font-bold tracking-tighter leading-none text-primary max-md:max-w-full">
+                    <div class="w-full text-4xl font-bold tracking-[-0.02em] leading-none text-primary max-md:max-w-full">
                         <<?php echo esc_attr($heading_tag); ?>
                             id="<?php echo esc_attr($section_id); ?>-heading"
-                            class="mt-1 text-primary max-md:max-w-full"
+                            class="mt-1 text-primary max-md:max-w-full tracking-[-0.02em] text-[36px] leading-[44px]"
                         >
                             <?php echo esc_html($heading); ?>
                         </<?php echo esc_attr($heading_tag); ?>>

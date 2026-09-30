@@ -24,11 +24,11 @@ $section_id = 'counters-' . uniqid();
 
 <section
     data-matrix-block="<?php echo esc_attr(str_replace('_', '-', get_row_layout()) . '-' . get_row_index()); ?>"
-    class="relative flex overflow-hidden <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
+    class="relative flex overflow-hidden py-10 sm:py-12 lg:py-14 <?php echo esc_attr(implode(' ', $padding_classes)); ?>"
     style="background-color: <?php echo esc_attr($background_color); ?>;"
     id="<?php echo esc_attr($section_id); ?>"
 >
-    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-2.5 pl-8 max-xl:px-5">
+    <div class="flex flex-col items-center w-full mx-auto max-w-container pt-5 pb-5 pl-8 max-xl:px-5">
 
         <?php if (!empty($heading)): ?>
             <header class="hidden mb-8 w-full">

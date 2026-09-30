@@ -115,17 +115,17 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
 >
   <div class="flex flex-col items-center w-full mx-auto <?php echo esc_attr($faq_content_max_w_class); ?> py-[56px] max-xl:px-5<?php echo $padding_classes_str; ?>">
     <!-- Heading -->
-    <div class="flex flex-col gap-4 pb-4 mb-8 w-full">
+    <div class="flex flex-col gap-4 mb-8 w-full">
       <?php if (!empty($heading_text)): ?>
         <<?php echo esc_attr($heading_tag); ?>
-          class="text-[30px] font-bold leading-[38px] font-red-hat-display sm:text-4xl sm:leading-tight lg:text-5xl"
+          class="text-[30px] font-bold leading-[38px] font-red-hat-display sm:text-4xl sm:leading-[38px] lg:text-5xl lg:leading-[38px]"
           style="color: <?php echo esc_attr($heading_color); ?>;"
         >
           <?php echo esc_html($heading_text); ?>
         </<?php echo esc_attr($heading_tag); ?>>
       <?php endif; ?>
 
-      <div class="w-8 h-1" aria-hidden="true" role="presentation"
+      <div class="-mt-2.5 w-8 h-1" aria-hidden="true" role="presentation"
            style="background-color: <?php echo esc_attr($accent_bar_color); ?>;"></div>
     </div>
 
@@ -209,9 +209,9 @@ if (!in_array($heading_tag, $allowed_tags, true)) {
                   rel="<?php echo esc_attr($rel); ?>"
                   role="button"
                   aria-label="<?php echo esc_attr($aria); ?>"
-                  class="btn flex relative gap-2 justify-center items-center px-6 py-3.5 bg-white border-2 border-primary border-solid transition-all duration-200 cursor-pointer ease-[ease-in-out] h-[52px] w-fit whitespace-nowrap rounded-[100px] max-md:px-5 max-md:py-3 max-md:h-12 max-sm:px-5 max-sm:py-2.5 max-sm:w-full max-sm:max-w-full max-sm:h-[38px] sm:h-[52px] sm:w-fit hover:bg-teal-light hover:border-teal-light active:bg-blue-100 active:border-blue-100 focus-visible:outline-none focus-visible:border-[3px] focus-visible:border-blue-100 focus-visible:bg-base-white"
+                  class="btn btn-gradient-border flex relative gap-2 justify-center items-center h-[52px] w-fit whitespace-nowrap max-md:h-12 max-sm:w-full max-sm:max-w-full max-sm:h-[38px] sm:h-[52px] sm:w-fit focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-100 focus-visible:ring-offset-2"
                 >
-                  <span class="relative text-lg font-medium leading-6 text-primary max-md:text-base max-md:leading-6 max-sm:text-sm max-sm:leading-5">
+                  <span class="relative text-lg font-medium leading-6 max-md:text-base max-md:leading-6 max-sm:text-sm max-sm:leading-5">
                     <?php echo esc_html($title); ?>
                   </span>
                 </a>
