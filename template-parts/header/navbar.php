@@ -47,20 +47,25 @@ $secondary_navigation = Navi::make()->build('secondary');
 
     <?php if ($primary_navigation->isNotEmpty()) : ?>
       <?php
-        // All primary items stay in the menu. Request a callback lives in the hamburger on smaller screens.
+        // Last item (Request a callback) is the header CTA — desktop only (≥1100px).
         $items = array_values($primary_navigation->toArray());
+        $cta_item = null;
+        foreach ($items as $i => $item) {
+          if (str_contains(trim((string) $item->classes), 'request-call')) {
+            $cta_item = $item;
+            unset($items[$i]);
+            $items = array_values($items);
+            break;
+          }
+        }
+        if ($cta_item === null && $items !== []) {
+          $cta_item = array_pop($items);
+        }
       ?>
       <ul id="primary-menu" class="hidden gap-6 items-center leading-loose text-black lg:flex justify-self-center">
         <?php foreach ($items as $i => $item) : ?>
           <?php
             $li_classes = trim((string) $item->classes);
-            $is_request_call = str_contains($li_classes, 'request-call');
-
-            // Skip the Request a callback item in the desktop bar — it is available in the hamburger menu.
-            if ($is_request_call) {
-              continue;
-            }
-
             $text_class      = 'text-blue-500';
             $underline_class = 'relative pb-3 after:content-[""] after:block after:absolute after:left-0 after:bottom-[0.5rem] after:h-[2px] after:w-0 after:bg-primary after:transition-[width_0.3s_ease] hover:after:w-full [&.active-item]:after:w-full';
           ?>
@@ -93,6 +98,16 @@ $secondary_navigation = Navi::make()->build('secondary');
         <?php endforeach; ?>
       </ul>
       <div class="flex justify-self-end items-center gap-3 pr-1 sm:pr-2 navbar:pr-0">
+      <?php if ($cta_item) : ?>
+        <?php
+          $cta_classes = trim((string) $cta_item->classes);
+          $cta_is_request = str_contains($cta_classes, 'request-call');
+        ?>
+        <a id="primary-menu-cta" href="<?php echo esc_url($cta_item->url); ?>"
+           class="gap-1 items-center whitespace-nowrap font-secondary text-base font-medium leading-[22px] btn-primary mr-0 <?php echo esc_attr($cta_classes); ?> <?php echo $cta_item->active ? 'active-item' : ''; ?> <?php echo $cta_is_request ? '' : 'text-white'; ?>">
+          <?php echo esc_html($cta_item->label); ?>
+        </a>
+      <?php endif; ?>
         <?php get_template_part('template-parts/header/navbar/mobile'); ?>
       </div>
     <?php else : ?>

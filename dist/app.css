@@ -1645,6 +1645,9 @@ select {
 .ml-4 {
   margin-left: 1rem;
 }
+.mr-0 {
+  margin-right: 0px;
+}
 .mt-0\.5 {
   margin-top: 0.125rem;
 }
@@ -36261,10 +36264,19 @@ p {
     justify-self: center;
   }
 
-  #site-nav > nav > #primary-menu-cta {
-    grid-column: 3;
-    justify-self: end;
+  #site-nav > nav > #primary-menu-cta,
+  #site-nav #primary-menu-cta {
     padding: 14px 24px;
+  }
+}
+
+/* Header "Request a callback": visible only at lg+ (1100px). ID beats .btn-primary mobile display overrides. */
+#primary-menu-cta {
+  display: none;
+}
+@media (min-width: 1100px) {
+  #primary-menu-cta {
+    display: flex;
   }
 }
 
@@ -37486,9 +37498,10 @@ blockquote.right {
 }
 
 /* Hero slider: bar indicators 32×4px – active #2B3990, inactive #CBE9E1 */
-/* Long CTA labels wrap inside the pill from 772px down instead of overflowing. */
+/* Long CTA labels wrap inside the pill from 772px down instead of overflowing.
+   Exclude #primary-menu-cta — mobile .btn-primary display must not unhide the header CTA. */
 @media (max-width: 772px) {
-  .btn-primary {
+  .btn-primary:not(#primary-menu-cta) {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -37505,7 +37518,7 @@ blockquote.right {
 
 /* Buttons: full width, 14px/500/20px text below 640px (sm). Height grows if the label wraps. */
 @media (max-width: 639px) {
-  .btn-primary {
+  .btn-primary:not(#primary-menu-cta) {
     width: 100%;
     max-width: 100%;
     min-height: 38px;
